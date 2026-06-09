@@ -1,0 +1,3 @@
+{ "version":"0.0.1","configurations":[
+  { "name":"onebear","runtimeExecutable":"node","runtimeArgs":["onebear-landing/server.js"],"port":4599 }
+]}
