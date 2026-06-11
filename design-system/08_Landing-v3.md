@@ -170,6 +170,16 @@ supersedes_partially: [[04_Buttons]], [[07_Web-Patterns]]
 
 ---
 
+## ✍️ UX Writing — คำศัพท์มาตรฐาน
+
+| ❌ ห้ามใช้ | ✅ ใช้อันนี้ | หมายเหตุ |
+|---|---|---|
+| แชท, แช็ท, แชต | **แช็ต** | ราชบัณฑิตยสภา — ใช้เป็นหลักทั้งหน้า |
+
+> **rule:** ทุกครั้งที่เขียน copy หรือ UI text เกี่ยวกับ chat ให้ใช้ "แช็ต" เสมอ
+
+---
+
 ## 🔗 Related
 - [[04_Buttons]] — (override: v3 ใช้ dark primary)
 - [[02_Typography]] — (override: v3 letter-spacing 0, hero line-height 1.3)

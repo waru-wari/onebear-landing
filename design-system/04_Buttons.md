@@ -20,6 +20,21 @@ uses: [[01_Colors]], [[02_Typography]], [[03_Spacing]]
 
 ---
 
+## 📐 กฎ Responsive & Sizing (Landing Page — ใช้เป็นมาตรฐาน)
+
+| Property | Value | Note |
+|---|---|---|
+| **Padding** | `px-8 py-3` (32px / 12px) | ทุกปุ่มทั้งหน้า — button height ~44px |
+| **Text size** | `text-sm` = 14px | ห้ามใช้ `text-body-md` หรือ `text-[13px]` ใน button |
+| **Font weight** | `font-semibold` | |
+| **Icon (arrow)** | `material-symbols-outlined` `font-size:18px` | ทุกปุ่มที่มี arrow ใช้ขนาดนี้ |
+| **Mobile width** | `280px` + `justify-content:center` | ผ่าน CSS `@media (max-width:767px) { .glow-button { width:280px; … } }` |
+| **CTA text** | **"เริ่มใช้งานฟรี"** | ใช้ข้อความเดียวทั้งหน้า ห้ามมีหลาย variant |
+| **CTA href** | `https://app.onebear.ai/register` | ทุกปุ่มนำไปจุดเดียวกัน |
+| **Pricing (w-full)** | `py-2.5` เท่านั้น (ไม่มี px) | ปุ่มใน pricing card ใช้ `w-full` ไม่ใช้ `width:280px` |
+
+---
+
 ## ⚠️ กฎสำคัญ — สีปุ่ม
 
 | ระดับปุ่ม | สี | ใช้เมื่อ |

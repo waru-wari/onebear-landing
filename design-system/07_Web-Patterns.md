@@ -322,21 +322,23 @@ brand_scope: onebear
 
 **Background:** `#0C0B15` (Deep dark)
 
-**โครงสร้าง:**
+**โครงสร้าง (Landing page):**
 ```
-Logo Onebear (dark variant) + "Created by Gofive"
-Social media icons (Facebook, Instagram)
+แถวเดียว · hug content · padding 12px top/bottom
 
-หมวดหมู่: หน้าแรก | ฟีเจอร์ | ราคา | บทความ | ร่วมเป็นพาร์ตเนอร์
-แพลตฟอร์มในเครือ: empeo | Venio | eTaxGo | IOMO | SignToGo (brand icons 40px)
-
---- divider ---
-Gofive logo + copyright
-นโยบายความเป็นส่วนตัว | เงื่อนไขการให้บริการ | มาตรฐานการให้บริการ | นโยบายการพัฒนาซอฟต์แวร์
-© 2026 Gofive Co.,Ltd. All rights reserved.
+© 2026 Gofive Co., Ltd. All rights reserved.
 ```
 
-**Typography footer:** Gofive Medium 16px · opacity 50% สำหรับ links
+**Implementation:**
+```html
+<footer class="bg-footer-dark">
+  <div class="max-w-container-max mx-auto px-margin-desktop py-3 text-center">
+    <p class="text-[13px] text-white/40">© 2026 Gofive Co., Ltd. All rights reserved.</p>
+  </div>
+</footer>
+```
+
+**Typography:** 13px · `text-white/40` · centered
 
 ---
 
