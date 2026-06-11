@@ -25,6 +25,7 @@ FONTS = ["Gofive-Text", "Gofive-Medium", "Gofive-Semi_Bold", "Gofive-Bold"]
 # starts using a new asset from the design system.
 USED_IMAGES = [
     "horizontal-white-logo.svg",
+    "horizontal-green-logo.svg",
     "shop-illustration.png",
     "cta-bear.png",
 ]
