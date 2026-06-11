@@ -33,7 +33,8 @@ brand_scope: onebear
 |---|---|---|
 | `assets/square-green-logo.svg` | Teal `#41C3A8` | App icon, OG image, social cover |
 | `assets/square-white-logo.svg` | ขาว | บนพื้น teal, card บนสีเข้ม |
-| `assets/icon-app.svg` | — | **App store icon, favicon** ⭐ |
+| `assets/icon-app.svg` | — | App store icon (ไม่มี radius — ให้ OS จัดการ) |
+| `assets/favicon.svg` | Teal gradient | **Browser favicon, PWA icon** ⭐ |
 
 ### Symbol Only (มาสคอตเดี่ยว ไม่มี wordmark)
 
@@ -49,7 +50,8 @@ brand_scope: onebear
 ```
 ✅ Navbar บนพื้นขาว    → horizontal-green-logo.svg    (height: 40px)
 ✅ Footer dark         → horizontal-white-logo.svg    (height: 40px)
-✅ App icon / favicon  → icon-app.svg / square-green-logo.svg
+✅ Browser favicon     → favicon.svg  (ใช้ไฟล์นี้เท่านั้น — มี radius แล้ว)
+✅ App store icon      → icon-app.svg (ไม่มี radius — OS ทำให้)
 ✅ Social profile      → square-green-logo.png         (1:1 teal bg)
 ✅ บน teal background  → square-white-logo.svg / symbol-only-white-logo.svg
 ✅ Loading/splash      → symbol-only-green-logo.svg    (animate-pulse ได้)
@@ -65,6 +67,33 @@ brand_scope: onebear
 
 **Minimum size:** ความสูง 24px (horizontal) · 20px (symbol only)
 **Recommended navbar size:** height 40px
+
+---
+
+## 🌐 Favicon Spec
+
+> ไฟล์: `assets/favicon.svg` — **ใช้ไฟล์นี้สำหรับ browser tab ทุกหน้า**
+
+| Property | Value | หมายเหตุ |
+|---|---|---|
+| Format | SVG | ทำงานบน Chrome / Safari / Firefox / Edge ทุก DPI |
+| Canvas | 400 × 400 px | `viewBox="0 0 400 400"` |
+| Border radius | `rx="80"` = 20% | ใส่ทั้ง `<rect>` bg และ `<clipPath>` ให้ content clip ตาม |
+| Background | `linear-gradient(135deg, #35B0A6 → #4CD6AA)` | Brand teal gradient |
+| Content | Bear mascot (white) | ไม่มี wordmark — icon เดี่ยว |
+
+### HTML Setup
+
+```html
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="apple-touch-icon" href="assets/favicon.svg">
+```
+
+> `apple-touch-icon` ใช้ไฟล์เดียวกันได้เลย — SVG รองรับ iOS Safari
+
+### กฎ radius
+- ทุกครั้งที่อัปเดตไฟล์ต้นฉบับ (`icon-app.svg` จาก Figma) → copy มาเป็น `favicon.svg` แล้ว **เพิ่ม `rx="80"` ทั้ง 2 จุด** ก่อน commit
+- `icon-app.svg` เก็บไว้ไม่มี radius (สำหรับ app store ที่ OS จัดการ radius เอง)
 
 ---
 
@@ -193,4 +222,4 @@ Onebear เป็นหนึ่งในแพลตฟอร์มของ **
 
 ---
 
-> 🐻 **horizontal-green-logo.svg** สำหรับ navbar · **icon-app.svg** สำหรับ favicon · **fonts/** ครบ 4 น้ำหนักแล้ว
+> 🐻 **horizontal-green-logo.svg** สำหรับ navbar · **favicon.svg** สำหรับ browser tab (rx=80) · **icon-app.svg** สำหรับ app store · **fonts/** ครบ 4 น้ำหนักแล้ว
