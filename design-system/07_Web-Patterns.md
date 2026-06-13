@@ -423,6 +423,23 @@ JS ใน `index.html` ก่อนปิด `</body>`:
 - **วิธีทำ:** ครอบ hero content + screen ไว้ใน band `relative` แล้ววาง background (เช่น aurora image) เป็น `absolute inset-0` เพื่อให้ความสูง band ปรับตามเนื้อหาและจบพอดีก้น screen (responsive-safe, gap = 0). ให้ screen เป็น element สุดท้ายใน band ไม่มี margin/padding ล่าง และเอา fade-to-white ที่ขอบตัดออก. ตรวจ `band.bottom − screen.bottom === 0` ทุก breakpoint
 - **ใช้จริงที่:** `index.html` → `.hero-band` + `.hero-aurora`
 
+### R1b · Visual bounding box ชิดมุมใด ต้องแสดงชิดมุมนั้น
+
+R1 ครอบคลุมเฉพาะ "ก้นชิดล่าง" แต่กฎเดียวกันใช้กับ **ทุกมุมที่ถูก cut** — ถ้า design reference แสดง visual ที่ขอบ bounding box ชิดขวา-ล่าง (เช่น feature stage screenshot) การแสดงผลต้องชิดขวา-ล่างด้วย ไม่ใช่ center หรือลอยมีช่องว่างเกิน
+
+- **ทำไม:** ช่องว่างรอบ visual ที่ไม่สมมาตรอ่านว่า "ผิดพลาด" — การชิดมุมบอกว่า "crop ตั้งใจ ยังมีเนื้อหาต่อ"
+- **วิธีทำ (feature stage):** `display:flex; align-items:flex-end; justify-content:flex-end; padding:TOP LEFT 0 0` (padding เฉพาะด้านที่มีพื้นที่ว่างพึงประสงค์ ด้านที่ flush = 0). Image `border-radius` ให้โค้งเฉพาะมุมที่ห่างจากขอบ container, มุม flush = 0 (container's `overflow:hidden` + `border-radius` clip เองอยู่แล้ว)
+- **ตัวอย่าง feature stage:** `padding:12px 0 0 12px` (teal เห็น 12px บน+ซ้าย) · image `border-radius:28px 0 0 0` (top-left เท่านั้น = 40px outer − 12px padding)
+- **ใช้จริงที่:** `.feature-stage` ใน `index.html`
+
+### R3 · Container ต้องให้ visual กำหนดขนาด — ห้ามใช้ fixed height บังคับ
+
+เมื่อ visual (screenshot/image) เป็น element หลักใน card/stage — ให้ container เป็น `height:auto` เพื่อ wrap ตาม visual **ห้ามใส่ `min-height` ที่สูงกว่า visual** เพราะจะสร้างช่อง background ว่างที่ไม่ได้ตั้งใจ
+
+- **ทำไม:** `min-height:520px` กับ image ที่ render จริงสูง ~435px สร้างช่อง teal ว่าง 85px เหนือ image ที่ดูเหมือน bug
+- **วิธีทำ:** ลบ `min-height` ออก ให้ `padding-top` (เช่น 12–24px) สร้าง breathing room บนด้านเดียว
+- **ข้อยกเว้น:** ถ้า card มีหลาย visual ต้องสูงเท่ากัน (เช่น carousel row) — ใช้ `height` fixed ที่ตรงกับ visual จริง ไม่ใช่ค่าสุ่ม
+
 ### R2 · overflow-x:auto ตัด shadow
 
 เมื่อ container มี `overflow-x: auto` (หรือ `scroll`) — CSS spec กำหนดให้ `overflow-y` เป็น `auto` ด้วยโดยอัตโนมัติ → **shadow ของ child elements ถูกตัด** ทั้ง top/bottom
@@ -437,6 +454,23 @@ JS ใน `index.html` ก่อนปิด `</body>`:
 ```
 
 ใช้จริงที่: Feature mobile carousel (`#feat-mob-track`)
+
+### R4 · Thai heading ใน 2-column grid — font size limit per breakpoint
+
+`max-w-container-max` (1280px) + `px-margin-desktop` (40px/side) + `md:grid-cols-2 gap-10 lg:gap-14` → column width จริงต่อ breakpoint:
+
+| Breakpoint | Viewport | Column width | Thai heading max font |
+|---|---|---|---|
+| **md** | 768px | **324px** | `22px` |
+| **lg** | 1024px | **444px** | `28px` |
+| **xl** | 1280px | **572px** | `34px` |
+
+การคำนวณ: Thai character width ≈ font-size × 0.65–0.70. ยาวสุด ~20 ตัวอักษร → `font × 0.67 × 20 ≤ column_width`
+
+**กฎ:** ใช้ `text-[22px] lg:text-[28px] xl:text-[34px]` สำหรับ h3 ใน 2-column feature section  
+**ห้าม:** ใช้ `text-[28px] lg:text-[40px]` ใน layout 2-column — จะ wrap ที่ md และ lg
+
+> ถ้าเปลี่ยน `max-w-container-max`, `px-margin-desktop`, หรือ grid gap — ต้องคำนวณ column width ใหม่แล้วอัปเดตตารางนี้
 
 ---
 
