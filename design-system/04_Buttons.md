@@ -24,7 +24,7 @@ uses: [[01_Colors]], [[02_Typography]], [[03_Spacing]]
 
 | Property | Value | Note |
 |---|---|---|
-| **Padding** | `px-8 py-3` (32px / 12px) | ทุกปุ่มทั้งหน้า — button height ~44px |
+| **Padding** | `px-8 py-4` (32px / 16px) | ทุกปุ่มทั้งหน้า — button height ~52px |
 | **Text size** | `text-sm` = 14px | ห้ามใช้ `text-body-md` หรือ `text-[13px]` ใน button |
 | **Font weight** | `font-semibold` | |
 | **Icon (arrow)** | `material-symbols-outlined` `font-size:18px` | ทุกปุ่มที่มี arrow ใช้ขนาดนี้ |
@@ -170,7 +170,7 @@ uses: [[01_Colors]], [[02_Typography]], [[03_Spacing]]
 ```css
 /* <style type="text/tailwindcss"> */
 .btn         { @apply inline-flex items-center justify-center gap-2 rounded-full transition-all; }
-.btn-gradient  { @apply bg-gradient-to-r from-[#35B0A6] to-[#4CD6AA] text-white text-sm font-semibold px-8 py-3 shadow-[0_8px_10px_rgba(0,0,0,0.04)] hover:opacity-90; }
+.btn-gradient  { @apply bg-gradient-to-r from-[#35B0A6] to-[#4CD6AA] text-white text-sm font-semibold px-8 py-4 shadow-[0_8px_10px_rgba(0,0,0,0.04)] hover:opacity-90; }
 .btn-dark      { @apply bg-[#313937] text-white text-sm font-semibold px-4 py-2; }
 .btn-dark-hero { @apply bg-[#313937] text-white text-base font-bold px-10 py-4; }
 .btn-outline { @apply border border-[rgba(0,196,140,0.35)] text-[#00C48C] text-sm font-semibold py-[13px] px-1 w-full hover:bg-[#E8FAF6]; }

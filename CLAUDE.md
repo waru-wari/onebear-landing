@@ -1,26 +1,77 @@
 # Onebear Landing
 
-Static landing page (self-contained HTML). Current page = `index.html` (เดิมคือ v3).
-ไฟล์เก่าอยู่ใน `legacy/` (ติดป้าย LEGACY — อย่าใช้/แก้ต่อ).
+Static single-page site. Entry point: `index.html` (v3.1). Legacy files → `legacy/` (อย่าแตะ).
 
-## Source of truth: Design System
+## Commands
 
-`design-system/` คือแหล่งอ้างอิงดีไซน์ทั้งหมด (สี/ฟอนต์/spacing/ปุ่ม/asset/แพตเทิร์น).
-**ก่อนทำ/แก้ UI ให้เปิดอ่านที่เกี่ยวข้องก่อนเสมอ** — โดยเฉพาะ `07_Web-Patterns.md` (รวม Layout Rules).
-โฟลเดอร์นี้ถูก symlink เข้า Obsidian Vault ด้วย → แก้ที่ Obsidian = แก้ไฟล์ใน repo ตรง ๆ (ก๊อปเดียว) — **re-link หลัง rename เป็น `design-system/`**.
+```bash
+node server.js          # local preview → http://localhost:4599
+python3 sync-assets.py  # sync assets from design-system/ → assets/ + fonts/
+```
 
-## Assets / fonts
+## Project layout
 
-- `design-system/` = master (svg+png ทุก variant, ฟอนต์ `.ttf`)
-- `assets/` + `fonts/` ที่ root = web build (เฉพาะที่หน้าใช้ + ฟอนต์ `.woff2`) — **generate มา ไม่แก้มือ**
-- แก้ master แล้วรัน `python3 sync-assets.py` เพื่อ rebuild (เพิ่มรูปใหม่ → เพิ่มชื่อใน `USED_IMAGES`)
+```
+index.html          ← single source of truth for the page
+design-system/      ← design spec (colors, typography, buttons, patterns)
+assets/             ← web-optimized images (generated — ห้ามแก้มือ)
+fonts/              ← woff2 fonts (generated — ห้ามแก้มือ)
+legacy/             ← เก่า ห้ามแก้
+sync-assets.py      ← เพิ่มรูปใหม่ → เพิ่มชื่อใน USED_IMAGES แล้วรันสคริปต์นี้
+```
 
-## Layout Rules (ต้องทำตาม)
+## Design system — อ่านก่อนแก้ UI
 
-กฎเต็ม + เหตุผล + วิธี implement อยู่ใน `design-system/07_Web-Patterns.md` (§ Layout Rules).
+`design-system/` คือแหล่งข้อมูลดีไซน์ทั้งหมด
 
-- **R1 · Cut screen ต้องชิด edge** — screen/mockup ที่ถูกตัดล่าง ต้องให้ก้นชิดขอบล่างของ section/band เสมอ ห้ามลอยมีช่องว่าง/fade คั่น. ทำด้วย band `relative` + bg `absolute inset-0` ให้ `band.bottom − screen.bottom === 0` ทุก breakpoint. (ใช้จริง: `.hero-band` + `.hero-aurora`)
+| ไฟล์ | เนื้อหา |
+|---|---|
+| `01_Colors.md` | สี token ทั้งหมด |
+| `02_Typography.md` | ฟอนต์ + ขนาด |
+| `04_Buttons.md` | ปุ่มทุก variant + กฎ sizing |
+| `07_Web-Patterns.md` | section pattern + Layout Rules (R1–R4) |
 
-## Local preview
+**กฎ: ก่อนแก้ UI ทุกครั้ง เปิดไฟล์ที่เกี่ยวข้องก่อนเสมอ**
 
-`node server.js` → http://localhost:4599 (เสิร์ฟ `index.html` เป็น default).
+## Canonical glow-button (Primary Dark CTA)
+
+ปุ่ม CTA หลักทุกจุดในหน้า ต้องเป็น pattern นี้ทุก attribute ห้ามเบี่ยง:
+
+```html
+<a href="https://app.onebear.ai/register"
+   class="glow-button inline-flex items-center justify-center gap-2 text-white text-sm font-semibold px-8 py-4 rounded-full hover:opacity-90 transition-opacity group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-on-surface focus-visible:ring-offset-2">
+  เริ่มใช้งานฟรี
+  <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform" style="font-size:18px">arrow_forward</span>
+</a>
+```
+
+**ข้อห้าม:** `text-base`, `py-3`, `py-5`, `font-bold`, `w-[260px]` — ถ้าเจอใน glow-button → แก้ทันที
+
+ข้อยกเว้น (ไม่ใช่ glow-button):
+- Pricing tier buttons (Free/Starter = teal outline, Growth = gradient) → ดู `04_Buttons.md`
+
+## Layout Rules (สรุปย่อ — กฎเต็มอยู่ใน `07_Web-Patterns.md`)
+
+**R1** — screen/mockup ที่ถูก crop ล่าง ต้องให้ก้นชิดขอบล่าง section เสมอ (ห้ามลอย/fade)  
+**R1b** — ถ้า design แสดง visual ชิดมุมใด ต้องชิดมุมนั้น ไม่ center  
+**R2** — `overflow-x:auto` ตัด shadow → แก้ด้วย `py-4` บน track + `overflow-visible` บน card  
+**R3** — ให้ visual กำหนดความสูง container ห้ามใส่ `min-height` สูงกว่า visual จริง  
+**R4** — Thai h3 ใน 2-column grid: `text-[22px] lg:text-[28px] xl:text-[34px]` (ห้าม `text-[40px]` ใน 2-col)
+
+## Section summary
+
+| Section | Background | CTA |
+|---|---|---|
+| Hero | white + aurora teal | glow-button `#1C1C22` |
+| Features | white | — (tab/carousel) |
+| HIW (How it works) | dark | glow-button |
+| Pricing | white | outline (Free/Starter) / gradient (Growth) |
+| Add-ons | white | — |
+| CTA Banner | gradient teal→cyan→purple | glow-button dark |
+| FAQ | `#F1F5F9` | — |
+| Footer | `#1C1C22` | — |
+
+## Git workflow
+
+Working branch: `feat/next` → PR → `main`  
+ห้าม commit ตรงไปที่ `main`
