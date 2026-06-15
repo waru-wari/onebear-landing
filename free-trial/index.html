@@ -2,8 +2,8 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>Onebear | รวมทุกแช็ต ปิดการขายด้วย AI</title>
-<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
-<link rel="apple-touch-icon" href="../assets/favicon.svg">
+<link rel="icon" type="image/svg+xml" href="../assets/logos/favicon.svg">
+<link rel="apple-touch-icon" href="../assets/logos/favicon.svg">
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
 <script id="tailwind-config">
@@ -50,7 +50,7 @@
                 "on-tertiary-container": "#636265",
                 "error-container": "#ffdad6",
                 "on-tertiary-fixed-variant": "#474649",
-                "text-muted": "#525260",
+                "text-muted": "#1C1C22",
                 "primary": "#41C3A8",
                 "surface-container-high": "#e7e8e6",
                 "inverse-surface": "#2e312f",
@@ -59,7 +59,7 @@
                 "tertiary-fixed": "#e5e1e4",
                 "tertiary-fixed-dim": "#c8c6c8",
                 "on-secondary": "#ffffff",
-                "on-surface-variant": "#525260",
+                "on-surface-variant": "#1C1C22",
                 "surface-container-lowest": "#ffffff",
                 "outline": "#6a7b6f",
                 "success-mint": "#41C3A8",
@@ -233,12 +233,12 @@
             color: transparent;
         }
         .glow-button {
-            background: #1C1C22;
+            background: linear-gradient(135deg, #00C48C 0%, #06B6D4 100%);
             transition: opacity 0.2s ease, box-shadow 0.2s ease;
         }
         .glow-button:hover {
             opacity: 0.9;
-            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.10);
+            box-shadow: 0 8px 20px rgba(0, 196, 140, 0.30);
         }
         @media (max-width: 767px) {
           .glow-button{ width:280px; justify-content:center; }
@@ -324,7 +324,7 @@
         /* FAQ accordion — polished */
         .faq-item{ transition: border-color .25s ease, box-shadow .25s ease, background-color .25s ease; }
         .faq-item:hover{ border-color:#bfe9df; box-shadow:0 4px 16px rgba(0,0,0,.05); }
-        .faq-item[open]{ border-color:#7fd9c6; box-shadow:0 10px 28px rgba(21,165,145,.10); }
+        .faq-item[open]{ border-color:transparent !important; box-shadow:none; }
         .faq-q{ transition: color .25s ease; }
         .faq-item:hover .faq-q,
         .faq-item[open] .faq-q{ color:#15A591; }
@@ -369,6 +369,35 @@
         .float-bob{ animation: bob 4s ease-in-out infinite; }
         .reveal{ opacity:0; transform:translateY(28px); transition:opacity .7s cubic-bezier(.2,.6,.2,1), transform .7s cubic-bezier(.2,.6,.2,1); }
         .reveal.in{ opacity:1; transform:none; }
+        /* Stagger: add [data-stagger] on a container → children fade-up sequentially */
+        [data-stagger]>*{opacity:0;transform:translateY(22px);transition:opacity .6s cubic-bezier(.2,.6,.2,1),transform .6s cubic-bezier(.2,.6,.2,1);}
+        [data-stagger].in>*{opacity:1;transform:none;}
+        [data-stagger].in>*:nth-child(2){transition-delay:75ms;}
+        [data-stagger].in>*:nth-child(3){transition-delay:150ms;}
+        [data-stagger].in>*:nth-child(4){transition-delay:225ms;}
+        [data-stagger].in>*:nth-child(5){transition-delay:300ms;}
+        [data-stagger].in>*:nth-child(6){transition-delay:375ms;}
+        @media(prefers-reduced-motion:reduce){[data-stagger]>*{transition:none!important;}}
+        /* Float-in: icons drift down from above with spring bounce */
+        [data-stagger-float]>*{opacity:0;transform:translateY(-36px) scale(.72);transition:opacity .55s cubic-bezier(.34,1.56,.64,1),transform .55s cubic-bezier(.34,1.56,.64,1);}
+        [data-stagger-float].in>*{opacity:1;transform:none;}
+        [data-stagger-float].in>*:nth-child(2){transition-delay:80ms;}
+        [data-stagger-float].in>*:nth-child(3){transition-delay:160ms;}
+        @media(prefers-reduced-motion:reduce){[data-stagger-float]>*{transition:none!important;}}
+        /* Hero on-load animations */
+        @keyframes hFadeUp{ from{ opacity:0; transform:translateY(20px); } to{ opacity:1; transform:none; } }
+        @keyframes hSlideIn{ from{ opacity:0; transform:translateX(28px); } to{ opacity:1; transform:none; } }
+        @keyframes hPop{ 0%{ opacity:0; transform:scale(.6); } 70%{ transform:scale(1.08); } 100%{ opacity:1; transform:scale(1); } }
+        .hero-el{ opacity:0; animation:hFadeUp .65s cubic-bezier(.2,.6,.2,1) both; }
+        .hero-el-1{ animation-delay:.05s; }
+        .hero-el-2{ animation-delay:.15s; }
+        .hero-el-3{ animation-delay:.25s; }
+        .hero-el-4{ animation-delay:.35s; }
+        .hero-right{ opacity:0; animation:hSlideIn .7s cubic-bezier(.2,.6,.2,1) .1s both; }
+        .hero-social{ opacity:0; animation:hPop .5s cubic-bezier(.34,1.56,.64,1) both; }
+        .hero-social-1{ animation-delay:.5s; }
+        .hero-social-2{ animation-delay:.65s; }
+        .hero-social-3{ animation-delay:.55s; }
         nav{ transition: box-shadow .25s ease, background-color .25s ease; }
         nav.nav-scrolled{ box-shadow:0 6px 20px rgba(0,0,0,.06); background-color:rgba(255,255,255,.92); }
 
@@ -378,7 +407,7 @@
           border:1px solid transparent; cursor:pointer; white-space:nowrap; transition:border-color .2s, color .2s, background .2s; }
         .tab-btn:hover{ background:#f3f4f1; color:#1C1C22; }
         .tab-btn .material-symbols-outlined{ font-size:18px; }
-        .tab-btn[aria-selected="true"]{ background:linear-gradient(135deg,#35B0A6 0%,#4CD6AA 100%); color:#fff; border-color:transparent; }
+        .tab-btn[aria-selected="true"]{ background:#1C1C22; color:#fff; border-color:transparent; }
         .tab-btn[aria-selected="true"]:hover{ color:#fff; }
         .tab-btn:focus-visible{ outline:none; box-shadow:0 0 0 3px rgba(65,195,168,.45); }
         .tabpanel{ animation: tabIn .25s ease; }
@@ -388,11 +417,11 @@
         .mock-bar{ display:flex; align-items:center; gap:6px; height:36px; padding:0 14px; background:#f3f4f1; border-bottom:1px solid #E5E4DE; }
         .mock-dot{ width:10px; height:10px; border-radius:999px; }
         /* feature stage: colored gradient panel behind each tab visual */
-        .feature-stage{ display:flex; align-items:center; justify-content:center;
-          border-radius:40px; overflow:hidden; padding:12px; min-height:520px;
+        .feature-stage{ display:flex; align-items:flex-end; justify-content:flex-end;
+          border-radius:40px; overflow:hidden; padding:12px 0 0 12px;
           background:var(--stage-grad); }
         .feature-stage .mock-win{ width:100%; max-width:480px; box-shadow:0 24px 50px rgba(0,0,0,.22); }
-        @media (max-width:767px){ .feature-stage{ padding:22px; min-height:300px; border-radius:40px; } }
+        @media (max-width:767px){ .feature-stage{ padding:22px; border-radius:40px; } }
         /* carousel trailing spacer — ensures card 3 can always snap to its left-aligned position */
         .feat-mob-end{ flex-shrink:0; width:calc(100vw - max(82vw, 20rem) - 20px); }
         /* brand teal — same gradient across all feature panels */
@@ -400,58 +429,90 @@
         /* eyebrow chip — brand teal */
         #panel-inbox .eyebrow,#panel-crm .eyebrow,#panel-analytics .eyebrow{ color:#1A9E93; }
         /* active tab — brand teal (overrides .tab-btn[aria-selected="true"] if needed) */
-        #tab-inbox[aria-selected="true"],#tab-crm[aria-selected="true"],#tab-analytics[aria-selected="true"]{ background:linear-gradient(135deg,#35B0A6 0%,#4CD6AA 100%); }
+        #tab-inbox[aria-selected="true"],#tab-crm[aria-selected="true"],#tab-analytics[aria-selected="true"]{ background:#1C1C22; }
         @media (prefers-reduced-motion: reduce) {
             * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
         }
     </style>
 <style>
-  @font-face{ font-family:'Gofive'; src:url(fonts/Gofive-Text.woff2) format('woff2'); font-weight:400; font-display:swap; }
-  @font-face{ font-family:'Gofive'; src:url(fonts/Gofive-Medium.woff2) format('woff2'); font-weight:500; font-display:swap; }
-  @font-face{ font-family:'Gofive'; src:url(fonts/Gofive-Semi_Bold.woff2) format('woff2'); font-weight:600; font-display:swap; }
-  @font-face{ font-family:'Gofive'; src:url(fonts/Gofive-Bold.woff2) format('woff2'); font-weight:700; font-display:swap; }
+  @font-face{ font-family:'Gofive'; src:url(../fonts/Gofive-Text.woff2) format('woff2'); font-weight:400; font-display:swap; }
+  @font-face{ font-family:'Gofive'; src:url(../fonts/Gofive-Medium.woff2) format('woff2'); font-weight:500; font-display:swap; }
+  @font-face{ font-family:'Gofive'; src:url(../fonts/Gofive-Semi_Bold.woff2) format('woff2'); font-weight:600; font-display:swap; }
+  @font-face{ font-family:'Gofive'; src:url(../fonts/Gofive-Bold.woff2) format('woff2'); font-weight:700; font-display:swap; }
 </style>
 </head>
 <body class="bg-background text-on-background min-h-screen font-body-md overflow-x-hidden selection:bg-primary-container selection:text-on-primary-container">
 <main class="pt-12 md:pt-16 relative">
-<!-- Hero B: Centered + Video (variation) -->
-<div class="relative overflow-hidden bg-white">
-<!-- Decorative concentric rings -->
-<div aria-hidden="true" class="pointer-events-none absolute left-1/2 top-0 -z-10 overflow-visible" style="transform:translateX(-50%)">
-  <div style="width:900px;height:900px;border-radius:50%;border:1px solid rgba(65,195,168,.14);position:relative;margin-top:-220px;mask-image:linear-gradient(to bottom,transparent 0%,white 30%,white 65%,transparent 90%)">
-    <div style="position:absolute;inset:100px;border-radius:50%;border:1px solid rgba(65,195,168,.12)">
-      <div style="position:absolute;inset:100px;border-radius:50%;border:1px solid rgba(65,195,168,.10)"></div>
+<!-- Hero: split layout — text left · video frame right -->
+<div class="hero-band relative isolate">
+<section id="hero" class="max-w-container-max mx-auto px-margin-desktop relative scroll-mt-28">
+<div class="flex flex-col lg:flex-row items-center gap-10 lg:gap-14 py-16 lg:py-20">
+
+  <!-- Left: copy -->
+  <div class="flex-1 flex flex-col gap-8 items-center lg:items-start text-center lg:text-left">
+    <img src="../assets/logos/horizontal-white-logo.svg" alt="Onebear" class="h-12 md:h-14 w-auto hero-el hero-el-1">
+    <div class="flex flex-col gap-4 hero-el hero-el-2">
+      <h1 class="font-bold text-[40px] md:text-[50px] lg:text-[60px] leading-[1.3] text-on-surface">
+        <span style="color:#00C48C">บอกลาการสลับแอป!</span><br>ระบบรวมแช็ตจัดการง่ายในจอเดียว
+      </h1>
+      <div class="flex flex-col gap-3 max-w-[442px] mx-auto lg:mx-0">
+        <p class="text-[16px] md:text-[18px] text-on-surface-variant leading-relaxed">ทางออกของ SME ที่แช็ตล้นมือ</p>
+        <ul class="flex flex-col gap-2">
+          <li class="flex gap-2 items-start text-[15px] md:text-[16px] text-on-surface"><span class="shrink-0 text-teal-deep mt-0.5"><span class="material-symbols-outlined" style="font-size:18px">check</span></span><span>จบในจอเดียว รวม Facebook, IG, LINE OA</span></li>
+          <li class="flex gap-2 items-start text-[15px] md:text-[16px] text-on-surface"><span class="shrink-0 text-teal-deep mt-0.5"><span class="material-symbols-outlined" style="font-size:18px">check</span></span><span>ทำงานไวขึ้น ไม่ต้องคอยสลับแอปให้วุ่นวาย</span></li>
+          <li class="flex gap-2 items-start text-[15px] md:text-[16px] text-on-surface"><span class="shrink-0 text-teal-deep mt-0.5"><span class="material-symbols-outlined" style="font-size:18px">check</span></span><span>มี AI ช่วยตอบ ปิดออเดอร์ได้แม้แอดมินไม่อยู่</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="flex flex-col items-center lg:items-start gap-3 hero-el hero-el-3">
+      <a href="https://app.onebear.ai/register"
+         class="inline-flex items-center justify-center text-white text-sm font-semibold px-8 py-4 rounded-full transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-deep focus-visible:ring-offset-2"
+         style="background:linear-gradient(166deg,#00C48C 0%,#06B6D4 100%);box-shadow:0 18px 31px rgba(0,0,0,0.08)">
+        ทดลองใช้งานฟรี 14 วัน
+      </a>
+      <span class="text-sm text-on-surface-variant">ไม่ต้องใช้บัตรเครดิต · ยกเลิกได้ทุกเมื่อ</span>
     </div>
   </div>
-</div>
-<section id="hero" class="max-w-container-max mx-auto px-margin-desktop scroll-mt-28 pt-16 pb-0 relative z-10">
-<!-- Centered text block -->
-<div class="text-center max-w-3xl mx-auto mb-12">
-<h1 class="font-bold text-on-surface mb-6" style="font-size:clamp(38px,5.5vw,68px);line-height:1.18;letter-spacing:-0.02em">ขายออนไลน์ง่ายขึ้น<br/><span class="font-gradient">เมื่อ AI ดูแลแช็ตแทนคุณ</span></h1>
-<p class="text-on-surface-variant mb-10 mx-auto leading-relaxed" style="font-size:18px;max-width:540px">รวม LINE OA, Facebook และ Instagram ไว้ในจอเดียว ให้ AI ตอบลูกค้าอัตโนมัติ เช็กสลิป และปิดออร์เดอร์ — คุณไม่ต้องสลับแอปอีกต่อไป</p>
-<div class="flex flex-col items-center gap-3 mb-14">
-<a href="https://app.onebear.ai/register" class="glow-button inline-flex items-center justify-center gap-2 text-white text-sm font-semibold px-8 py-3 rounded-full hover:opacity-90 transition-opacity group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-on-surface focus-visible:ring-offset-2">เริ่มใช้งานฟรี <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform" style="font-size:18px">arrow_forward</span></a>
-<span class="text-sm text-on-surface-variant">ใช้ฟรีได้ตลอด ไม่มีกำหนด · ไม่ต้องใช้บัตรเครดิต</span>
-</div>
-</div>
-<!-- Video visual -->
-<div class="relative mx-auto max-w-5xl">
-  <div class="rounded-2xl overflow-hidden" style="box-shadow:0 32px 80px rgba(0,0,0,.14);border:1px solid rgba(0,0,0,.06)">
-    <video autoplay muted loop playsinline class="w-full block" style="max-height:600px;object-fit:cover;display:block">
-      <source src="../assets/hero-video.mp4" type="video/mp4">
-    </video>
+
+  <!-- Right: video frame + floating social icons -->
+  <div class="relative flex-none w-full max-w-[480px] lg:w-[520px] xl:w-[580px] hero-right">
+    <!-- FB icon — top-left -->
+    <div class="absolute -left-5 top-8 z-10 hidden md:block hero-social hero-social-1" style="transform:rotate(-8deg)">
+      <div id="hsoc-fb" style="width:72px;height:72px;background:#1877F2;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 28px rgba(0,0,0,0.18)">
+        <svg viewBox="0 0 24 24" width="36" height="36" fill="white"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+      </div>
+    </div>
+    <!-- LINE icon — bottom-left -->
+    <div class="absolute -left-4 bottom-10 z-10 hidden md:block hero-social hero-social-2" style="transform:rotate(17deg)">
+      <div id="hsoc-line" style="width:72px;height:72px;background:#06C755;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 28px rgba(0,0,0,0.16)">
+        <svg viewBox="0 0 24 24" width="40" height="40" fill="white"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+      </div>
+    </div>
+    <!-- Instagram icon — right -->
+    <div class="absolute -right-4 top-1/2 z-10 hidden md:block hero-social hero-social-3" style="transform:translateY(-50%) rotate(11deg)">
+      <div id="hsoc-ig" style="width:64px;height:64px;background:linear-gradient(45deg,#FEDA77,#F58529,#DD2A7B,#8134AF,#515BD4);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 24px rgba(0,0,0,0.18)">
+        <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      </div>
+    </div>
+    <!-- Video frame: rounded-[40px] square -->
+    <div class="rounded-[40px] overflow-hidden aspect-square w-full shadow-[0_24px_60px_rgba(0,0,0,0.10)]">
+      <video autoplay muted loop playsinline class="w-full h-full object-cover">
+        <source src="../assets/animation/onebear-2k-visual.mp4" type="video/mp4">
+      </video>
+    </div>
   </div>
+
 </div>
 </section>
 </div>
 <!-- Channels strip (on white, below the aurora band) -->
 <section class="max-w-container-max mx-auto px-margin-desktop mb-28 pt-12">
 <div class="max-w-2xl mx-auto flex flex-col items-center gap-4 text-center">
-<p class="font-body-md text-[16px] leading-relaxed text-on-surface-variant">ระบบ All-in-One ที่รวมทุกช่องทาง ตั้งแต่แช็ตไปจนถึงการวิเคราะห์ธุรกิจ พร้อมเชื่อมต่อได้กับ</p>
-<div class="flex items-center justify-center gap-3">
-<span role="img" aria-label="Facebook" class="w-9 h-9 rounded-full overflow-hidden inline-flex items-center justify-center shrink-0 shadow-sm"><svg viewBox="0 0 666.667 666.667" style="width:100%;height:100%;display:block" xmlns="http://www.w3.org/2000/svg"><defs><clipPath id="fbClip"><path d="M0 700h700V0H0Z"/></clipPath></defs><g clip-path="url(#fbClip)" transform="matrix(1.33333 0 0 -1.33333 -133.333 800)"><path d="M0 0c0 138.071-111.929 250-250 250S-500 138.071-500 0c0-117.245 80.715-215.622 189.606-242.638v166.242h-51.552V0h51.552v32.919c0 85.092 38.508 124.532 122.048 124.532 15.838 0 43.167-3.105 54.347-6.211V81.986c-5.901.621-16.149.932-28.882.932-40.993 0-56.832-15.528-56.832-55.9V0h81.659l-14.028-76.396h-67.631v-171.773C-95.927-233.218 0-127.818 0 0" style="fill:#0866ff" transform="translate(600 350)"/><path d="m0 0 14.029 76.396H-67.63v27.019c0 40.372 15.838 55.899 56.831 55.899 12.733 0 22.981-.31 28.882-.931v69.253c-11.18 3.106-38.509 6.212-54.347 6.212-83.539 0-122.048-39.441-122.048-124.533V76.396h-51.552V0h51.552v-166.242a250.559 250.559 0 0 1 60.394-7.362c10.254 0 20.358.632 30.288 1.831V0Z" style="fill:#fff" transform="translate(447.918 273.604)"/></g></svg></span>
-<span role="img" aria-label="LINE OA" class="w-9 h-9 rounded-full inline-flex items-center justify-center shrink-0 shadow-sm" style="background:#06C755"><svg viewBox="0 0 24 24" style="width:22px;height:22px;display:block" fill="#fff" xmlns="http://www.w3.org/2000/svg"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg></span>
-<span role="img" aria-label="Instagram" class="w-9 h-9 rounded-full overflow-hidden inline-flex items-center justify-center shrink-0 shadow-sm" style="background:linear-gradient(45deg,#FEDA77,#F58529,#DD2A7B,#8134AF,#515BD4)"><svg viewBox="0 0 264.583 264.583" style="width:36px;height:36px;flex:none;display:block" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><radialGradient xlink:href="#iga" id="igf" cx="158.429" cy="578.088" r="52.352" fx="158.429" fy="578.088" gradientTransform="matrix(0 -4.03418 4.28018 0 -2332.227 942.236)" gradientUnits="userSpaceOnUse"/><radialGradient xlink:href="#igb" id="igg" cx="172.615" cy="600.692" r="65" fx="172.615" fy="600.692" gradientTransform="matrix(.67441 -1.16203 1.51283 .87801 -814.366 -47.835)" gradientUnits="userSpaceOnUse"/><radialGradient xlink:href="#igc" id="igh" cx="144.012" cy="51.337" r="67.081" fx="144.012" fy="51.337" gradientTransform="matrix(-2.3989 .67549 -.23008 -.81732 464.996 -26.404)" gradientUnits="userSpaceOnUse"/><radialGradient xlink:href="#igd" id="ige" cx="199.788" cy="628.438" r="52.352" fx="199.788" fy="628.438" gradientTransform="matrix(-3.10797 .87652 -.6315 -2.23914 1345.65 1374.198)" gradientUnits="userSpaceOnUse"/><linearGradient id="igd"><stop offset="0" stop-color="#ff005f"/><stop offset="1" stop-color="#fc01d8"/></linearGradient><linearGradient id="igc"><stop offset="0" stop-color="#780cff"/><stop offset="1" stop-color="#820bff" stop-opacity="0"/></linearGradient><linearGradient id="igb"><stop offset="0" stop-color="#fc0"/><stop offset="1" stop-color="#fc0" stop-opacity="0"/></linearGradient><linearGradient id="iga"><stop offset="0" stop-color="#fc0"/><stop offset=".124" stop-color="#fc0"/><stop offset=".567" stop-color="#fe4a05"/><stop offset=".694" stop-color="#ff0f3f"/><stop offset="1" stop-color="#fe0657" stop-opacity="0"/></linearGradient></defs><path fill="url(#ige)" d="M204.15 18.143c-55.23 0-71.383.057-74.523.317-11.334.943-18.387 2.728-26.07 6.554-5.922 2.942-10.592 6.351-15.201 11.13-8.394 8.716-13.481 19.439-15.323 32.184-.895 6.188-1.156 7.45-1.209 39.056-.02 10.536 0 24.4 0 42.999 0 55.2.062 71.341.326 74.476.916 11.032 2.645 17.973 6.308 25.565 7 14.533 20.37 25.443 36.12 29.514 5.453 1.404 11.476 2.178 19.208 2.544 3.277.142 36.669.244 70.081.244 33.413 0 66.826-.04 70.02-.203 8.954-.422 14.153-1.12 19.901-2.606 15.852-4.09 28.977-14.838 36.12-29.575 3.591-7.409 5.412-14.614 6.236-25.07.18-2.28.255-38.626.255-74.924 0-36.304-.082-72.583-.26-74.863-.835-10.625-2.656-17.77-6.364-25.32-3.042-6.182-6.42-10.799-11.324-15.519-8.752-8.361-19.455-13.45-32.21-15.29-6.18-.894-7.41-1.158-39.033-1.213z" transform="translate(-71.816 -18.143)"/><path fill="url(#igf)" d="M204.15 18.143c-55.23 0-71.383.057-74.523.317-11.334.943-18.387 2.728-26.07 6.554-5.922 2.942-10.592 6.351-15.201 11.13-8.394 8.716-13.481 19.439-15.323 32.184-.895 6.188-1.156 7.45-1.209 39.056-.02 10.536 0 24.4 0 42.999 0 55.2.062 71.341.326 74.476.916 11.032 2.645 17.973 6.308 25.565 7 14.533 20.37 25.443 36.12 29.514 5.453 1.404 11.476 2.178 19.208 2.544 3.277.142 36.669.244 70.081.244 33.413 0 66.826-.04 70.02-.203 8.954-.422 14.153-1.12 19.901-2.606 15.852-4.09 28.977-14.838 36.12-29.575 3.591-7.409 5.412-14.614 6.236-25.07.18-2.28.255-38.626.255-74.924 0-36.304-.082-72.583-.26-74.863-.835-10.625-2.656-17.77-6.364-25.32-3.042-6.182-6.42-10.799-11.324-15.519-8.752-8.361-19.455-13.45-32.21-15.29-6.18-.894-7.41-1.158-39.033-1.213z" transform="translate(-71.816 -18.143)"/><path fill="url(#igg)" d="M204.15 18.143c-55.23 0-71.383.057-74.523.317-11.334.943-18.387 2.728-26.07 6.554-5.922 2.942-10.592 6.351-15.201 11.13-8.394 8.716-13.481 19.439-15.323 32.184-.895 6.188-1.156 7.45-1.209 39.056-.02 10.536 0 24.4 0 42.999 0 55.2.062 71.341.326 74.476.916 11.032 2.645 17.973 6.308 25.565 7 14.533 20.37 25.443 36.12 29.514 5.453 1.404 11.476 2.178 19.208 2.544 3.277.142 36.669.244 70.081.244 33.413 0 66.826-.04 70.02-.203 8.954-.422 14.153-1.12 19.901-2.606 15.852-4.09 28.977-14.838 36.12-29.575 3.591-7.409 5.412-14.614 6.236-25.07.18-2.28.255-38.626.255-74.924 0-36.304-.082-72.583-.26-74.863-.835-10.625-2.656-17.77-6.364-25.32-3.042-6.182-6.42-10.799-11.324-15.519-8.752-8.361-19.455-13.45-32.21-15.29-6.18-.894-7.41-1.158-39.033-1.213z" transform="translate(-71.816 -18.143)"/><path fill="url(#igh)" d="M204.15 18.143c-55.23 0-71.383.057-74.523.317-11.334.943-18.387 2.728-26.07 6.554-5.922 2.942-10.592 6.351-15.201 11.13-8.394 8.716-13.481 19.439-15.323 32.184-.895 6.188-1.156 7.45-1.209 39.056-.02 10.536 0 24.4 0 42.999 0 55.2.062 71.341.326 74.476.916 11.032 2.645 17.973 6.308 25.565 7 14.533 20.37 25.443 36.12 29.514 5.453 1.404 11.476 2.178 19.208 2.544 3.277.142 36.669.244 70.081.244 33.413 0 66.826-.04 70.02-.203 8.954-.422 14.153-1.12 19.901-2.606 15.852-4.09 28.977-14.838 36.12-29.575 3.591-7.409 5.412-14.614 6.236-25.07.18-2.28.255-38.626.255-74.924 0-36.304-.082-72.583-.26-74.863-.835-10.625-2.656-17.77-6.364-25.32-3.042-6.182-6.42-10.799-11.324-15.519-8.752-8.361-19.455-13.45-32.21-15.29-6.18-.894-7.41-1.158-39.033-1.213z" transform="translate(-71.816 -18.143)"/><path fill="#fff" d="M132.345 33.973c-26.716 0-30.07.117-40.563.594-10.472.48-17.62 2.136-23.876 4.567-6.47 2.51-11.958 5.87-17.426 11.335-5.472 5.464-8.834 10.948-11.354 17.412-2.44 6.252-4.1 13.397-4.57 23.858-.47 10.486-.593 13.838-.593 40.535 0 26.697.119 30.037.594 40.522.482 10.465 2.14 17.609 4.57 23.859 2.515 6.465 5.876 11.95 11.346 17.414 5.466 5.468 10.955 8.834 17.42 11.345 6.26 2.431 13.41 4.088 23.881 4.567 10.493.477 13.844.594 40.559.594 26.719 0 30.061-.117 40.555-.594 10.472-.48 17.63-2.136 23.888-4.567 6.468-2.51 11.948-5.877 17.414-11.345 5.472-5.464 8.834-10.949 11.354-17.412 2.419-6.252 4.079-13.398 4.57-23.858.472-10.486.595-13.828.595-40.525s-.123-30.047-.594-40.533c-.492-10.465-2.152-17.608-4.57-23.858-2.521-6.466-5.883-11.95-11.355-17.414-5.472-5.468-10.944-8.827-17.42-11.335-6.271-2.431-13.424-4.088-23.897-4.567-10.493-.477-13.834-.594-40.558-.594zm-8.825 17.715c2.62-.004 5.542 0 8.825 0 26.266 0 29.38.094 39.752.565 9.591.438 14.797 2.04 18.264 3.385 4.591 1.782 7.864 3.912 11.305 7.352 3.443 3.44 5.575 6.717 7.362 11.305 1.346 3.46 2.951 8.663 3.388 18.247.47 10.363.573 13.475.573 39.71 0 26.233-.102 29.346-.573 39.709-.44 9.584-2.042 14.786-3.388 18.247-1.783 4.587-3.919 7.854-7.362 11.292-3.443 3.441-6.712 5.57-11.305 7.352-3.463 1.352-8.673 2.95-18.264 3.388-10.37.47-13.486.573-39.752.573-26.268 0-29.38-.102-39.751-.573-9.592-.443-14.797-2.044-18.267-3.39-4.59-1.781-7.87-3.911-11.313-7.352-3.443-3.44-5.574-6.709-7.362-11.298-1.346-3.461-2.95-8.663-3.387-18.247-.472-10.363-.566-13.476-.566-39.726s.094-29.347.566-39.71c.438-9.584 2.04-14.786 3.387-18.25 1.783-4.588 3.919-7.865 7.362-11.305 3.443-3.441 6.722-5.57 11.313-7.357 3.468-1.351 8.675-2.949 18.267-3.389 9.075-.41 12.592-.532 30.926-.553zm61.337 16.322c-6.518 0-11.805 5.277-11.805 11.792 0 6.512 5.287 11.796 11.805 11.796 6.517 0 11.804-5.284 11.804-11.796 0-6.513-5.287-11.796-11.805-11.796zm-52.512 13.782c-27.9 0-50.519 22.603-50.519 50.482 0 27.879 22.62 50.471 50.52 50.471s50.51-22.592 50.51-50.471c0-27.879-22.613-50.482-50.513-50.482zm0 17.715c18.11 0 32.792 14.67 32.792 32.767 0 18.096-14.683 32.767-32.792 32.767-18.11 0-32.791-14.671-32.791-32.767 0-18.098 14.68-32.767 32.791-32.767z"/></svg></span>
+<p data-reveal class="font-body-md text-[16px] leading-relaxed text-on-surface-variant">ระบบ All-in-One ที่รวมทุกช่องทาง ตั้งแต่แช็ตไปจนถึงการวิเคราะห์ธุรกิจ พร้อมเชื่อมต่อได้กับ</p>
+<div id="channels-icons" class="flex items-center justify-center gap-3">
+<span id="strip-fb" role="img" aria-label="Facebook" class="w-9 h-9 rounded-full overflow-hidden inline-flex items-center justify-center shrink-0 shadow-sm"><svg viewBox="0 0 666.667 666.667" style="width:100%;height:100%;display:block" xmlns="http://www.w3.org/2000/svg"><defs><clipPath id="fbClip"><path d="M0 700h700V0H0Z"/></clipPath></defs><g clip-path="url(#fbClip)" transform="matrix(1.33333 0 0 -1.33333 -133.333 800)"><path d="M0 0c0 138.071-111.929 250-250 250S-500 138.071-500 0c0-117.245 80.715-215.622 189.606-242.638v166.242h-51.552V0h51.552v32.919c0 85.092 38.508 124.532 122.048 124.532 15.838 0 43.167-3.105 54.347-6.211V81.986c-5.901.621-16.149.932-28.882.932-40.993 0-56.832-15.528-56.832-55.9V0h81.659l-14.028-76.396h-67.631v-171.773C-95.927-233.218 0-127.818 0 0" style="fill:#0866ff" transform="translate(600 350)"/><path d="m0 0 14.029 76.396H-67.63v27.019c0 40.372 15.838 55.899 56.831 55.899 12.733 0 22.981-.31 28.882-.931v69.253c-11.18 3.106-38.509 6.212-54.347 6.212-83.539 0-122.048-39.441-122.048-124.533V76.396h-51.552V0h51.552v-166.242a250.559 250.559 0 0 1 60.394-7.362c10.254 0 20.358.632 30.288 1.831V0Z" style="fill:#fff" transform="translate(447.918 273.604)"/></g></svg></span>
+<span id="strip-line" role="img" aria-label="LINE OA" class="w-9 h-9 rounded-full inline-flex items-center justify-center shrink-0 shadow-sm" style="background:#06C755"><svg viewBox="0 0 24 24" style="width:22px;height:22px;display:block" fill="#fff" xmlns="http://www.w3.org/2000/svg"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg></span>
+<span id="strip-ig" role="img" aria-label="Instagram" class="w-9 h-9 rounded-full overflow-hidden inline-flex items-center justify-center shrink-0 shadow-sm" style="background:linear-gradient(45deg,#FEDA77,#F58529,#DD2A7B,#8134AF,#515BD4)"><svg viewBox="0 0 264.583 264.583" style="width:36px;height:36px;flex:none;display:block" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><radialGradient xlink:href="#iga" id="igf" cx="158.429" cy="578.088" r="52.352" fx="158.429" fy="578.088" gradientTransform="matrix(0 -4.03418 4.28018 0 -2332.227 942.236)" gradientUnits="userSpaceOnUse"/><radialGradient xlink:href="#igb" id="igg" cx="172.615" cy="600.692" r="65" fx="172.615" fy="600.692" gradientTransform="matrix(.67441 -1.16203 1.51283 .87801 -814.366 -47.835)" gradientUnits="userSpaceOnUse"/><radialGradient xlink:href="#igc" id="igh" cx="144.012" cy="51.337" r="67.081" fx="144.012" fy="51.337" gradientTransform="matrix(-2.3989 .67549 -.23008 -.81732 464.996 -26.404)" gradientUnits="userSpaceOnUse"/><radialGradient xlink:href="#igd" id="ige" cx="199.788" cy="628.438" r="52.352" fx="199.788" fy="628.438" gradientTransform="matrix(-3.10797 .87652 -.6315 -2.23914 1345.65 1374.198)" gradientUnits="userSpaceOnUse"/><linearGradient id="igd"><stop offset="0" stop-color="#ff005f"/><stop offset="1" stop-color="#fc01d8"/></linearGradient><linearGradient id="igc"><stop offset="0" stop-color="#780cff"/><stop offset="1" stop-color="#820bff" stop-opacity="0"/></linearGradient><linearGradient id="igb"><stop offset="0" stop-color="#fc0"/><stop offset="1" stop-color="#fc0" stop-opacity="0"/></linearGradient><linearGradient id="iga"><stop offset="0" stop-color="#fc0"/><stop offset=".124" stop-color="#fc0"/><stop offset=".567" stop-color="#fe4a05"/><stop offset=".694" stop-color="#ff0f3f"/><stop offset="1" stop-color="#fe0657" stop-opacity="0"/></linearGradient></defs><path fill="url(#ige)" d="M204.15 18.143c-55.23 0-71.383.057-74.523.317-11.334.943-18.387 2.728-26.07 6.554-5.922 2.942-10.592 6.351-15.201 11.13-8.394 8.716-13.481 19.439-15.323 32.184-.895 6.188-1.156 7.45-1.209 39.056-.02 10.536 0 24.4 0 42.999 0 55.2.062 71.341.326 74.476.916 11.032 2.645 17.973 6.308 25.565 7 14.533 20.37 25.443 36.12 29.514 5.453 1.404 11.476 2.178 19.208 2.544 3.277.142 36.669.244 70.081.244 33.413 0 66.826-.04 70.02-.203 8.954-.422 14.153-1.12 19.901-2.606 15.852-4.09 28.977-14.838 36.12-29.575 3.591-7.409 5.412-14.614 6.236-25.07.18-2.28.255-38.626.255-74.924 0-36.304-.082-72.583-.26-74.863-.835-10.625-2.656-17.77-6.364-25.32-3.042-6.182-6.42-10.799-11.324-15.519-8.752-8.361-19.455-13.45-32.21-15.29-6.18-.894-7.41-1.158-39.033-1.213z" transform="translate(-71.816 -18.143)"/><path fill="url(#igf)" d="M204.15 18.143c-55.23 0-71.383.057-74.523.317-11.334.943-18.387 2.728-26.07 6.554-5.922 2.942-10.592 6.351-15.201 11.13-8.394 8.716-13.481 19.439-15.323 32.184-.895 6.188-1.156 7.45-1.209 39.056-.02 10.536 0 24.4 0 42.999 0 55.2.062 71.341.326 74.476.916 11.032 2.645 17.973 6.308 25.565 7 14.533 20.37 25.443 36.12 29.514 5.453 1.404 11.476 2.178 19.208 2.544 3.277.142 36.669.244 70.081.244 33.413 0 66.826-.04 70.02-.203 8.954-.422 14.153-1.12 19.901-2.606 15.852-4.09 28.977-14.838 36.12-29.575 3.591-7.409 5.412-14.614 6.236-25.07.18-2.28.255-38.626.255-74.924 0-36.304-.082-72.583-.26-74.863-.835-10.625-2.656-17.77-6.364-25.32-3.042-6.182-6.42-10.799-11.324-15.519-8.752-8.361-19.455-13.45-32.21-15.29-6.18-.894-7.41-1.158-39.033-1.213z" transform="translate(-71.816 -18.143)"/><path fill="url(#igg)" d="M204.15 18.143c-55.23 0-71.383.057-74.523.317-11.334.943-18.387 2.728-26.07 6.554-5.922 2.942-10.592 6.351-15.201 11.13-8.394 8.716-13.481 19.439-15.323 32.184-.895 6.188-1.156 7.45-1.209 39.056-.02 10.536 0 24.4 0 42.999 0 55.2.062 71.341.326 74.476.916 11.032 2.645 17.973 6.308 25.565 7 14.533 20.37 25.443 36.12 29.514 5.453 1.404 11.476 2.178 19.208 2.544 3.277.142 36.669.244 70.081.244 33.413 0 66.826-.04 70.02-.203 8.954-.422 14.153-1.12 19.901-2.606 15.852-4.09 28.977-14.838 36.12-29.575 3.591-7.409 5.412-14.614 6.236-25.07.18-2.28.255-38.626.255-74.924 0-36.304-.082-72.583-.26-74.863-.835-10.625-2.656-17.77-6.364-25.32-3.042-6.182-6.42-10.799-11.324-15.519-8.752-8.361-19.455-13.45-32.21-15.29-6.18-.894-7.41-1.158-39.033-1.213z" transform="translate(-71.816 -18.143)"/><path fill="url(#igh)" d="M204.15 18.143c-55.23 0-71.383.057-74.523.317-11.334.943-18.387 2.728-26.07 6.554-5.922 2.942-10.592 6.351-15.201 11.13-8.394 8.716-13.481 19.439-15.323 32.184-.895 6.188-1.156 7.45-1.209 39.056-.02 10.536 0 24.4 0 42.999 0 55.2.062 71.341.326 74.476.916 11.032 2.645 17.973 6.308 25.565 7 14.533 20.37 25.443 36.12 29.514 5.453 1.404 11.476 2.178 19.208 2.544 3.277.142 36.669.244 70.081.244 33.413 0 66.826-.04 70.02-.203 8.954-.422 14.153-1.12 19.901-2.606 15.852-4.09 28.977-14.838 36.12-29.575 3.591-7.409 5.412-14.614 6.236-25.07.18-2.28.255-38.626.255-74.924 0-36.304-.082-72.583-.26-74.863-.835-10.625-2.656-17.77-6.364-25.32-3.042-6.182-6.42-10.799-11.324-15.519-8.752-8.361-19.455-13.45-32.21-15.29-6.18-.894-7.41-1.158-39.033-1.213z" transform="translate(-71.816 -18.143)"/><path fill="#fff" d="M132.345 33.973c-26.716 0-30.07.117-40.563.594-10.472.48-17.62 2.136-23.876 4.567-6.47 2.51-11.958 5.87-17.426 11.335-5.472 5.464-8.834 10.948-11.354 17.412-2.44 6.252-4.1 13.397-4.57 23.858-.47 10.486-.593 13.838-.593 40.535 0 26.697.119 30.037.594 40.522.482 10.465 2.14 17.609 4.57 23.859 2.515 6.465 5.876 11.95 11.346 17.414 5.466 5.468 10.955 8.834 17.42 11.345 6.26 2.431 13.41 4.088 23.881 4.567 10.493.477 13.844.594 40.559.594 26.719 0 30.061-.117 40.555-.594 10.472-.48 17.63-2.136 23.888-4.567 6.468-2.51 11.948-5.877 17.414-11.345 5.472-5.464 8.834-10.949 11.354-17.412 2.419-6.252 4.079-13.398 4.57-23.858.472-10.486.595-13.828.595-40.525s-.123-30.047-.594-40.533c-.492-10.465-2.152-17.608-4.57-23.858-2.521-6.466-5.883-11.95-11.355-17.414-5.472-5.468-10.944-8.827-17.42-11.335-6.271-2.431-13.424-4.088-23.897-4.567-10.493-.477-13.834-.594-40.558-.594zm-8.825 17.715c2.62-.004 5.542 0 8.825 0 26.266 0 29.38.094 39.752.565 9.591.438 14.797 2.04 18.264 3.385 4.591 1.782 7.864 3.912 11.305 7.352 3.443 3.44 5.575 6.717 7.362 11.305 1.346 3.46 2.951 8.663 3.388 18.247.47 10.363.573 13.475.573 39.71 0 26.233-.102 29.346-.573 39.709-.44 9.584-2.042 14.786-3.388 18.247-1.783 4.587-3.919 7.854-7.362 11.292-3.443 3.441-6.712 5.57-11.305 7.352-3.463 1.352-8.673 2.95-18.264 3.388-10.37.47-13.486.573-39.752.573-26.268 0-29.38-.102-39.751-.573-9.592-.443-14.797-2.044-18.267-3.39-4.59-1.781-7.87-3.911-11.313-7.352-3.443-3.44-5.574-6.709-7.362-11.298-1.346-3.461-2.95-8.663-3.387-18.247-.472-10.363-.566-13.476-.566-39.726s.094-29.347.566-39.71c.438-9.584 2.04-14.786 3.387-18.25 1.783-4.588 3.919-7.865 7.362-11.305 3.443-3.441 6.722-5.57 11.313-7.357 3.468-1.351 8.675-2.949 18.267-3.389 9.075-.41 12.592-.532 30.926-.553zm61.337 16.322c-6.518 0-11.805 5.277-11.805 11.792 0 6.512 5.287 11.796 11.805 11.796 6.517 0 11.804-5.284 11.804-11.796 0-6.513-5.287-11.796-11.805-11.796zm-52.512 13.782c-27.9 0-50.519 22.603-50.519 50.482 0 27.879 22.62 50.471 50.52 50.471s50.51-22.592 50.51-50.471c0-27.879-22.613-50.482-50.513-50.482zm0 17.715c18.11 0 32.792 14.67 32.792 32.767 0 18.096-14.683 32.767-32.792 32.767-18.11 0-32.791-14.671-32.791-32.767 0-18.098 14.68-32.767 32.791-32.767z"/></svg></span>
 </div>
 </div>
 </section>
@@ -461,7 +522,7 @@
 <h2 class="font-section-title text-section-title text-on-surface mb-4 [text-wrap:balance]">ทุกวันที่ยังตอบเอง<br/>คุณกำลังเสียอะไรอยู่?</h2>
 <p class="font-body-md text-body-md text-on-surface-variant">ยิ่งตอบช้า ยิ่งเสีย — มาดูกันว่าการตอบเองทุกวันทำให้คุณเสียอะไรไปบ้าง</p>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-3 max-w-4xl mx-auto md:divide-x md:divide-surface-border">
+<div data-stagger class="grid grid-cols-1 md:grid-cols-3 max-w-4xl mx-auto md:divide-x md:divide-surface-border">
 <div class="flex flex-col items-center text-center px-8 py-6 border-b border-surface-border last:border-b-0 md:border-b-0">
 <h3 class="font-display-lg text-[48px] sm:text-[56px] leading-none font-bold tracking-tight text-[#E5484D] mb-3">~42%</h3>
 <p class="font-body-md text-[16px] text-on-surface-variant max-w-[16rem]">ของลูกค้าไปซื้อร้านอื่นหากตอบช้า</p>
@@ -478,10 +539,10 @@
 <div class="mt-16 max-w-4xl mx-auto rounded-[28px] bg-white overflow-hidden flex flex-col md:flex-row items-stretch shadow-[0_20px_50px_-12px_rgba(15,23,42,0.18)]">
 <div class="flex-1 p-8 lg:p-12 flex flex-col items-start justify-center">
 <h3 class="font-headline-sm text-headline-sm mb-6 max-w-md leading-snug"><span class="text-on-surface">Onebear เปลี่ยนแช็ตที่หลุดมือ</span><br/><span class="font-gradient">ให้กลับมาเป็นยอดขายได้ทันที</span></h3>
-<a href="https://app.onebear.ai/register" class="glow-button inline-flex items-center gap-2 text-white text-sm font-semibold px-8 py-3 rounded-full hover:opacity-90 transition-opacity group">เริ่มใช้งานฟรี <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform" style="font-size:18px">arrow_forward</span></a>
+<a href="https://app.onebear.ai/register" class="glow-button inline-flex items-center justify-center gap-2 text-white text-sm font-semibold px-8 py-4 rounded-full hover:opacity-90 transition-opacity group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-on-surface focus-visible:ring-offset-2">เริ่มใช้ Onebear ฟรี <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform" style="font-size:18px">arrow_forward</span></a>
 </div>
 <div class="w-full md:w-80 lg:w-96 flex items-end justify-center md:justify-end overflow-hidden">
-<img src="../assets/shop-illustration.png" alt="ร้านค้าออนไลน์ดูแลลูกค้าด้วย Onebear" class="w-full max-w-xs md:max-w-none h-auto object-contain object-bottom"/>
+<img src="../assets/illustrations/shop-illustration.png" alt="ร้านค้าออนไลน์ดูแลลูกค้าด้วย Onebear" class="w-full max-w-xs md:max-w-none h-auto object-contain object-bottom"/>
 </div>
 </div>
 </section>
@@ -497,14 +558,8 @@
 <div id="feat-mob-track" class="flex gap-3 overflow-x-auto snap-x snap-mandatory no-scrollbar px-5 py-4" style="scroll-padding-left:20px">
 <!-- Card 1: Unified Inbox -->
 <div class="feat-mob-card snap-start shrink-0 w-[82vw] min-w-[320px] rounded-[24px] overflow-hidden bg-white border border-surface-border shadow-[0_6px_20px_rgba(0,0,0,0.08)]">
-<div class="feature-stage stage-inbox flex items-center justify-center" style="height:260px;border-radius:0;padding:20px">
-<div class="mock-win w-full max-w-[240px]">
-<div class="mock-bar"><span class="mock-dot" style="background:#ff5f57"></span><span class="mock-dot" style="background:#febc2e"></span><span class="mock-dot" style="background:#28c840"></span></div>
-<div class="p-3 space-y-1">
-<div class="flex items-center gap-2 p-1.5 rounded-[10px] bg-surface-container-low"><span class="w-7 h-7 rounded-full flex items-center justify-center text-white text-[10px] font-bold shrink-0" style="background:#1877F2">FB</span><div class="min-w-0"><p class="text-[11px] font-semibold text-on-surface truncate">คุณมินตรา</p><p class="text-[10px] text-on-surface-variant truncate">สนใจแพ็กเกจ Growth</p></div></div>
-<div class="flex items-center gap-2 p-1.5 rounded-[10px]"><span class="w-7 h-7 rounded-full flex items-center justify-center text-white text-[10px] font-bold shrink-0" style="background:#06C755">LN</span><div class="min-w-0"><p class="text-[11px] font-semibold text-on-surface truncate">ร้านบ้านสวน</p><p class="text-[10px] text-on-surface-variant truncate">ขอใบเสนอราคา</p></div></div>
-<div class="flex items-center gap-2 p-1.5 rounded-[10px]"><span class="w-7 h-7 rounded-full flex items-center justify-center text-white text-[10px] font-bold shrink-0" style="background:linear-gradient(135deg,#F58529,#DD2A7B)">IG</span><div class="min-w-0"><p class="text-[11px] font-semibold text-on-surface truncate">@thanaporn</p><p class="text-[10px] text-on-surface-variant truncate">มีโปรอะไรบ้างคะ</p></div></div>
-</div></div></div>
+<div class="feature-stage stage-inbox flex items-end justify-end" style="height:260px;border-radius:0;padding:20px 0 0 20px">
+<img src="../assets/screenshots/features-Unified%20Inbox.png" alt="ตัวอย่างหน้าจอ Unified Inbox" style="max-height:240px;width:auto;display:block"></div>
 <div class="p-5">
 <span class="w-fit font-eyebrow text-eyebrow eyebrow" style="color:#6D5BD0">Unified Inbox</span>
 <h3 class="text-[20px] leading-[1.2] font-semibold text-on-surface mt-1 mb-1">รวมทุกแช็ตไว้ในจอเดียว</h3>
@@ -514,17 +569,12 @@
 <li class="flex gap-2 items-start text-[13px] text-on-surface"><span class="shrink-0 text-teal-deep mt-0.5"><span class="material-symbols-outlined" style="font-size:16px">check</span></span><span>มอบหมายงานให้ทีมและตอบพร้อมกันได้</span></li>
 <li class="flex gap-2 items-start text-[13px] text-on-surface"><span class="shrink-0 text-teal-deep mt-0.5"><span class="material-symbols-outlined" style="font-size:16px">check</span></span><span>แท็กและค้นหาบทสนทนาได้ทันที</span></li>
 </ul>
-<a href="https://app.onebear.ai/register" class="glow-button inline-flex items-center gap-2 rounded-full px-8 py-3 text-white text-sm font-semibold">เริ่มใช้งานฟรี<span class="material-symbols-outlined" style="font-size:18px">arrow_forward</span></a>
+<a href="https://app.onebear.ai/register" class="glow-button inline-flex items-center justify-center gap-2 rounded-full px-8 py-4 text-white text-sm font-semibold hover:opacity-90 transition-opacity group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-on-surface focus-visible:ring-offset-2">เริ่มใช้ Onebear ฟรี<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform" style="font-size:18px">arrow_forward</span></a>
 </div></div>
 <!-- Card 2: CRM -->
 <div class="feat-mob-card snap-start shrink-0 w-[82vw] min-w-[320px] rounded-[24px] overflow-hidden bg-white border border-surface-border shadow-[0_6px_20px_rgba(0,0,0,0.08)]">
-<div class="feature-stage stage-crm flex items-center justify-center" style="height:260px;border-radius:0;padding:20px">
-<div class="mock-win w-full max-w-[240px]">
-<div class="mock-bar"><span class="mock-dot" style="background:#ff5f57"></span><span class="mock-dot" style="background:#febc2e"></span><span class="mock-dot" style="background:#28c840"></span></div>
-<div class="p-3">
-<div class="flex items-center gap-2 mb-2"><span class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-surface-variant" style="font-size:16px">person</span></span><div><p class="text-[11px] font-semibold text-on-surface">คุณมินตรา</p><p class="text-[10px] text-on-surface-variant">ลูกค้าประจำ · ซื้อ 8 ครั้ง</p></div></div>
-<div class="flex items-center gap-1.5 p-2 rounded-[10px] bg-white border border-surface-border"><span class="material-symbols-outlined text-teal-deep" style="font-size:15px;font-variation-settings:'FILL' 1">verified</span><span class="text-[11px] text-on-surface flex-1">ยืนยันสลิป ฿1,250</span><span class="text-[10px] text-teal-deep font-semibold">สำเร็จ</span></div>
-</div></div></div>
+<div class="feature-stage stage-crm flex items-end justify-end" style="height:260px;border-radius:0;padding:20px 0 0 20px">
+<img src="../assets/screenshots/features-CRM%20%26%20Slip.png" alt="ตัวอย่างหน้าจอ CRM & Slip" style="max-height:240px;width:auto;display:block"></div>
 <div class="p-5">
 <span class="w-fit font-eyebrow text-eyebrow eyebrow" style="color:#D9791F">CRM &amp; Slip</span>
 <h3 class="text-[20px] leading-[1.2] font-semibold text-on-surface mt-1 mb-1">รู้จักลูกค้า และเช็กสลิปอัตโนมัติ</h3>
@@ -534,17 +584,12 @@
 <li class="flex gap-2 items-start text-[13px] text-on-surface"><span class="shrink-0 text-teal-deep mt-0.5"><span class="material-symbols-outlined" style="font-size:16px">check</span></span><span>ยืนยันสลิปอัตโนมัติแบบเรียลไทม์</span></li>
 <li class="flex gap-2 items-start text-[13px] text-on-surface"><span class="shrink-0 text-teal-deep mt-0.5"><span class="material-symbols-outlined" style="font-size:16px">check</span></span><span>แท็กกลุ่มลูกค้าเพื่อทำการตลาดต่อ</span></li>
 </ul>
-<a href="https://app.onebear.ai/register" class="glow-button inline-flex items-center gap-2 rounded-full px-8 py-3 text-white text-sm font-semibold">เริ่มใช้งานฟรี<span class="material-symbols-outlined" style="font-size:18px">arrow_forward</span></a>
+<a href="https://app.onebear.ai/register" class="glow-button inline-flex items-center justify-center gap-2 rounded-full px-8 py-4 text-white text-sm font-semibold hover:opacity-90 transition-opacity group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-on-surface focus-visible:ring-offset-2">เริ่มใช้ Onebear ฟรี<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform" style="font-size:18px">arrow_forward</span></a>
 </div></div>
 <!-- Card 3: Analytics -->
 <div class="feat-mob-card snap-start shrink-0 w-[82vw] min-w-[320px] rounded-[24px] overflow-hidden bg-white border border-surface-border shadow-[0_6px_20px_rgba(0,0,0,0.08)]">
-<div class="feature-stage stage-analytics flex items-center justify-center" style="height:260px;border-radius:0;padding:20px">
-<div class="mock-win w-full max-w-[240px]">
-<div class="mock-bar"><span class="mock-dot" style="background:#ff5f57"></span><span class="mock-dot" style="background:#febc2e"></span><span class="mock-dot" style="background:#28c840"></span></div>
-<div class="p-3">
-<div class="flex gap-2 mb-2"><div class="flex-1 rounded-[10px] border border-surface-border p-1.5 text-center"><p class="text-[9px] text-on-surface-variant">ยอดวันนี้</p><p class="text-[12px] font-semibold text-on-surface">฿24.8k</p></div><div class="flex-1 rounded-[10px] border border-surface-border p-1.5 text-center"><p class="text-[9px] text-on-surface-variant">ปิดการขาย</p><p class="text-[12px] font-semibold text-on-surface">38</p></div></div>
-<div class="rounded-[10px] border border-surface-border p-2"><svg viewBox="0 0 180 50" class="w-full h-auto" aria-hidden="true"><polyline fill="none" stroke="#15A591" stroke-width="2" stroke-linecap="round" points="5,38 30,32 55,34 80,24 105,26 130,12 175,6"/><polygon fill="#41C3A8" opacity="0.10" points="5,38 30,32 55,34 80,24 105,26 130,12 175,6 175,46 5,46"/></svg></div>
-</div></div></div>
+<div class="feature-stage stage-analytics flex items-end justify-end" style="height:260px;border-radius:0;padding:20px 0 0 20px">
+<img src="../assets/screenshots/features-Analytics.png" alt="ตัวอย่างหน้าจอ Analytics" style="max-height:240px;width:auto;display:block"></div>
 <div class="p-5">
 <span class="w-fit font-eyebrow text-eyebrow eyebrow" style="color:#D6418A">Analytics</span>
 <h3 class="text-[20px] leading-[1.2] font-semibold text-on-surface mt-1 mb-1">เห็นยอดขายและการตอบแบบเรียลไทม์</h3>
@@ -554,7 +599,7 @@
 <li class="flex gap-2 items-start text-[13px] text-on-surface"><span class="shrink-0 text-teal-deep mt-0.5"><span class="material-symbols-outlined" style="font-size:16px">check</span></span><span>เวลาตอบเฉลี่ยและภาระงานของทีม</span></li>
 <li class="flex gap-2 items-start text-[13px] text-on-surface"><span class="shrink-0 text-teal-deep mt-0.5"><span class="material-symbols-outlined" style="font-size:16px">check</span></span><span>ส่งออกรายงาน พร้อมสรุปรายสัปดาห์</span></li>
 </ul>
-<a href="https://app.onebear.ai/register" class="glow-button inline-flex items-center gap-2 rounded-full px-8 py-3 text-white text-sm font-semibold">เริ่มใช้งานฟรี<span class="material-symbols-outlined" style="font-size:18px">arrow_forward</span></a>
+<a href="https://app.onebear.ai/register" class="glow-button inline-flex items-center justify-center gap-2 rounded-full px-8 py-4 text-white text-sm font-semibold hover:opacity-90 transition-opacity group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-on-surface focus-visible:ring-offset-2">เริ่มใช้ Onebear ฟรี<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform" style="font-size:18px">arrow_forward</span></a>
 </div></div>
 <div class="feat-mob-end" aria-hidden="true"></div>
 </div>
@@ -574,54 +619,48 @@
   <div class="grid md:grid-cols-2 gap-10 lg:gap-14 items-center md:min-h-[540px]">
     <div class="flex flex-col gap-5">
   <span class="w-fit font-eyebrow text-eyebrow eyebrow">Unified Inbox</span>
-  <h3 class="font-headline-sm text-[28px] leading-[1.15] lg:text-[40px] font-semibold text-on-surface">รวมทุกแช็ตไว้ในจอเดียว</h3>
+  <h3 class="font-headline-sm text-[22px] leading-[1.2] lg:text-[28px] xl:text-[34px] font-semibold text-on-surface">รวมทุกแช็ตไว้ในจอเดียว</h3>
   <p class="font-body-md text-body-md lg:text-lg text-on-surface-variant">Facebook, LINE OA และ Instagram มารวมใน inbox เดียว ไม่ต้องสลับแอป ไม่พลาดข้อความลูกค้าอีกต่อไป</p>
   <ul class="flex flex-col gap-3">
     <li class="flex gap-3 items-start font-body-md text-body-md text-on-surface"><span class="mt-0.5 shrink-0 text-teal-deep flex items-center justify-center"><span class="material-symbols-outlined" style="font-size:18px">check</span></span><span>เห็นทุกแช็ตจากทุกช่องทางในที่เดียว</span></li>
     <li class="flex gap-3 items-start font-body-md text-body-md text-on-surface"><span class="mt-0.5 shrink-0 text-teal-deep flex items-center justify-center"><span class="material-symbols-outlined" style="font-size:18px">check</span></span><span>มอบหมายงานให้ทีมและตอบพร้อมกันได้</span></li>
     <li class="flex gap-3 items-start font-body-md text-body-md text-on-surface"><span class="mt-0.5 shrink-0 text-teal-deep flex items-center justify-center"><span class="material-symbols-outlined" style="font-size:18px">check</span></span><span>แท็กและค้นหาบทสนทนาได้ทันที</span></li>
   </ul>
-  <a href="https://app.onebear.ai/register" class="glow-button mt-1 w-fit inline-flex items-center gap-2 rounded-full px-8 py-3 text-white text-sm font-semibold">เริ่มใช้งานฟรี<span class="material-symbols-outlined" style="font-size:18px">arrow_forward</span></a>
+  <a href="https://app.onebear.ai/register" class="glow-button mt-1 w-fit inline-flex items-center justify-center gap-2 rounded-full px-8 py-4 text-white text-sm font-semibold hover:opacity-90 transition-opacity group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-on-surface focus-visible:ring-offset-2">เริ่มใช้ Onebear ฟรี<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform" style="font-size:18px">arrow_forward</span></a>
 </div>
-    <div class="feature-stage stage-inbox"><div class="mock-win" role="img" aria-label="ตัวอย่างหน้าจอ Onebear">
-  <div class="mock-bar"><span class="mock-dot" style="background:#ff5f57"></span><span class="mock-dot" style="background:#febc2e"></span><span class="mock-dot" style="background:#28c840"></span><span class="ml-2 text-[11px] text-on-surface-variant">app.onebear.ai/inbox</span></div>
-  <div class="p-4 md:p-5"><div class="flex items-center justify-between mb-3"><span class="font-semibold text-on-surface text-sm">รวมทุกแช็ต</span><span class="text-[11px] text-on-surface-variant bg-surface-container rounded-full px-2 py-0.5">12 ใหม่</span></div><div class="space-y-1"><div class="flex items-center gap-3 p-2 rounded-[12px] hover:bg-[#f3f4f1]"><span class="w-9 h-9 rounded-full flex items-center justify-center text-white text-[11px] font-semibold shrink-0" style="background:#1877F2">FB</span><div class="min-w-0 flex-1"><p class="text-sm text-on-surface truncate">คุณมินตรา</p><p class="text-[11px] text-on-surface-variant truncate">สนใจแพ็กเกจ Growth ค่ะ</p></div></div><div class="flex items-center gap-3 p-2 rounded-[12px] hover:bg-[#f3f4f1]"><span class="w-9 h-9 rounded-full flex items-center justify-center text-white text-[11px] font-semibold shrink-0" style="background:#06C755">LN</span><div class="min-w-0 flex-1"><p class="text-sm text-on-surface truncate">ร้านบ้านสวน</p><p class="text-[11px] text-on-surface-variant truncate">ขอใบเสนอราคาหน่อยครับ</p></div></div><div class="flex items-center gap-3 p-2 rounded-[12px] hover:bg-[#f3f4f1]"><span class="w-9 h-9 rounded-full flex items-center justify-center text-white text-[11px] font-semibold shrink-0" style="background:linear-gradient(135deg,#F58529,#DD2A7B)">IG</span><div class="min-w-0 flex-1"><p class="text-sm text-on-surface truncate">@thanaporn</p><p class="text-[11px] text-on-surface-variant truncate">มีโปรอะไรบ้างคะ</p></div></div></div></div></div></div>
+    <div class="feature-stage stage-inbox"><img src="../assets/screenshots/features-Unified%20Inbox.png" alt="ตัวอย่างหน้าจอ Unified Inbox" class="w-full max-w-[480px] block" style="border-radius:28px 0 0 0"></div>
   </div>
 </div>
 <div id="panel-crm" role="tabpanel" aria-labelledby="tab-crm" tabindex="0" class="tabpanel" hidden>
   <div class="grid md:grid-cols-2 gap-10 lg:gap-14 items-center md:min-h-[540px]">
     <div class="flex flex-col gap-5">
   <span class="w-fit font-eyebrow text-eyebrow eyebrow">CRM &amp; Slip</span>
-  <h3 class="font-headline-sm text-[28px] leading-[1.15] lg:text-[40px] font-semibold text-on-surface">รู้จักลูกค้า และเช็กสลิปอัตโนมัติ</h3>
+  <h3 class="font-headline-sm text-[22px] leading-[1.2] lg:text-[28px] xl:text-[34px] font-semibold text-on-surface">รู้จักลูกค้า และเช็กสลิปอัตโนมัติ</h3>
   <p class="font-body-md text-body-md lg:text-lg text-on-surface-variant">เก็บประวัติการซื้อและข้อมูลลูกค้าไว้ครบ พร้อมตรวจสลิปโอนเงินอัตโนมัติ ลดงานและกันสลิปปลอม</p>
   <ul class="flex flex-col gap-3">
     <li class="flex gap-3 items-start font-body-md text-body-md text-on-surface"><span class="mt-0.5 shrink-0 text-teal-deep flex items-center justify-center"><span class="material-symbols-outlined" style="font-size:18px">check</span></span><span>โปรไฟล์ลูกค้าพร้อมประวัติการสั่งซื้อ</span></li>
     <li class="flex gap-3 items-start font-body-md text-body-md text-on-surface"><span class="mt-0.5 shrink-0 text-teal-deep flex items-center justify-center"><span class="material-symbols-outlined" style="font-size:18px">check</span></span><span>ยืนยันสลิปอัตโนมัติแบบเรียลไทม์</span></li>
     <li class="flex gap-3 items-start font-body-md text-body-md text-on-surface"><span class="mt-0.5 shrink-0 text-teal-deep flex items-center justify-center"><span class="material-symbols-outlined" style="font-size:18px">check</span></span><span>แท็กกลุ่มลูกค้าเพื่อทำการตลาดต่อ</span></li>
   </ul>
-  <a href="https://app.onebear.ai/register" class="glow-button mt-1 w-fit inline-flex items-center gap-2 rounded-full px-8 py-3 text-white text-sm font-semibold">เริ่มใช้งานฟรี<span class="material-symbols-outlined" style="font-size:18px">arrow_forward</span></a>
+  <a href="https://app.onebear.ai/register" class="glow-button mt-1 w-fit inline-flex items-center justify-center gap-2 rounded-full px-8 py-4 text-white text-sm font-semibold hover:opacity-90 transition-opacity group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-on-surface focus-visible:ring-offset-2">เริ่มใช้ Onebear ฟรี<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform" style="font-size:18px">arrow_forward</span></a>
 </div>
-    <div class="feature-stage stage-crm"><div class="mock-win" role="img" aria-label="ตัวอย่างหน้าจอ Onebear">
-  <div class="mock-bar"><span class="mock-dot" style="background:#ff5f57"></span><span class="mock-dot" style="background:#febc2e"></span><span class="mock-dot" style="background:#28c840"></span><span class="ml-2 text-[11px] text-on-surface-variant">app.onebear.ai/crm</span></div>
-  <div class="p-4 md:p-5"><div class="flex items-center gap-3 mb-3"><span class="w-10 h-10 rounded-full bg-surface-container text-on-surface-variant flex items-center justify-center"><span class="material-symbols-outlined" style="font-size:20px">person</span></span><div class="flex-1 min-w-0"><p class="text-sm font-semibold text-on-surface">คุณมินตรา</p><p class="text-[11px] text-on-surface-variant">ลูกค้าประจำ · ซื้อ 8 ครั้ง</p></div><div class="text-right"><p class="text-[11px] text-on-surface-variant">ยอดซื้อรวม</p><p class="text-sm font-semibold text-on-surface">฿12,400</p></div></div><div class="flex items-center gap-2 p-2.5 rounded-[12px] bg-white border border-surface-border mb-2"><span class="material-symbols-outlined text-teal-deep" style="font-size:18px;font-variation-settings:'FILL' 1">verified</span><span class="text-[12px] text-on-surface flex-1">ยืนยันสลิปแล้ว · ฿1,250 · KBank</span><span class="text-[11px] text-teal-deep font-semibold">สำเร็จ</span></div><div class="flex gap-2"><span class="text-[11px] text-on-surface-variant border border-surface-border rounded-full px-2 py-0.5">VIP</span><span class="text-[11px] text-on-surface-variant border border-surface-border rounded-full px-2 py-0.5">สนใจโปร</span></div></div></div></div>
+    <div class="feature-stage stage-crm"><img src="../assets/screenshots/features-CRM%20%26%20Slip.png" alt="ตัวอย่างหน้าจอ CRM & Slip" class="w-full max-w-[480px] block" style="border-radius:28px 0 0 0"></div>
   </div>
 </div>
 <div id="panel-analytics" role="tabpanel" aria-labelledby="tab-analytics" tabindex="0" class="tabpanel" hidden>
   <div class="grid md:grid-cols-2 gap-10 lg:gap-14 items-center md:min-h-[540px]">
     <div class="flex flex-col gap-5">
   <span class="w-fit font-eyebrow text-eyebrow eyebrow">Analytics</span>
-  <h3 class="font-headline-sm text-[28px] leading-[1.15] lg:text-[40px] font-semibold text-on-surface">เห็นยอดขายและการตอบแบบเรียลไทม์</h3>
+  <h3 class="font-headline-sm text-[22px] leading-[1.2] lg:text-[28px] xl:text-[34px] font-semibold text-on-surface">เห็นยอดขายและการตอบแบบเรียลไทม์</h3>
   <p class="font-body-md text-body-md lg:text-lg text-on-surface-variant">แดชบอร์ดสรุปยอดขาย เวลาตอบ และประสิทธิภาพทีมรายช่องทาง เพื่อตัดสินใจได้ไวขึ้น</p>
   <ul class="flex flex-col gap-3">
     <li class="flex gap-3 items-start font-body-md text-body-md text-on-surface"><span class="mt-0.5 shrink-0 text-teal-deep flex items-center justify-center"><span class="material-symbols-outlined" style="font-size:18px">check</span></span><span>ยอดขายและอัตราปิดการขายรายช่องทาง</span></li>
     <li class="flex gap-3 items-start font-body-md text-body-md text-on-surface"><span class="mt-0.5 shrink-0 text-teal-deep flex items-center justify-center"><span class="material-symbols-outlined" style="font-size:18px">check</span></span><span>เวลาตอบเฉลี่ยและภาระงานของทีม</span></li>
     <li class="flex gap-3 items-start font-body-md text-body-md text-on-surface"><span class="mt-0.5 shrink-0 text-teal-deep flex items-center justify-center"><span class="material-symbols-outlined" style="font-size:18px">check</span></span><span>ส่งออกรายงาน พร้อมสรุปรายสัปดาห์</span></li>
   </ul>
-  <a href="https://app.onebear.ai/register" class="glow-button mt-1 w-fit inline-flex items-center gap-2 rounded-full px-8 py-3 text-white text-sm font-semibold">เริ่มใช้งานฟรี<span class="material-symbols-outlined" style="font-size:18px">arrow_forward</span></a>
+  <a href="https://app.onebear.ai/register" class="glow-button mt-1 w-fit inline-flex items-center justify-center gap-2 rounded-full px-8 py-4 text-white text-sm font-semibold hover:opacity-90 transition-opacity group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-on-surface focus-visible:ring-offset-2">เริ่มใช้ Onebear ฟรี<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform" style="font-size:18px">arrow_forward</span></a>
 </div>
-    <div class="feature-stage stage-analytics"><div class="mock-win" role="img" aria-label="ตัวอย่างหน้าจอ Onebear">
-  <div class="mock-bar"><span class="mock-dot" style="background:#ff5f57"></span><span class="mock-dot" style="background:#febc2e"></span><span class="mock-dot" style="background:#28c840"></span><span class="ml-2 text-[11px] text-on-surface-variant">app.onebear.ai/analytics</span></div>
-  <div class="p-4 md:p-5"><div class="flex gap-2 mb-3"><div class="flex-1 rounded-[12px] border border-surface-border p-2.5 text-center"><p class="text-[10px] text-on-surface-variant">ยอดวันนี้</p><p class="text-sm font-semibold text-on-surface">฿24.8k</p></div><div class="flex-1 rounded-[12px] border border-surface-border p-2.5 text-center"><p class="text-[10px] text-on-surface-variant">ปิดการขาย</p><p class="text-sm font-semibold text-on-surface">38</p></div><div class="flex-1 rounded-[12px] border border-surface-border p-2.5 text-center"><p class="text-[10px] text-on-surface-variant">ตอบเฉลี่ย</p><p class="text-sm font-semibold text-on-surface">8 วิ</p></div></div><div class="rounded-[12px] border border-surface-border p-3"><p class="text-[11px] text-on-surface-variant mb-2">ยอดขายรายวัน</p><svg viewBox="0 0 210 105" class="w-full h-24" role="img" aria-label="กราฟยอดขายรายวัน"><rect x="6" y="66" width="20" height="34" rx="4" fill="#A7E5D7"></rect><rect x="40" y="48" width="20" height="52" rx="4" fill="#A7E5D7"></rect><rect x="74" y="60" width="20" height="40" rx="4" fill="#A7E5D7"></rect><rect x="108" y="36" width="20" height="64" rx="4" fill="#A7E5D7"></rect><rect x="142" y="42" width="20" height="58" rx="4" fill="#A7E5D7"></rect><rect x="176" y="18" width="20" height="82" rx="4" fill="#41C3A8"></rect></svg></div></div></div></div>
+    <div class="feature-stage stage-analytics"><img src="../assets/screenshots/features-Analytics.png" alt="ตัวอย่างหน้าจอ Analytics" class="w-full max-w-[480px] block" style="border-radius:28px 0 0 0"></div>
   </div>
 </div>
 </div>
@@ -727,10 +766,54 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant px-4">ดูการปิดการขายอัตโนมัติตลอด 24 ชม.</p>
 </div>
 </div>
-<div class="mt-16 flex flex-col items-center gap-3"><a href="https://app.onebear.ai/register" class="glow-button inline-flex items-center gap-2 text-white text-sm font-semibold px-8 py-3 rounded-full group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-deep focus-visible:ring-offset-2">เริ่มใช้งานฟรี <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform" style="font-size:18px">arrow_forward</span></a><span class="font-body-sm text-body-sm text-on-surface-variant">ใช้เวลาไม่ถึง 5 นาที · ไม่ต้องใช้บัตรเครดิต</span></div>
+<div class="mt-16 flex flex-col items-center gap-3"><a href="https://app.onebear.ai/register" class="glow-button inline-flex items-center justify-center gap-2 text-white text-sm font-semibold px-8 py-4 rounded-full hover:opacity-90 transition-opacity group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-deep focus-visible:ring-offset-2">เริ่มใช้ Onebear ฟรี <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform" style="font-size:18px">arrow_forward</span></a><span class="font-body-sm text-body-sm text-on-surface-variant">ใช้เวลาไม่ถึง 5 นาที · ไม่ต้องใช้บัตรเครดิต</span></div>
 </section>
-<!-- Pricing -->
+<!-- Pricing (New — Figma Q2-2026) -->
 <section id="pricing" data-reveal class="max-w-container-max mx-auto px-margin-desktop mb-24 md:mb-40 scroll-mt-28">
+<div class="mb-10 text-center flex flex-col items-center gap-4">
+  <span class="font-eyebrow text-eyebrow eyebrow">แผนราคาที่ยืดหยุ่นสำหรับทุกขนาดธุรกิจ</span>
+  <h2 class="font-section-title text-section-title text-on-surface max-w-3xl [text-wrap:balance]">กำลังมองหาแผนราคาอยู่ใช่ไหม</h2>
+  <p class="font-body-md text-body-md text-on-surface-variant max-w-xl [text-wrap:balance]">ไม่มีราคาให้ต้องคิดเยอะ เพราะทุกฟีเจอร์ใช้ <strong class="font-bold text-on-surface">ฟรี</strong> ไม่ต้องใช้บัตรเครดิต<br class="hidden md:block"/>เริ่มใช้ได้เลยตอนนี้โดยไม่ต้องจ่ายสักบาท</p>
+</div>
+<!-- Free Plan Card -->
+<div class="relative bg-white rounded-[40px] shadow-[0_12px_40px_rgba(0,0,0,0.08)] overflow-hidden max-w-[900px] mx-auto flex flex-col md:flex-row">
+  <!-- Left: gradient panel -->
+  <div class="relative flex flex-col items-center justify-center gap-5 px-10 py-14 md:w-[340px] shrink-0 text-white text-center" style="background:linear-gradient(139.89deg,#00C48C 0%,#06B6D4 100%)">
+    <div>
+      <p class="text-[22px] font-bold leading-none mb-3">Free Plan</p>
+      <p class="text-[80px] font-bold leading-none">ฟรี</p>
+    </div>
+    <a href="https://app.onebear.ai/register" class="glow-button inline-flex items-center justify-center gap-2 text-white text-sm font-semibold px-8 py-4 rounded-full hover:opacity-90 transition-opacity group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-on-surface focus-visible:ring-offset-2" style="background:#1C1C22">เริ่มใช้ Onebear ฟรี <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform" style="font-size:18px">arrow_forward</span></a>
+  </div>
+  <!-- Right: features + mascot -->
+  <div class="relative flex flex-col justify-center gap-5 px-10 py-12 flex-1 min-w-0">
+    <!-- Bear mascot: positioned bottom-right of card -->
+    <img src="../assets/illustrations/cta-bear.png" alt="" aria-hidden="true" class="absolute right-0 bottom-0 w-[100px] md:w-[120px] pointer-events-none select-none -rotate-6"/>
+    <p class="text-[15px] font-medium text-[#334155] mb-1">เหมาะสำหรับร้านค้าทุกร้าน</p>
+    <div class="flex gap-5 flex-wrap">
+      <ul class="flex flex-col gap-2">
+        <li class="flex items-center gap-2.5"><span class="shrink-0 w-5 h-5 rounded-full bg-[#00c48c]/10 flex items-center justify-center"><span class="material-symbols-outlined text-[#00c48c]" style="font-size:12px;font-variation-settings:'wght' 700">check</span></span><span class="text-[15px] font-medium text-[#334155]">2 ช่องทางแช็ต</span></li>
+        <li class="flex items-center gap-2.5"><span class="shrink-0 w-5 h-5 rounded-full bg-[#00c48c]/10 flex items-center justify-center"><span class="material-symbols-outlined text-[#00c48c]" style="font-size:12px;font-variation-settings:'wght' 700">check</span></span><span class="text-[15px] font-medium text-[#334155]">AI ตอบอัตโนมัติ 300 ข้อความ</span></li>
+        <li class="flex items-center gap-2.5"><span class="shrink-0 w-5 h-5 rounded-full bg-[#00c48c]/10 flex items-center justify-center"><span class="material-symbols-outlined text-[#00c48c]" style="font-size:12px;font-variation-settings:'wght' 700">check</span></span><span class="text-[15px] font-medium text-[#334155]">แอดมิน 1 Account</span></li>
+        <li class="flex items-center gap-2.5"><span class="shrink-0 w-5 h-5 rounded-full bg-[#00c48c]/10 flex items-center justify-center"><span class="material-symbols-outlined text-[#00c48c]" style="font-size:12px;font-variation-settings:'wght' 700">check</span></span><span class="text-[15px] font-medium text-[#334155]">รายงานพื้นฐาน</span></li>
+        <li class="flex items-center gap-2.5"><span class="shrink-0 w-5 h-5 rounded-full bg-[#00c48c]/10 flex items-center justify-center"><span class="material-symbols-outlined text-[#00c48c]" style="font-size:12px;font-variation-settings:'wght' 700">check</span></span><span class="text-[15px] font-medium text-[#334155]">รวมทุกช่องทางแช็ต</span></li>
+        <li class="flex items-center gap-2.5"><span class="shrink-0 w-5 h-5 rounded-full bg-[#00c48c]/10 flex items-center justify-center"><span class="material-symbols-outlined text-[#00c48c]" style="font-size:12px;font-variation-settings:'wght' 700">check</span></span><span class="text-[15px] font-medium text-[#334155]">AI ตอบลูกค้าอัตโนมัติ</span></li>
+      </ul>
+      <ul class="flex flex-col gap-2">
+        <li class="flex items-center gap-2.5"><span class="shrink-0 w-5 h-5 rounded-full bg-[#00c48c]/10 flex items-center justify-center"><span class="material-symbols-outlined text-[#00c48c]" style="font-size:12px;font-variation-settings:'wght' 700">check</span></span><span class="text-[15px] font-medium text-[#334155]">ดูยอดขายแบบเรียลไทม์</span></li>
+        <li class="flex items-center gap-2.5"><span class="shrink-0 w-5 h-5 rounded-full bg-[#00c48c]/10 flex items-center justify-center"><span class="material-symbols-outlined text-[#00c48c]" style="font-size:12px;font-variation-settings:'wght' 700">check</span></span><span class="text-[15px] font-medium text-[#334155]">วัดผลทุกช่องทางการขาย</span></li>
+        <li class="flex items-center gap-2.5"><span class="shrink-0 w-5 h-5 rounded-full bg-[#00c48c]/10 flex items-center justify-center"><span class="material-symbols-outlined text-[#00c48c]" style="font-size:12px;font-variation-settings:'wght' 700">check</span></span><span class="text-[15px] font-medium text-[#334155]">วิเคราะห์ข้อมูลลูกค้า</span></li>
+        <li class="flex items-center gap-2.5"><span class="shrink-0 w-5 h-5 rounded-full bg-[#00c48c]/10 flex items-center justify-center"><span class="material-symbols-outlined text-[#00c48c]" style="font-size:12px;font-variation-settings:'wght' 700">check</span></span><span class="text-[15px] font-medium text-[#334155]">จัดการออเดอร์</span></li>
+        <li class="flex items-center gap-2.5"><span class="shrink-0 w-5 h-5 rounded-full bg-[#00c48c]/10 flex items-center justify-center"><span class="material-symbols-outlined text-[#00c48c]" style="font-size:12px;font-variation-settings:'wght' 700">check</span></span><span class="text-[15px] font-medium text-[#334155]">จัดการหลายสาขา</span></li>
+        <li class="flex items-center gap-2.5"><span class="shrink-0 w-5 h-5 rounded-full bg-[#00c48c]/10 flex items-center justify-center"><span class="material-symbols-outlined text-[#00c48c]" style="font-size:12px;font-variation-settings:'wght' 700">check</span></span><span class="text-[15px] font-medium text-[#334155]">บริหารทีมงาน</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- [LEGACY PRICING — เก็บไว้เปรียบเทียบ ห้ามลบ] -->
+<section id="pricing-legacy" data-reveal class="max-w-container-max mx-auto px-margin-desktop mb-24 md:mb-40 scroll-mt-28" style="display:none">
 <div class="mb-8 text-center flex flex-col items-center">
 <span class="font-eyebrow text-eyebrow eyebrow mb-3">แผนราคาที่ยืดหยุ่นสำหรับทุกขนาดธุรกิจ</span>
 <h2 class="font-section-title text-section-title text-on-surface mb-4 max-w-4xl [text-wrap:balance]">ปลดล็อกด้วยพลัง AI <span class="font-gradient">แบบไร้ขีดจำกัด</span></h2>
@@ -750,7 +833,7 @@
     <h3 class="font-headline-sm text-[18px] font-bold text-[#0a0f1c]">Free Plan</h3>
     <p class="text-[12px] text-[#64748b] mt-1">ทดลองใช้งานกับการขายรูปแบบใหม่</p>
     <p class="font-headline-sm text-[38px] font-bold text-[#0a0f1c] my-5 leading-none">ฟรี</p>
-    <a href="https://app.onebear.ai/register" class="w-full text-center rounded-full border border-[#00c48c]/35 text-[#00c48c] text-sm font-semibold py-3 hover:bg-[#00c48c]/5 transition-colors">เริ่มใช้งานฟรี</a>
+    <a href="https://app.onebear.ai/register" class="w-full text-center rounded-full border border-[#00c48c]/35 text-[#00c48c] text-sm font-semibold py-4 hover:bg-[#00c48c]/5 transition-colors">เริ่มใช้ Onebear ฟรี</a>
     <ul class="flex flex-col gap-3 mt-8 text-left">
       <li class="flex items-center gap-2.5"><span class="shrink-0 w-5 h-5 rounded-full bg-[#00c48c]/10 flex items-center justify-center"><span class="material-symbols-outlined text-[#00c48c]" style="font-size:13px;font-variation-settings:'wght' 700">check</span></span><span class="text-[13px] text-[#334155]">1 ช่องทางแช็ต (LINE OA)</span></li>
       <li class="flex items-center gap-2.5"><span class="shrink-0 w-5 h-5 rounded-full bg-[#00c48c]/10 flex items-center justify-center"><span class="material-symbols-outlined text-[#00c48c]" style="font-size:13px;font-variation-settings:'wght' 700">check</span></span><span class="text-[13px] text-[#334155]">AI ตอบอัตโนมัติ 50 ข้อ/เดือน</span></li>
@@ -768,7 +851,7 @@
     <h3 class="font-headline-sm text-[18px] font-bold text-[#0a0f1c]">Starter Plan</h3>
     <p class="text-[12px] text-[#64748b] mt-1">เหมาะสำหรับร้านค้าเริ่มต้น</p>
     <p class="my-5 leading-none flex items-baseline gap-1"><span class="font-headline-sm text-[38px] font-bold text-[#0a0f1c]" data-m="฿790" data-y="฿632">฿790</span><span class="text-[14px] text-[#94a3b8]">/เดือน</span></p>
-    <a href="https://app.onebear.ai/register" class="w-full text-center rounded-full border border-[#00c48c]/35 text-[#00c48c] text-sm font-semibold py-3 hover:bg-[#00c48c]/5 transition-colors">เริ่มใช้งานฟรี</a>
+    <a href="https://app.onebear.ai/register" class="w-full text-center rounded-full border border-[#00c48c]/35 text-[#00c48c] text-sm font-semibold py-4 hover:bg-[#00c48c]/5 transition-colors">เริ่มใช้ Onebear ฟรี</a>
     <ul class="flex flex-col gap-3 mt-8 text-left">
       <li class="flex items-center gap-2.5"><span class="shrink-0 w-5 h-5 rounded-full bg-[#00c48c]/10 flex items-center justify-center"><span class="material-symbols-outlined text-[#00c48c]" style="font-size:13px;font-variation-settings:'wght' 700">check</span></span><span class="text-[13px] text-[#334155]">3 ช่องทางแช็ต</span></li>
       <li class="flex items-center gap-2.5"><span class="shrink-0 w-5 h-5 rounded-full bg-[#00c48c]/10 flex items-center justify-center"><span class="material-symbols-outlined text-[#00c48c]" style="font-size:13px;font-variation-settings:'wght' 700">check</span></span><span class="text-[13px] text-[#334155]">AI ตอบอัตโนมัติไม่จำกัด</span></li>
@@ -787,7 +870,7 @@
     <h3 class="font-headline-sm text-[18px] font-bold text-[#0a0f1c] mt-1">Growth Plan</h3>
     <p class="text-[12px] text-[#64748b] mt-1">ต่อยอดธุรกิจอย่างมืออาชีพ</p>
     <p class="my-5 leading-none flex items-baseline gap-1"><span class="font-headline-sm text-[38px] font-bold text-[#0a0f1c]" data-m="฿1,990" data-y="฿1,592">฿1,990</span><span class="text-[14px] text-[#94a3b8]">/เดือน</span></p>
-    <a href="https://app.onebear.ai/register" class="w-full text-center rounded-full text-white text-sm font-semibold py-3 shadow-[0_12px_20px_rgba(0,196,140,0.25)] hover:opacity-90 transition-opacity" style="background-image:linear-gradient(170deg,#00c48c 0%,#06b6d4 100%)">เริ่มใช้งานฟรี</a>
+    <a href="https://app.onebear.ai/register" class="w-full text-center rounded-full text-white text-sm font-semibold py-4 shadow-[0_12px_20px_rgba(0,196,140,0.25)] hover:opacity-90 transition-opacity" style="background-image:linear-gradient(170deg,#00c48c 0%,#06b6d4 100%)">เริ่มใช้ Onebear ฟรี</a>
     <ul class="flex flex-col gap-3 mt-8 text-left">
       <li class="flex items-center gap-2.5"><span class="shrink-0 w-5 h-5 rounded-full bg-[#00c48c]/10 flex items-center justify-center"><span class="material-symbols-outlined text-[#00c48c]" style="font-size:13px;font-variation-settings:'wght' 700">check</span></span><span class="text-[13px] text-[#334155]">3 ช่องทางแช็ต</span></li>
       <li class="flex items-center gap-2.5"><span class="shrink-0 w-5 h-5 rounded-full bg-[#00c48c]/10 flex items-center justify-center"><span class="material-symbols-outlined text-[#00c48c]" style="font-size:13px;font-variation-settings:'wght' 700">check</span></span><span class="text-[13px] text-[#334155]">AI ตอบอัตโนมัติไม่จำกัด</span></li>
@@ -816,42 +899,42 @@
 <span class="faq-q text-[16px] md:text-[18px] font-semibold text-on-surface leading-snug">Onebear แตกต่างจากเจ้าอื่นอย่างไร?</span>
 <span class="faq-chev material-symbols-outlined shrink-0 text-on-surface-variant" style="font-size:24px">expand_more</span>
 </summary>
-<div class="px-5 md:px-6 pb-4"><p class="faq-ans font-body-md text-body-md text-on-surface-variant">Onebear เป็นระบบที่รวมทุกแช็ตไว้โดยเฉพาะ รองรับทุกช่องทาง Social Commerce มี AI ที่ฝึกจากข้อมูลร้านคุณเอง และมีทีมซัพพอร์ตคนไทยพร้อมดูแลตลอด 24/7</p></div>
+<div class="px-5 md:px-6 pb-4"><p class="faq-ans font-body-md text-body-md text-on-surface-variant">Onebear เป็นระบบที่ออกแบบมาเพื่อธุรกิจไทยโดยเฉพาะ รองรับทุกช่องทาง Social Commerce มี AI ที่ฝึกจากข้อมูลธุรกิจคุณเอง และมีทีมซัพพอร์ตภาษาไทยพร้อมดูแลตลอด 24/7</p></div>
 </details>
 <details class="faq-item bg-white rounded-xl border border-surface-border">
 <summary class="flex items-center justify-between gap-3 cursor-pointer px-5 py-4 md:px-6">
-<span class="faq-q text-[16px] md:text-[18px] font-semibold text-on-surface leading-snug">ใช้เวลานานแค่ไหนในการเริ่มต้น?</span>
+<span class="faq-q text-[16px] md:text-[18px] font-semibold text-on-surface leading-snug">Onebear รองรับช่องทางไหนบ้าง?</span>
 <span class="faq-chev material-symbols-outlined shrink-0 text-on-surface-variant" style="font-size:24px">expand_more</span>
 </summary>
-<div class="px-5 md:px-6 pb-4"><p class="faq-ans font-body-md text-body-md text-on-surface-variant">ไม่นานเลย ใช้เวลาเพียง 5–10 นาทีในการเชื่อมต่อช่องทาง Social Media ของคุณและตั้งค่า AI เสร็จก็พร้อมใช้งานได้ทันที</p></div>
+<div class="px-5 md:px-6 pb-4"><p class="faq-ans font-body-md text-body-md text-on-surface-variant">Onebear สามารถรวมแชทจาก LINE OA, Facebook Messenger และ Instagram ไว้ในหน้าจอเดียว ช่วยให้ทีมตอบลูกค้าได้สะดวกขึ้นโดยไม่ต้องสลับหลายแอป</p></div>
 </details>
 <details class="faq-item bg-white rounded-xl border border-surface-border">
 <summary class="flex items-center justify-between gap-3 cursor-pointer px-5 py-4 md:px-6">
-<span class="faq-q text-[16px] md:text-[18px] font-semibold text-on-surface leading-snug">รองรับช่องทางไหนบ้าง?</span>
+<span class="faq-q text-[16px] md:text-[18px] font-semibold text-on-surface leading-snug">AI Sales Agent สามารถตอบคำถามลูกค้าได้อย่างไร?</span>
 <span class="faq-chev material-symbols-outlined shrink-0 text-on-surface-variant" style="font-size:24px">expand_more</span>
 </summary>
-<div class="px-5 md:px-6 pb-4"><p class="faq-ans font-body-md text-body-md text-on-surface-variant">รองรับ 3 ช่องทางหลักของร้านออนไลน์ไทย — Facebook, LINE OA และ Instagram — รวมทุกแช็ตไว้ในหน้าจอเดียว (และกำลังพัฒนาช่องทางเพิ่มในอนาคต)</p></div>
+<div class="px-5 md:px-6 pb-4"><p class="faq-ans font-body-md text-body-md text-on-surface-variant">AI เรียนรู้จากข้อมูลสินค้า ราคา โปรโมชัน และข้อมูลที่คุณกำหนดไว้ในระบบ เพื่อช่วยตอบคำถาม แนะนำสินค้า และช่วยสร้างออเดอร์ได้อัตโนมัติตลอด 24 ชั่วโมง</p></div>
 </details>
 <details class="faq-item bg-white rounded-xl border border-surface-border">
 <summary class="flex items-center justify-between gap-3 cursor-pointer px-5 py-4 md:px-6">
-<span class="faq-q text-[16px] md:text-[18px] font-semibold text-on-surface leading-snug">ใช้ฟรีจริงไหม มีค่าใช้จ่ายแอบแฝงหรือเปล่า?</span>
+<span class="faq-q text-[16px] md:text-[18px] font-semibold text-on-surface leading-snug">หาก AI ตอบไม่ได้ จะเกิดอะไรขึ้น?</span>
 <span class="faq-chev material-symbols-outlined shrink-0 text-on-surface-variant" style="font-size:24px">expand_more</span>
 </summary>
-<div class="px-5 md:px-6 pb-4"><p class="faq-ans font-body-md text-body-md text-on-surface-variant">Onebear มีแพ็กเกจฟรีให้ใช้ได้ตลอด ไม่มีกำหนดวันหมดอายุ และไม่ต้องผูกบัตรเครดิต ครอบคลุมฟีเจอร์หลักสำหรับร้านที่เพิ่งเริ่ม เมื่อร้านโตขึ้นค่อยอัปเกรดเป็นแพ็กเกจที่มีฟีเจอร์มากขึ้นได้ — ใช้เท่าที่จำเป็น ไม่มีค่าใช้จ่ายแอบแฝง</p></div>
+<div class="px-5 md:px-6 pb-4"><p class="faq-ans font-body-md text-body-md text-on-surface-variant">ระบบ Smart Handoff จะส่งต่อบทสนทนาให้ทีมงานทันที พร้อมสรุปข้อมูลสำคัญของการสนทนา ช่วยให้แอดมินรับช่วงต่อได้อย่างรวดเร็วโดยลูกค้าไม่ต้องเล่าใหม่</p></div>
 </details>
 <details class="faq-item bg-white rounded-xl border border-surface-border">
 <summary class="flex items-center justify-between gap-3 cursor-pointer px-5 py-4 md:px-6">
-<span class="faq-q text-[16px] md:text-[18px] font-semibold text-on-surface leading-snug">ข้อมูลลูกค้าปลอดภัยไหม?</span>
+<span class="faq-q text-[16px] md:text-[18px] font-semibold text-on-surface leading-snug">ต้องมีทีมงาน IT หรือไม่?</span>
 <span class="faq-chev material-symbols-outlined shrink-0 text-on-surface-variant" style="font-size:24px">expand_more</span>
 </summary>
-<div class="px-5 md:px-6 pb-4"><p class="faq-ans font-body-md text-body-md text-on-surface-variant">ข้อมูลทั้งหมดถูกเข้ารหัสและเก็บอย่างปลอดภัยตามมาตรฐาน SSL เราไม่แชร์ข้อมูลกับบุคคลที่สาม และมีระบบสำรองข้อมูลทุกวัน</p></div>
+<div class="px-5 md:px-6 pb-4"><p class="faq-ans font-body-md text-body-md text-on-surface-variant">ไม่จำเป็น Onebear ถูกออกแบบมาให้ธุรกิจ E-commerce เริ่มต้นใช้งานได้ง่าย สามารถตั้งค่าและใช้งานได้โดยทีมขายหรือแอดมินทั่วไป</p></div>
 </details>
 <details class="faq-item bg-white rounded-xl border border-surface-border">
 <summary class="flex items-center justify-between gap-3 cursor-pointer px-5 py-4 md:px-6">
-<span class="faq-q text-[16px] md:text-[18px] font-semibold text-on-surface leading-snug">AI จะตอบลูกค้าแปลก ๆ ทำร้านเสียภาพไหม?</span>
+<span class="faq-q text-[16px] md:text-[18px] font-semibold text-on-surface leading-snug">Onebear เหมาะกับธุรกิจแบบไหน?</span>
 <span class="faq-chev material-symbols-outlined shrink-0 text-on-surface-variant" style="font-size:24px">expand_more</span>
 </summary>
-<div class="px-5 md:px-6 pb-4"><p class="faq-ans font-body-md text-body-md text-on-surface-variant">AI ตอบจากข้อมูลที่ร้านคุณใส่เท่านั้น ถ้าไม่มั่นใจจะส่งต่อให้แอดมินคนจริง (Smart Handoff) คุณควบคุมได้ว่า AI ตอบอะไรได้บ้าง</p></div>
+<div class="px-5 md:px-6 pb-4"><p class="faq-ans font-body-md text-body-md text-on-surface-variant">เหมาะสำหรับธุรกิจที่ขายผ่าน LINE, Facebook หรือ Instagram ตั้งแต่ร้านค้าออนไลน์ SME ไปจนถึงธุรกิจที่มีหลายทีม หลายสาขา และต้องการเพิ่มประสิทธิภาพในการขายและบริการลูกค้า</p></div>
 </details>
 </div>
 </div>
@@ -860,12 +943,12 @@
 <!-- Final CTA banner -->
 <section id="cta" class="scroll-mt-28">
 <div class="text-white text-center relative overflow-hidden" style="background:linear-gradient(135deg,#35B0A6 0%,#41C3A8 50%,#4CD6AA 100%)">
-<img src="../assets/cta-bear.png" alt="Onebear mascot" class="hidden md:block absolute left-[8%] lg:left-[16%] -bottom-[75px] lg:-bottom-[105px] w-[190px] lg:w-[280px] -rotate-6 pointer-events-none select-none z-0" aria-hidden="true"/>
+<img src="../assets/illustrations/cta-bear.png" alt="Onebear mascot" class="hidden md:block absolute left-[8%] lg:left-[16%] -bottom-[75px] lg:-bottom-[105px] w-[190px] lg:w-[280px] -rotate-6 pointer-events-none select-none z-0" aria-hidden="true"/>
 <div data-reveal class="relative z-10 max-w-2xl mx-auto px-margin-desktop py-12 md:py-20 lg:py-24 flex flex-col items-center">
-<img src="../assets/cta-bear.png" alt="" class="block md:hidden w-24 mb-4 -rotate-6 pointer-events-none select-none" aria-hidden="true"/>
+<img src="../assets/illustrations/cta-bear.png" alt="" class="block md:hidden w-24 mb-4 -rotate-6 pointer-events-none select-none" aria-hidden="true"/>
 <h2 class="font-section-title text-[30px] md:text-[44px] leading-[1.3] font-bold mb-4">เร่งการเติบโตของธุรกิจคุณ<br/>อย่างทรงพลังด้วย Onebear</h2>
 <p class="font-body-md text-body-md md:text-lg text-white/90 mb-8 max-w-xl">เริ่มต้นใช้งานฟรีวันนี้ เพื่อยกระดับการดูแลลูกค้า เพิ่มโอกาสปิดการขาย และสร้างประสบการณ์ที่เหนือกว่าในทุกการสื่อสาร</p>
-<a href="https://app.onebear.ai/register" class="glow-button inline-flex items-center justify-center gap-2 text-white text-sm font-semibold px-8 py-3 rounded-full hover:opacity-90 transition-opacity group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#41C3A8]">เริ่มใช้งานฟรี <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform" style="font-size:18px">arrow_forward</span></a>
+<a href="https://app.onebear.ai/register" class="glow-button inline-flex items-center justify-center gap-2 text-white text-sm font-semibold px-8 py-4 rounded-full hover:opacity-90 transition-opacity group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#41C3A8]" style="background:#1C1C22">เริ่มใช้ Onebear ฟรี <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform" style="font-size:18px">arrow_forward</span></a>
 <p class="text-white/75 font-body-sm text-body-sm mt-5">เริ่มฟรีได้ตลอด ไม่มีกำหนด · ไม่ต้องใช้บัตรเครดิต · อัปเกรดเมื่อพร้อม</p>
 </div>
 </div>
@@ -914,11 +997,112 @@
   var nav=document.querySelector('nav');
   if(nav){ var onScroll=function(){ nav.classList.toggle('nav-scrolled', window.scrollY>8); }; addEventListener('scroll',onScroll,{passive:true}); onScroll(); }
   if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var els=document.querySelectorAll('[data-reveal]');
-  if(!('IntersectionObserver' in window) || !els.length) return;
-  els.forEach(function(el){ el.classList.add('reveal'); });
-  var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }); }, {threshold:0.12, rootMargin:'0px 0px -8% 0px'});
-  els.forEach(function(el){ io.observe(el); });
+  var revEls=document.querySelectorAll('[data-reveal]');
+  var stagEls=document.querySelectorAll('[data-stagger]');
+  if(!('IntersectionObserver' in window)) return;
+  revEls.forEach(function(el){ el.classList.add('reveal'); });
+  var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }); }, {threshold:0.15, rootMargin:'0px 0px -6% 0px'});
+  revEls.forEach(function(el){ io.observe(el); });
+  stagEls.forEach(function(el){ io.observe(el); });
+})();
+</script>
+<script>
+/* Scroll-driven: move actual hero icons (no clone) to channels strip */
+(function(){
+  if(matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+  if(window.innerWidth<768) return;
+
+  var IDS=['fb','line','ig'];
+  var froms=IDS.map(function(id){ return document.getElementById('hsoc-'+id); });
+  var tos  =IDS.map(function(id){ return document.getElementById('strip-'+id); });
+  var container=document.getElementById('channels-icons');
+  if(!container||!froms[0]) return;
+
+  tos.forEach(function(el){ if(el) el.style.visibility='hidden'; });
+
+  var inited=false, done=false, fp=[], tp=[], landed=IDS.map(function(){ return false; });
+  function ease(t){ return t<.5?2*t*t:-1+(4-2*t)*t; }
+
+  function init(){
+    if(inited) return; inited=true;
+    /* Capture absolute positions before reparenting */
+    fp=froms.map(function(el){
+      var r=el.getBoundingClientRect();
+      return {cx:r.left+r.width/2, cy:r.top+r.height/2+window.scrollY, w:r.width};
+    });
+    tp=tos.map(function(el){
+      var r=el.getBoundingClientRect();
+      return {cx:r.left+r.width/2, cy:r.top+r.height/2+window.scrollY, w:r.width};
+    });
+    /* Lift each icon out of hero into body — position:fixed, lock size, use scale() */
+    froms.forEach(function(el,i){
+      var f=fp[i];
+      if(!f||f.w===0) return;
+      el.style.position='fixed';
+      el.style.zIndex='9998';
+      el.style.pointerEvents='none';
+      el.style.margin='0';
+      el.style.borderRadius='50%';
+      el.style.transformOrigin='center center';
+      el.style.willChange='transform,left,top';
+      /* Lock size at original — never change width/height again */
+      el.style.width=f.w+'px';
+      el.style.height=f.w+'px';
+      el.style.left=(f.cx-f.w/2)+'px';
+      el.style.top=(f.cy-f.w/2-window.scrollY)+'px';
+      document.body.appendChild(el);
+    });
+  }
+
+  function onScroll(){
+    if(done) return;
+    var sy=window.scrollY;
+    var cr=container.getBoundingClientRect();
+    var docTop=cr.top+sy;
+    /* rangeStart: latest of (quarter-viewport scroll) or (1 screen above channels) — prevents firing on page load */
+    var rangeStart=docTop-window.innerHeight;
+    var rangeEnd  =docTop-window.innerHeight*0.25;
+    var t=Math.max(0,Math.min(1,(sy-rangeStart)/(rangeEnd-rangeStart)));
+    if(t<=0){
+      /* Scrolled back above range — reset icons to hero starting position */
+      if(inited){
+        froms.forEach(function(el,i){
+          if(landed[i]||!fp[i]) return;
+          var f=fp[i];
+          el.style.left=(f.cx-f.w/2)+'px';
+          el.style.top=(f.cy-f.w/2-sy)+'px';
+          el.style.transform='scale(1)';
+        });
+      }
+      return;
+    }
+    if(!inited) init();
+
+    var allDone=true;
+    froms.forEach(function(el,i){
+      if(landed[i]||!fp[i]||fp[i].w===0) return;
+      var st=Math.max(0,Math.min(1,(t-i*.12)/(1-i*.12+.001)));
+      var se=ease(st);
+      var f=fp[i], tgt=tp[i];
+      var cx=f.cx+(tgt.cx-f.cx)*se;
+      var cy=f.cy+(tgt.cy-f.cy)*se;
+      var sc=1+(tgt.w/f.w-1)*se;   /* scale 1→(target/original), inner SVG scales too */
+      el.style.left=(cx-f.w/2)+'px';
+      el.style.top=(cy-f.w/2-sy)+'px';
+      el.style.transform='scale('+sc+')';
+      if(se>=.98){
+        el.style.display='none';
+        tos[i].style.visibility='';
+        landed[i]=true;
+      } else { allDone=false; }
+    });
+
+    if(t<1) allDone=false;
+    if(allDone){ done=true; window.removeEventListener('scroll',onScroll); }
+  }
+
+  window.addEventListener('scroll',onScroll,{passive:true});
+  setTimeout(function(){ tos.forEach(function(el){ if(el) el.style.visibility=''; }); },6000);
 })();
 </script>
 <script>
