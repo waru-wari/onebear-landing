@@ -236,6 +236,19 @@ brand_scope: onebear
 
 ---
 
+## ✍️ Copy Conventions (UX Writing)
+
+กฎการเขียน copy ให้สม่ำเสมอทุกหน้า
+
+| เรื่อง | ใช้ | ห้ามใช้ |
+|---|---|---|
+| **เวลา** | `24 ชม.` | `24 ชั่วโมง` |
+| **CTA หลัก (landing)** | `เริ่มใช้งานฟรี` | `เริ่มใช้ Onebear ฟรี`, `ลองใช้ฟรี` |
+| **CTA หลัก (free-trial)** | `เริ่มใช้ Onebear ฟรี` | `เริ่มใช้งานฟรี` |
+| **CTA Hero (free-trial)** | `ทดลองใช้งานฟรี 14 วัน` | — (เฉพาะ Hero ปุ่มเดียว) |
+
+---
+
 ## ✅ Usage Guidelines
 
 - ✅ Hero H1 → `display-lg` Bold + letter-spacing ติดลบเล็กน้อย (`-0.02em`)
