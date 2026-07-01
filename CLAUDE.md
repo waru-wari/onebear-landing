@@ -33,6 +33,7 @@ When a decision arises about design, typography, spacing, color, or component pa
 4. **Both pages must stay in sync** — any CSS or copy change must apply to both `index.html` and `free-trial/index.html` in the same commit.
 5. **Always write in English** — even if the conversation is in Thai, translate decisions to English before recording in CLAUDE.md.
 6. **CLAUDE.md is the single source of truth** — if `design-system/*.md` conflicts with CLAUDE.md, CLAUDE.md wins.
+7. **Document every component immediately** — whenever a new component (card, modal, tab, animation, interactive pattern) is built or modified, add it to the Section Patterns section in the same commit before pushing.
 
 ---
 
@@ -439,6 +440,65 @@ Nav link: default `#16161B` · active `#46BAA9` · 14px Medium
   </div>
 </footer>
 ```
+
+### Stat Card
+
+- Layout: `grid` with `data-stagger` — 3-column on desktop, stacks on mobile
+- Each cell: `flex flex-col items-center text-center px-8 py-6 border-b border-surface-border`
+- Large number: `font-bold text-[40px]` in gradient text · Label: `text-on-surface-variant text-sm`
+- Animated in via scroll reveal stagger (see Scroll Reveal component)
+
+### How It Works (HIW)
+
+- Container: `.hiw-flow` — 3-column step flow on desktop
+- Each step: `.hiw-step` with `.hiw-node` (circular icon badge) + `.hiw-title`
+- Node icon classes: `.ic-cable` (wiggle) · `.ic-train` (spin) · `.ic-rocket` (bounce) — CSS keyframe animations
+- Connecting line: `.node-line` — CSS gradient line between steps; brightens on `.hiw-flow:hover`
+- Hover on step: node scales up + shadow deepens (CSS transition only, no JS)
+- `.hiw-step` has `cursor:pointer` and `data-i` attribute for ordering
+
+### Feature Tab Button
+
+- Class: `.tab-btn` with `role="tab"` and `aria-selected`
+- Default: outlined pill with icon + text
+- Active (`aria-selected="true"`): dark fill `#1C1C22`, white text — controlled by JS (see Feature Tabs)
+- Icon: `material-symbols-outlined` 20px · Text: 14px Medium
+
+### Feature Stage Panel
+
+- Classes: `.feature-stage` + modifier (`.stage-inbox` / `.stage-crm` / `.stage-analytics`)
+- Gradient backdrop container for feature screenshot — each stage has its own color via CSS variable
+- Screenshot inside: `w-full max-w-[480px]` with `border-radius: 28px 0 0 0` (top-left rounded only)
+- Hidden by default — shown when paired tab is active (`hidden` attribute toggled by JS)
+
+### Mock Browser Window
+
+- Wrapper: `.mock-win` — rounded card with subtle shadow
+- Title bar: `.mock-bar` — light gray strip with 3 colored dots (`.mock-dot`) + address bar text
+- Dots: red `#FF5F57` · yellow `#FFBD2E` · green `#28C840` (macOS-style)
+- Use to wrap product screenshot mockups in desktop context
+
+### Hero Load Animations
+
+- CSS animation classes applied to hero elements on load (no JS):
+  - `.hero-el` + `.hero-el-1/2/3/4` — staggered `hFadeUp` (fade + translateY)
+  - `.hero-right` — `hSlideIn` from right
+  - `.hero-social-1/2/3` — `hPop` scale bounce with sequential delays
+- All animations skip if `prefers-reduced-motion: reduce`
+
+### CTA Banner
+
+- ID: `#cta` · Background: gradient teal→cyan (`.gradient-bg` class)
+- Layout: `text-center` with heading, subtext, `glow-button`, and mascot image positioned absolutely
+- Mascot (`cta-bear.png`): `absolute bottom-0 right-[...]` — anchored to bottom-right of banner
+- Triggered by `data-reveal` scroll animation
+
+### Channel Icon Strip (free-trial page only)
+
+- IDs: `#strip-fb`, `#strip-line`, `#strip-ig` — circular platform icons (Facebook, LINE, Instagram)
+- On free-trial page: scroll-driven morph animation — hero social icons drift and transform into this strip as user scrolls past hero
+- Uses `easeInCubic` curve over first 320px of scroll (same as hero parallax)
+- Landing page uses static version with no scroll binding
 
 **Sibling brands in footer** (color per brand, do not change):
 
