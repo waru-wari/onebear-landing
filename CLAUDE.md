@@ -312,7 +312,44 @@ OG / social cover  → assets/logos/square-green-logo.png        (1:1 teal bg)
 
 - Background: `#F1F5FA`
 - Card: `background: white; border-radius: 20px; box-shadow: 0 16px 40px rgba(97,97,97,0.10); padding: 20px;`
-- Use native `<details>/<summary>` — no JavaScript needed
+- Use native `<details>/<summary>` with JS micro-animation for expand/collapse
+
+**Accordion interaction states:**
+- Default: plain white card, no green
+- Hover: `border-color:#bfe9df` + shadow + text/chevron `#15A591`
+- Open: chevron rotates 180° only — no automatic green until hovered
+- Open + Hover: same as hover
+
+**Accordion CSS:**
+```css
+.faq-item > div{ overflow:hidden; transition:height .25s ease, opacity .2s ease; }
+.faq-item{ transition: border-color .25s ease, box-shadow .25s ease; }
+.faq-item:hover{ border-color:#bfe9df; box-shadow:0 4px 16px rgba(0,0,0,.05); }
+.faq-item:hover .faq-q{ color:#15A591; }
+.faq-item:hover .faq-chev{ color:#15A591; }
+.faq-item[open] .faq-chev{ transform: rotate(180deg); }
+```
+
+**Accordion JS (height + opacity animation, intercepts native toggle):**
+```javascript
+document.querySelectorAll('.faq-item').forEach(function(el){
+  var s=el.querySelector('summary'), b=el.querySelector('div');
+  s.addEventListener('click',function(e){
+    e.preventDefault();
+    if(el.open){
+      b.style.height=b.scrollHeight+'px'; b.style.opacity='0';
+      b.addEventListener('transitionend',function d(){ b.removeEventListener('transitionend',d); el.removeAttribute('open'); b.style.height=''; b.style.opacity=''; });
+    } else {
+      el.setAttribute('open','');
+      var h=b.scrollHeight; b.style.height='0'; b.style.opacity='0';
+      requestAnimationFrame(function(){
+        b.style.height=h+'px'; b.style.opacity='1';
+        b.addEventListener('transitionend',function d(ev){ if(ev.propertyName!=='height')return; b.removeEventListener('transitionend',d); b.style.height=''; });
+      });
+    }
+  });
+});
+```
 
 ### Mobile Feature Carousel
 
