@@ -321,16 +321,15 @@
         /* Hide scrollbar but keep horizontal scroll (feature tabs) */
         .no-scrollbar{ -ms-overflow-style:none; scrollbar-width:none; }
         .no-scrollbar::-webkit-scrollbar{ display:none; height:0; width:0; }
-        /* FAQ accordion — polished */
-        .faq-item{ transition: border-color .25s ease, box-shadow .25s ease, background-color .25s ease; }
+        /* FAQ accordion */
+        .faq-item{ transition: border-color .25s ease, box-shadow .25s ease; }
         .faq-item:hover{ border-color:#bfe9df; box-shadow:0 4px 16px rgba(0,0,0,.05); }
-        .faq-item[open]{ border-color:transparent !important; box-shadow:none; }
         .faq-q{ transition: color .25s ease; }
-        .faq-item:hover .faq-q,
-        .faq-item[open] .faq-q{ color:#15A591; }
+        .faq-item:hover .faq-q{ color:#15A591; }
+
         .faq-chev{ transition: transform .25s ease, color .25s ease; }
         .faq-item:hover .faq-chev{ color:#15A591; }
-        .faq-item[open] .faq-chev{ transform: rotate(180deg); color:#15A591; }
+        .faq-item[open] .faq-chev{ transform: rotate(180deg); }
         .faq-item[open] .faq-ans{ animation: faqIn .3s ease; }
         @keyframes faqIn{ from{ opacity:0; transform:translateY(-5px);} to{ opacity:1; transform:none;} }
         /* Mobile: tighten horizontal page margin (40px → 20px) */
