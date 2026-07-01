@@ -4,17 +4,18 @@
 
 | Section | Description |
 |---------|-------------|
-| [How to Handle Design Decisions](#how-to-handle-design-decisions) | Protocol สำหรับบันทึก decision |
-| [What This Is](#what-this-is) | Onebear คืออะไร ทำอะไรได้บ้าง |
-| [Brand Rules](#brand-rules) | ชื่อ สี ฟอนต์ mascot น้ำเสียง |
-| [Color Tokens](#color-tokens) | CSS variables — สีทั้งหมด |
-| [Product Features](#product-features) | Features + value props + target |
+| [How to Handle Design Decisions](#how-to-handle-design-decisions) | Protocol for recording decisions |
+| [What This Is](#what-this-is) | Product overview — what Onebear does |
+| [Brand Rules](#brand-rules) | Name, color, font, mascot, tone |
+| [Color Tokens](#color-tokens) | CSS variables — all brand colors |
+| [Product Features](#product-features) | Features + value props + target audience |
 | [Gofive Font System](#gofive-font-system) | @font-face + weight mapping |
-| [Copy Conventions](#copy-conventions) | กฎการเขียน copy ให้สม่ำเสมอ |
+| [Copy Conventions](#copy-conventions) | UX writing rules |
 | [Button System](#button-system) | Variants + canonical HTML pattern |
 | [Section Patterns](#section-patterns) | Hero / Pricing / FAQ / CTA / Footer spec |
 | [Layout Rules](#layout-rules-r1r4) | R1–R4 layout constraints |
 | [Responsive Breakpoints](#responsive-breakpoints) | Mobile/desktop breakpoints |
+| [Image Export Pattern](#image-export-pattern) | Figma export standard |
 | [Project Structure](#project-structure) | Folder + asset paths |
 | [How to Preview](#how-to-preview) | Local server |
 | [Deploy Checklist](#deploy-checklist) | Pre-deploy steps |
@@ -24,13 +25,14 @@
 
 ## How to Handle Design Decisions
 
-เมื่อมี decision เกี่ยวกับ design, typography, spacing, สี หรือ component:
+When a decision arises about design, typography, spacing, color, or component patterns:
 
-1. **Claude ต้องถามทุกครั้งว่า "Should I record this in CLAUDE.md?"** — ห้ามบันทึกโดยไม่ถาม และห้ามรอให้ user ถามก่อน
-2. **ถ้า rule เดิมเปลี่ยน → แก้ในที่เดิม** — อย่าเพิ่ม rule ซ้อนซ้ำ
-3. **ถ้าเจอ conflict กับ rule เดิม → แจ้งทันที** — อย่าสันนิษฐานหรือตัดสินใจเงียบ
-4. **ทั้งสองหน้าต้อง sync กัน** — `index.html` + `free-trial/index.html` ต้องแก้พร้อมกันทุก commit
-5. **CLAUDE.md คือ single source of truth** — ถ้า design-system/*.md ขัดกับ CLAUDE.md ให้ยึด CLAUDE.md
+1. **Claude must ask "Should I record this in CLAUDE.md?" every time a decision is made** — do not record without asking, and do not wait for the user to ask first.
+2. **If an existing rule changes → overwrite it** — edit in place, do not add duplicate rules.
+3. **If a conflict with an existing rule is found → raise it immediately** — never assume or decide silently.
+4. **Both pages must stay in sync** — any CSS or copy change must apply to both `index.html` and `free-trial/index.html` in the same commit.
+5. **Always write in English** — even if the conversation is in Thai, translate decisions to English before recording in CLAUDE.md.
+6. **CLAUDE.md is the single source of truth** — if `design-system/*.md` conflicts with CLAUDE.md, CLAUDE.md wins.
 
 ---
 
@@ -38,41 +40,41 @@
 
 **Onebear — Your AI Chat Commerce Assistant**
 
-แพลตฟอร์ม AI Chat Commerce รวมแชทจาก **LINE, Facebook และ Instagram** ไว้ในแดชบอร์ดเดียว ช่วยร้านค้าออนไลน์ดูแลลูกค้า บริหารออเดอร์ รับชำระเงิน และวิเคราะห์ยอดขายครบวงจร
+An AI Chat Commerce platform that consolidates chats from **LINE, Facebook, and Instagram** into a single dashboard, helping online shops manage customers, orders, payments, and analytics end-to-end.
 
-| ปัญหาของร้านค้า | ทางออกจาก Onebear |
+| Problem | Onebear Solution |
 |---|---|
-| ตอบลูกค้าไม่ทัน เสียยอดขาย | AI ตอบทันที ดูแลลูกค้า 24 ชม. |
-| แชทกระจายหลายแพลตฟอร์ม จัดการยาก | รวมทุกช่องทางไว้ในแดชบอร์ดเดียว |
-| ขั้นตอนการขาย/ชำระเงินยุ่งยาก | ปิดการขายและรับเงินจบในแชทเดียว |
+| Missing customer messages, losing sales | AI responds instantly, 24/7 |
+| Chats scattered across multiple platforms | All channels in one dashboard |
+| Complex checkout and payment flow | Close sales and accept payment inside chat |
 
-**Positioning:** เครื่องมือที่ช่วยให้ร้านค้า "ไม่พลาดทุกโอกาสการขาย" สำหรับร้านขาย online ผ่าน chat
+**Positioning:** The tool that helps shops "never miss a sales opportunity" — built for online sellers on chat.
 
 ---
 
 ## Brand Rules
 
-- **"Onebear"** — ตัว O ใหญ่ ที่เหลือเล็กทั้งหมด ไม่ใช่ "OneBear" / "ONEBEAR" / "onebear"
+- **"Onebear"** — capital O, rest lowercase. Never "OneBear" / "ONEBEAR" / "onebear"
 - **Primary color:** Brand Teal `#41C3A8` — logo, icon, eyebrow, active state
-- **CTA button:** Near-black `#1C1C22` (ไม่ใช่ teal — ดู [Button System](#button-system))
-- **Font:** Gofive (proprietary, local `.woff2`) รองรับ TH + EN
-- **Mascot:** หมีน้อย Onebear — ใช้ใน CTA section, marketing ห้ามใช้ในบริบทเป็นทางการ
-- **Tone:** เพื่อนร่วมทีมที่เข้าใจร้านค้าออนไลน์ — ไม่ทางการ เข้าใจง่าย เน้น benefit จับต้องได้
+- **CTA button:** Near-black `#1C1C22` (not teal — see [Button System](#button-system))
+- **Font:** Gofive (proprietary, local `.woff2`) — supports TH + EN
+- **Mascot:** Onebear bear — use in CTA sections and marketing. Do not use in formal/legal contexts.
+- **Tone:** Friendly teammate who understands online shops — casual, concrete, benefit-focused
 - **Parent company:** Gofive Co., Ltd.
 
 ---
 
 ## Color Tokens
 
-### Brand Core (5 สีจาก Brand Guide)
+### Brand Core (5 colors from Brand Guide)
 
-| # | HEX | ชื่อ | ใช้เมื่อ |
+| # | HEX | Name | Use when |
 |---|---|---|---|
-| 1 | `#41C3A8` | Primary Teal | logo, eyebrow, active, check icon |
-| 2 | `#35B0A6 → #4CD6AA` | BG Gradient | ribbon "Best value", CTA banner bg, card header |
+| 1 | `#41C3A8` | Primary Teal | logo, eyebrow, active state, check icon |
+| 2 | `#35B0A6 → #4CD6AA` | BG Gradient | "Best value" ribbon, CTA banner bg, card header |
 | 3 | `#5CC3B4 → #15A591` | Font Gradient | heading accent text, price gradient |
-| 4 | `#1C1C22` | Near-black (v3.1) | heading text, body เข้ม, ปุ่ม CTA, footer bg |
-| 5 | `#FFBEBF` | Pastel Pink | mascot blush, illustration accent เท่านั้น |
+| 4 | `#1C1C22` | Near-black (v3.1) | heading, body text, CTA button, footer bg |
+| 5 | `#FFBEBF` | Pastel Pink | mascot blush, illustration accent only |
 
 ```css
 :root {
@@ -86,29 +88,29 @@
   --gradient-bg-90:     linear-gradient(90deg,  #35B0A6 0%, #4CD6AA 100%);
   --gradient-font:      linear-gradient(90deg, #5CC3B4 0%, #15A591 100%);
 
-  /* Dark (v3.1 — ใช้ทุกจุดแทน brand dark gray #313937) */
+  /* Dark (v3.1 — replaces brand dark gray #313937 everywhere) */
   --color-dark:         #1C1C22;
 
   /* Neutral */
   --color-neutral-900:  #334155;   /* body text */
   --color-neutral-800:  #525260;   /* secondary text */
-  --color-neutral-400:  #DFDFE8;   /* border ปกติ */
-  --color-neutral-300:  #ECECF1;   /* bg subtle */
+  --color-neutral-400:  #DFDFE8;   /* default border */
+  --color-neutral-300:  #ECECF1;   /* subtle bg */
   --color-neutral-200:  #F1F5FA;   /* section bg (FAQ) */
 
   /* Footer */
   --color-footer-bg:    #1C1C22;   /* = --color-dark v3.1 */
 
   /* Stats */
-  --color-stat-loss:    #E5484D;   /* ตัวเลขที่สื่อ "กำลังเสีย" เช่น ~42% ลูกค้าหลุด */
+  --color-stat-loss:    #E5484D;   /* negative/loss numbers (e.g. ~42% customers lost) */
 }
 ```
 
-**กฎ:**
-- ❌ อย่าใช้ teal `#41C3A8` เป็น background ปุ่ม CTA → ใช้ gradient หรือ dark แทน
-- ตัวเลข loss stat (กำลังเสีย/ปัญหา) → `#E5484D` (red) · ตัวเลขสำเร็จ → `#1C1C22` · celebrate → `#41C3A8`
-- ❌ อย่าใช้ `#000000` (pure black) → ใช้ `#1C1C22` เสมอ
-- ❌ อย่าใช้ `#313937` (brand original dark) ใน web UI → ถูกแทนด้วย `#1C1C22` ตั้งแต่ v3.1
+**Rules:**
+- ❌ Never use teal `#41C3A8` as a CTA button background → use gradient or dark instead
+- ❌ Never use `#000000` (pure black) → always use `#1C1C22`
+- ❌ Never use `#313937` (brand original dark) in web UI → replaced by `#1C1C22` since v3.1
+- Loss/negative stat numbers → `#E5484D` (red) · success stats → `#1C1C22` · celebrate → `#41C3A8`
 
 ### Gradient Text
 
@@ -125,18 +127,18 @@
 
 ## Product Features
 
-| Feature | คำอธิบาย |
+| Feature | Description |
 |---|---|
-| **AI Sales Agent** | ตอบลูกค้าอัตโนมัติ 24 ชม. ช่วยแนะนำจนจบการซื้อ |
-| **Unified Inbox** | รวมแชท LINE / Facebook / Instagram ไว้ในที่เดียว |
-| **Smart Handoff** | ส่งต่อแชทให้ทีมแบบไร้รอยต่อ พร้อมสรุปบทสนทนา |
-| **Payment in Chat** | ส่งลิงก์ชำระเงินผ่านแชทโดยตรง ลูกค้าจ่ายจบในบทสนทนา |
-| **Order Management** | สร้างและติดตามสถานะออเดอร์ครบในแชทเดียว |
-| **Analytics** | ติดตาม KPI ปรับงานบนพื้นฐานข้อมูลเรียลไทม์ |
-| **CRM** | เก็บข้อมูลลูกค้าและประวัติการซื้ออัตโนมัติ |
-| **Team Management** | มอบหมายแชทและจัดการสิทธิ์ทีม |
+| **AI Sales Agent** | Auto-replies 24/7, guides customers through purchase |
+| **Unified Inbox** | Combines LINE / Facebook / Instagram chats in one place |
+| **Smart Handoff** | Seamlessly transfers chat to team with conversation summary |
+| **Payment in Chat** | Sends payment link directly in chat — customer pays without leaving |
+| **Order Management** | Create and track orders entirely within chat |
+| **Analytics** | Real-time KPI tracking and performance reporting |
+| **CRM** | Auto-captures customer data and purchase history |
+| **Team Management** | Assign chats and manage team permissions |
 
-**Pricing hook:** Free plan ทดลองได้ฟรี · Growth plan ทดลองฟรี 14 วัน · ไม่ต้องผูกบัตรเครดิต
+**Pricing hook:** Free plan — free forever · Growth plan — 14-day free trial · No credit card required
 
 ---
 
@@ -165,33 +167,33 @@
 }
 ```
 
-| Weight | ชื่อ | ใช้สำหรับ |
+| Weight | Name | Use for |
 |---|---|---|
 | 400 | Text | body paragraph, description |
 | 500 | Medium | nav link, secondary label, caption |
 | 600 | Semi Bold | section heading, card title, FAQ question |
 | 700 | Bold | hero H1, section H2 (v3.1+) |
 
-**กฎ:**
-- `letter-spacing: 0` ทุก element — ห้ามใส่ tracking ติดลบ (สระ/วรรณยุกต์ชนกัน)
-- `line-height: 1.3` ทุก heading — Thai 2+ บรรทัดต้องโปร่ง
-- DS max weight = 700 — ห้ามใช้ 800+
+**Rules:**
+- `letter-spacing: 0` on all elements — Thai font must not have negative tracking (diacritics collide)
+- `line-height: 1.3` on all headings — Thai multi-line headings need breathing room
+- DS max weight = 700 — never use 800+
 
 ---
 
 ## Copy Conventions
 
-กฎเขียน copy ให้สม่ำเสมอทุกหน้า
+UX writing rules for consistency across all pages.
 
-| เรื่อง | ใช้ | ห้ามใช้ |
+| Topic | Use | Never use |
 |---|---|---|
-| **เวลา** | `24 ชม.` | `24 ชั่วโมง` |
-| **CTA หลัก (landing)** | `เริ่มใช้งานฟรี` | `เริ่มใช้ Onebear ฟรี`, `ลองใช้ฟรี` |
-| **CTA หลัก (free-trial)** | `เริ่มใช้ Onebear ฟรี` | `เริ่มใช้งานฟรี` |
-| **CTA Hero (free-trial)** | `ทดลองใช้งานฟรี 14 วัน` | — (เฉพาะ Hero ปุ่มเดียว) |
+| **Time** | `24 hrs` / `24 ชม.` | `24 hours` / `24 ชั่วโมง` |
+| **Primary CTA (landing)** | `เริ่มใช้งานฟรี` | `เริ่มใช้ Onebear ฟรี`, `ลองใช้ฟรี` |
+| **Primary CTA (free-trial)** | `เริ่มใช้ Onebear ฟรี` | `เริ่มใช้งานฟรี` |
+| **Hero CTA (free-trial)** | `ทดลองใช้งานฟรี 14 วัน` | — (Hero button only) |
 | **Brand name** | `Onebear` | `OneBear`, `ONEBEAR`, `onebear` |
+| **Chat (Thai spelling)** | `แช็ต` | `แชท`, `แชต` (Royal Institute standard) |
 | **CTA href** | `https://app.onebear.ai/register` | — |
-| **Chat (คำไทย)** | `แช็ต` | `แชท`, `แชต` (ราชบัณฑิตยสภา) |
 
 ---
 
@@ -199,16 +201,16 @@
 
 ### Variants
 
-| Variant | Class | ใช้เมื่อ |
+| Variant | Class | Use when |
 |---|---|---|
-| **Primary Dark** | `glow-button` | hero / HIW / CTA section — ทุก CTA หลัก |
+| **Primary Dark** | `glow-button` | hero / HIW / CTA section — all primary CTAs |
 | **Gradient** | `btn btn-gradient` | Growth plan, "ทดลองใช้งานฟรี 14 วัน" |
 | **Outline** | `btn btn-outline` | Free/Starter plan (pricing card) |
-| **Login** | `btn btn-iris` | Login button ใน navbar |
+| **Login** | `btn btn-iris` | Login button in navbar |
 
 ### Canonical glow-button (Primary Dark CTA)
 
-ปุ่ม CTA หลักทุกจุดในหน้าต้องเป็น pattern นี้ทุก attribute ห้ามเบี่ยง:
+Every primary CTA on the page must use this exact pattern — no deviations:
 
 ```html
 <a href="https://app.onebear.ai/register"
@@ -218,19 +220,19 @@
 </a>
 ```
 
-**ข้อห้าม:** `text-base`, `py-3`, `py-5`, `font-bold`, `w-[260px]` — ถ้าเจอใน glow-button → แก้ทันที
+**Forbidden on glow-button:** `text-base`, `py-3`, `py-5`, `font-bold`, `w-[260px]` — fix immediately if found.
 
 ### Tailwind Button Classes
 
 ```css
-/* ใส่ใน <style type="text/tailwindcss"> */
+/* Inside <style type="text/tailwindcss"> */
 .btn           { @apply inline-flex items-center justify-center gap-2 rounded-full transition-all; }
 .btn-gradient  { @apply bg-gradient-to-r from-[#35B0A6] to-[#4CD6AA] text-white text-sm font-semibold px-8 py-4 hover:opacity-90; }
 .btn-outline   { @apply border border-[rgba(0,196,140,0.35)] text-[#00C48C] text-sm font-semibold py-[13px] px-1 w-full hover:bg-[#E8FAF6]; }
 .btn-iris      { @apply border-[1.5px] border-[#dfdfe8] text-[#525260] text-sm font-semibold px-4 py-2 hover:border-[#41C3A8] hover:text-[#41C3A8]; }
 ```
 
-**Pricing exception:** ปุ่มใน pricing card ใช้ `py-2.5` + `w-full` (ไม่ใช่ `width:280px` หรือ `px-8`)
+**Pricing exception:** Buttons inside pricing cards use `py-2.5` + `w-full` (not `width:280px` or `px-8`).
 
 ---
 
@@ -262,13 +264,13 @@
 
 ### Pricing Cards
 
-| Tier | ราคา | ปุ่ม |
+| Tier | Price | Button |
 |---|---|---|
-| **Free** | ฟรี | `btn-outline` "เริ่มใช้งานฟรี" |
-| **Starter** | ฿790/เดือน | `btn-outline` "เริ่มใช้งานฟรี" |
-| **Growth** ⭐ | ฿1,990/เดือน | `btn-gradient` "ทดลองใช้งานฟรี 14 วัน" |
+| **Free** | Free | `btn-outline` "เริ่มใช้งานฟรี" |
+| **Starter** | ฿790/mo | `btn-outline` "เริ่มใช้งานฟรี" |
+| **Growth** ⭐ | ฿1,990/mo | `btn-gradient` "ทดลองใช้งานฟรี 14 วัน" |
 
-**Ribbon "Best value":**
+**"Best value" ribbon:**
 ```css
 .pricing-ribbon {
   background: linear-gradient(166deg, #00C48C 0%, #06B6D4 100%);
@@ -282,12 +284,12 @@
 ### Check Icon (Pricing Feature List)
 
 ```html
-<!-- Active ✅ — feature ที่ได้รับ -->
+<!-- Active ✅ — included feature -->
 <div class="bg-[rgba(0,196,140,0.10)] flex items-center justify-center rounded-full size-[20px]">
   <svg class="size-[10px]" ...check-mark-teal... />
 </div>
 
-<!-- Inactive ❌ — feature ที่ยังไม่ได้ -->
+<!-- Inactive ❌ — not included -->
 <div class="bg-[rgba(0,0,0,0.04)] flex items-center justify-center rounded-full size-[20px]">
   <div class="bg-[#CBD5E1] h-[2px] rounded w-[8px]"></div>
 </div>
@@ -298,26 +300,26 @@ Text active: `#334155` · Text inactive: `#B0BEC5`
 ### Logo Usage
 
 ```
-navbar (พื้นขาว)  → assets/logos/horizontal-green-logo.svg   h-[40px]
-footer (พื้นเข้ม) → assets/logos/horizontal-white-logo.svg   h-[40px]
-favicon           → assets/logos/favicon.svg  (ต้องมี rx="80" ทั้ง 2 จุด — bg + clipPath)
-OG / social cover → assets/logos/square-green-logo.png        (1:1 teal bg)
+Navbar (light bg)  → assets/logos/horizontal-green-logo.svg   h-[40px]
+Footer (dark bg)   → assets/logos/horizontal-white-logo.svg   h-[40px]
+Favicon            → assets/logos/favicon.svg  (must have rx="80" in both <rect> bg and <clipPath>)
+OG / social cover  → assets/logos/square-green-logo.png        (1:1 teal bg)
 ```
 
-> ทุกครั้งที่อัปเดต favicon จาก Figma → เพิ่ม `rx="80"` ทั้ง `<rect>` bg และ `<clipPath>` ก่อน commit
+> Every time favicon is updated from Figma → add `rx="80"` to both the `<rect>` background and `<clipPath>` before committing.
 
 ### FAQ
 
 - Background: `#F1F5FA`
 - Card: `background: white; border-radius: 20px; box-shadow: 0 16px 40px rgba(97,97,97,0.10); padding: 20px;`
-- ใช้ `<details>/<summary>` native — ไม่ต้องใช้ JavaScript
+- Use native `<details>/<summary>` — no JavaScript needed
 
 ### Mobile Feature Carousel
 
 - Track: `flex gap-3 overflow-x-auto snap-x snap-mandatory no-scrollbar px-5 py-4 -mx-5`
 - Card: `feat-mob-card snap-center shrink-0 w-[85vw] rounded-[24px] overflow-visible`
-- Visual header: `height: 200px` fixed — ทำให้ทุก card สูงเท่ากัน
-- `py-4` บน track + `overflow-visible` บน card → แก้ shadow clipping (ดู R2)
+- Visual header: `height: 200px` fixed — keeps all cards the same height
+- `py-4` on track + `overflow-visible` on card → fixes shadow clipping (see R2)
 
 ### Navbar
 
@@ -325,7 +327,7 @@ OG / social cover → assets/logos/square-green-logo.png        (1:1 teal bg)
 <nav class="bg-white shadow-[0_8px_10px_rgba(0,0,0,0.04)] sticky top-0 px-[40px] py-[10px]">
   <!-- Logo left · Links center · Actions right -->
   <button class="btn btn-iris">เข้าสู่ระบบ</button>
-  <!-- glow-button ขนาด compact สำหรับ navbar -->
+  <!-- glow-button compact size for navbar -->
 </nav>
 ```
 
@@ -341,28 +343,53 @@ Nav link: default `#16161B` · active `#46BAA9` · 14px Medium
 </footer>
 ```
 
+**Sibling brands in footer** (color per brand, do not change):
+
+| Brand | Color |
+|---|---|
+| empeo | `#F05B2F` |
+| Venio | `#06BEF8 → #0382FA` |
+| eTaxGo | `#EB1C26` |
+| IOMO | `#FF4C00` |
+| SignToGo | `#4B5FD6 → #15DE76` |
+
 ---
 
 ## Layout Rules (R1–R4)
 
-**R1** — screen/mockup ที่ถูก crop ล่าง ต้องให้ก้นชิดขอบล่าง section เสมอ (ห้ามลอย/fade)  
-**R1b** — ถ้า design แสดง visual ชิดมุมใด ต้องชิดมุมนั้น ไม่ center  
-**R2** — `overflow-x:auto` ตัด shadow → แก้ด้วย `py-4` บน track + `overflow-visible` บน card  
-**R3** — ให้ visual กำหนดขนาด container ห้ามใส่ `min-height` สูงกว่า visual จริง  
-**R4** — Thai h3 ใน 2-column grid: `text-[22px] lg:text-[28px] xl:text-[34px]` (ห้าม `text-[40px]` ใน 2-col)
+**R1** — Cropped screen/mockup: bottom must flush with section edge — no floating gap or fade.  
+**R1b** — If design shows visual flush to a corner, render it flush to that corner — never centered.  
+**R2** — `overflow-x:auto` clips shadow → fix with `py-4` on track + `overflow-visible` on card.  
+**R3** — Let the visual determine container size — never set `min-height` taller than the actual visual.  
+**R4** — Thai h3 in 2-column grid: `text-[22px] lg:text-[28px] xl:text-[34px]` (never `text-[40px]` in 2-col).
 
 ---
 
 ## Responsive Breakpoints
 
-| Breakpoint | Min width | ผล |
+| Breakpoint | Min width | Effect |
 |---|---|---|
-| mobile | < 768px | single column, ปุ่ม `width:280px` |
-| md | ≥ 768px | บาง section เปิด 2-col |
+| mobile | < 768px | single column, button `width:280px` |
+| md | ≥ 768px | some sections unlock 2-col |
 | lg | ≥ 1024px | full 2-col layout |
-| xl | ≥ 1280px | container cap ที่ `max-w-[1280px]` |
+| xl | ≥ 1280px | container capped at `max-w-[1280px]` |
 
 Container: `max-w-[1280px] mx-auto px-10` (40px/side)
+
+---
+
+## Image Export Pattern
+
+Always export Figma visuals at **3×** — never use lower resolution for production assets.
+
+```
+download_assets(fileKey, nodeId, defaultFormat: "png", defaultScale: 3)
+```
+
+- Figma renders at 1× by default. `get_screenshot` does **not** upscale beyond canvas size.
+- 3× PNG displayed at CSS `width: 100%` → browser always downscales → sharp on all DPR.
+- Set HTML intrinsic dimensions to the actual PNG size: `width="3600" height="2700"` (for a 1200×900 frame at 3×).
+- **Figma asset URLs expire in ~7 days** — if a production file contains `<img src="https://figma-alpha-api...">`, re-export before committing.
 
 ---
 
@@ -372,7 +399,7 @@ Container: `max-w-[1280px] mx-auto px-10` (40px/side)
 onebear/
   CLAUDE.md              ← single source of truth (this file)
   design-system/
-    fonts/               ← TTF masters (source — ห้าม deploy โดยตรง)
+    fonts/               ← TTF masters (source — do not deploy directly)
     *.md                 ← archived reference specs
   landing/
     index.html           ← main landing page (v3.1)
@@ -385,26 +412,42 @@ onebear/
       logos/             ← brand logos — SVG + PNG all variants
       mascot/            ← bear mascot (cta-bear.png, sad-bear-head.png)
       screenshots/       ← product UI screenshots
-    fonts/               ← woff2 generated (ห้ามแก้มือ)
-    legacy/              ← เก่า ห้ามแก้
-    _dev/                ← dev experiments (ห้าม deploy)
+    fonts/               ← woff2 generated (do not edit manually)
+    legacy/              ← old files, do not touch
+    _dev/                ← dev experiments (do not deploy)
     server.js
-    sync-assets.py       ← เพิ่ม asset ใหม่ → เพิ่มใน USED_IMAGES แล้วรัน
+    sync-assets.py       ← add new asset → add to USED_IMAGES then run
     vercel.json
 ```
 
 ### Asset Path Convention
 
-| Folder | Contains | จาก `landing/` | จาก `landing/free-trial/` |
+| Folder | Contains | From `landing/` | From `landing/free-trial/` |
 |---|---|---|---|
-| `assets/logos/` | logo ทุก variant | `assets/logos/file` | `../assets/logos/file` |
-| `assets/mascot/` | bear mascot | `assets/mascot/file` | `../assets/mascot/file` |
+| `assets/logos/` | all logo variants | `assets/logos/file` | `../assets/logos/file` |
+| `assets/mascot/` | bear mascot images | `assets/mascot/file` | `../assets/mascot/file` |
 | `assets/illustrations/` | product visuals | `assets/illustrations/file` | `../assets/illustrations/file` |
 | `assets/screenshots/` | UI screenshots | `assets/screenshots/file` | `../assets/screenshots/file` |
 | `assets/animation/` | video, GIF | `assets/animation/file` | `../assets/animation/file` |
-| `assets/bg/` | backgrounds | `assets/bg/file` | `../assets/bg/file` |
+| `assets/bg/` | background images | `assets/bg/file` | `../assets/bg/file` |
 
-**กฎ filename:** ห้ามใช้ space หรือ `&` — ใช้ `-` แทน (เช่น `features-crm-slip.png`)
+**Filename rule:** No spaces or `&` in filenames — use `-` instead (e.g. `features-crm-slip.png`).
+
+### Asset Organization by Page
+
+- **Assets are scoped to the page they belong to** — each new page gets its own asset subfolder under `assets/`.
+- **Shared assets** (A/B test variants, assets used across multiple pages from the same source) may live in a shared folder.
+- **When a new page is created** → create a dedicated asset folder for that page's assets. Do not dump into existing folders.
+
+```
+assets/
+  landing/          ← assets specific to the main landing page
+  free-trial/       ← assets specific to the free-trial page
+  shared/           ← A/B test variants or assets shared across pages
+  logos/            ← brand logos (shared by all pages)
+  mascot/           ← bear mascot (shared by all pages)
+  fonts/            ← woff2 font files (shared by all pages)
+```
 
 ---
 
@@ -412,20 +455,21 @@ onebear/
 
 ```bash
 node server.js          # → http://localhost:4599
-python3 sync-assets.py  # sync fonts + images จาก design-system/
+python3 sync-assets.py  # sync fonts + images from design-system/
 ```
 
-Vercel: Root Directory = `landing` (ตั้งค่าแล้ว)
+Vercel: Root Directory = `landing` (already configured).
 
 ---
 
 ## Deploy Checklist
 
-1. **เช็กทั้งสองหน้า** — `index.html` + `free-trial/index.html` ต้อง sync กัน (layout, copy, CSS)
-2. **CTA text ถูก page** — landing = "เริ่มใช้งานฟรี" / free-trial = "เริ่มใช้ Onebear ฟรี"
-3. **Preview ทั้งสองหน้าใน browser** ก่อน push — เปิดจริง ไม่ใช่แค่ดู code
-4. **เช็ก asset paths** — ไม่มี 404
-5. **Commit ไปที่ `feat/next`** เท่านั้น → PR → `main` (ห้าม commit ตรงไปที่ `main`)
+1. **Check both pages** — `index.html` + `free-trial/index.html` must be in sync (layout, copy, CSS).
+2. **CTA text is correct per page** — landing = `เริ่มใช้งานฟรี` / free-trial = `เริ่มใช้ Onebear ฟรี`.
+3. **Preview both pages in a real browser** before pushing — do not rely on code review alone.
+4. **Check asset paths** — no 404s.
+5. **Check for expired Figma URLs** — Figma asset URLs expire in ~7 days. If any `<img src="https://figma-alpha-api...">` exists in production files, re-export before committing.
+6. **Commit to `feat/next` only** → PR → `main` (never commit directly to `main`).
 
 ---
 
