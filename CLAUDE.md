@@ -363,12 +363,60 @@ document.querySelectorAll('.faq-item').forEach(function(el){
 });
 ```
 
+### Billing Toggle
+
+- Element: `#bill-toggle` (the toggle pill), `#bill-knob` (the moving dot), `#bill-monthly` / `#bill-yearly` (labels)
+- Price elements use `data-m` (monthly) and `data-y` (yearly) attributes — JS swaps `textContent` on toggle
+- State stored in `aria-checked` on the toggle element
+- Knob moves via `transform: translateX(0)` → `translateX(20px)`
+- Active label: `text-on-surface` · Inactive label: `text-on-surface-variant`
+
+### Feature Tabs (Desktop)
+
+- Container: `#feature-tabs`, tabs use `role="tab"` + `aria-controls="panel-id"`
+- Panels toggled via `hidden` attribute
+- Keyboard: ArrowLeft/Right/Up/Down cycle tabs · Home/End jump to first/last
+- Active tab gets `aria-selected="true"` and `tabIndex=0`; others `tabIndex=-1`
+
+### AI Section Auto-play Tabs
+
+- Container: `#ai` · Tab items: `.ai-item` · Panels: `.ai-panel` · Progress bars: `.ai-bar`
+- Auto-advances every **12 000ms** (`DUR=12000`)
+- Progress bar animates via `transform: scaleX(0 → 1)` with `linear` timing
+- Click any `.ai-item` → jump to that tab and restart timer
+- Hover on **active card only** (or its visual panel) → pause timer + freeze bar at current position
+- Hover off → resume from remaining time (not restarted from 0)
+
 ### Mobile Feature Carousel
 
 - Track: `flex gap-3 overflow-x-auto snap-x snap-mandatory no-scrollbar px-5 py-4 -mx-5`
 - Card: `feat-mob-card snap-center shrink-0 w-[85vw] rounded-[24px] overflow-visible`
 - Visual header: `height: 200px` fixed — keeps all cards the same height
 - `py-4` on track + `overflow-visible` on card → fixes shadow clipping (see R2)
+- Dot indicators: `.feat-mob-dot` · active = `#41C3A8` · inactive = `rgba(49,57,55,0.18)`
+- Mouse drag: direction-locked (H vs V), momentum decay `×0.92` per frame, snaps to nearest card
+- Drag suppresses click via `moved` flag to prevent accidental navigation
+
+### Hero Floating Icons
+
+- Elements: `#hsf-ig`, `#hsf-line`, `#hsf-fb`
+- Skips entirely if `prefers-reduced-motion: reduce`
+- On load: staggered spring reveal — adds `.hsf-t` + `.hsf-in` classes, `450ms + i×200ms` delay per icon
+- On scroll: drift outward with `easeInCubic` curve over first `320px` of scroll
+  - ig: `translate(180px, 50px) scale(0.8)` · line: `translate(150px, -40px) scale(0.8)` · fb: `translate(-180px, 50px) scale(0.8)`
+  - Opacity fades out at `1 - t×1.3` (disappears before fully scrolled)
+
+### Scroll Reveal
+
+- Add `data-reveal` to any section/element → fades+slides in when 15% visible (`threshold: 0.15`)
+- `data-stagger` — same observer, used for staggered child animations
+- Uses `IntersectionObserver` — gracefully skipped if not supported or `prefers-reduced-motion`
+- CSS classes added: `reveal` (initial hidden state) → `in` (visible state)
+
+### Navbar Scroll Shadow
+
+- `nav` gets class `nav-scrolled` when `window.scrollY > 8`
+- Use this class in CSS to add/change shadow on scroll
 
 ### Navbar
 
