@@ -313,6 +313,7 @@ OG / social cover  → assets/logos/square-green-logo.png        (1:1 teal bg)
 - Background: `#F1F5FA`
 - Card: `background: white; border-radius: 20px; box-shadow: 0 16px 40px rgba(97,97,97,0.10); padding: 20px;`
 - Use native `<details>/<summary>` with JS micro-animation for expand/collapse
+- Clicking anywhere on the card toggles — not just the header. `summary` has `pointer-events:none` (JS sets it) so clicks bubble to `el`. `cursor:pointer` on `.faq-item`.
 
 **Accordion interaction states:**
 - Default: plain white card, no green

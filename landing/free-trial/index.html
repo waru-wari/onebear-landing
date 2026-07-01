@@ -322,7 +322,7 @@
         .no-scrollbar{ -ms-overflow-style:none; scrollbar-width:none; }
         .no-scrollbar::-webkit-scrollbar{ display:none; height:0; width:0; }
         /* FAQ accordion */
-        .faq-item{ transition: border-color .25s ease, box-shadow .25s ease; }
+        .faq-item{ transition: border-color .25s ease, box-shadow .25s ease; cursor:pointer; }
         .faq-item:hover{ border-color:#bfe9df; box-shadow:0 4px 16px rgba(0,0,0,.05); }
         .faq-q{ transition: color .25s ease; }
         .faq-item:hover .faq-q{ color:#15A591; }
@@ -1263,7 +1263,8 @@
 (function(){
   document.querySelectorAll('.faq-item').forEach(function(el){
     var s=el.querySelector('summary'), b=el.querySelector('div');
-    s.addEventListener('click',function(e){
+    s.style.pointerEvents='none';
+    el.addEventListener('click',function(e){
       e.preventDefault();
       if(el.open){
         b.style.height=b.scrollHeight+'px';
