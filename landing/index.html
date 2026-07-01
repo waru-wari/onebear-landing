@@ -1143,8 +1143,11 @@
       e.preventDefault();
       if(el.open){
         b.style.height=b.scrollHeight+'px';
-        b.style.opacity='0';
-        b.addEventListener('transitionend',function d(){ b.removeEventListener('transitionend',d); el.removeAttribute('open'); b.style.height=''; b.style.opacity=''; });
+        requestAnimationFrame(function(){
+          b.style.height='0';
+          b.style.opacity='0';
+        });
+        b.addEventListener('transitionend',function d(ev){ if(ev.propertyName!=='height')return; b.removeEventListener('transitionend',d); el.removeAttribute('open'); b.style.height=''; b.style.opacity=''; });
       } else {
         el.setAttribute('open','');
         var h=b.scrollHeight; b.style.height='0'; b.style.opacity='0';
