@@ -98,11 +98,15 @@
 
   /* Footer */
   --color-footer-bg:    #1C1C22;   /* = --color-dark v3.1 */
+
+  /* Stats */
+  --color-stat-loss:    #E5484D;   /* ตัวเลขที่สื่อ "กำลังเสีย" เช่น ~42% ลูกค้าหลุด */
 }
 ```
 
 **กฎ:**
 - ❌ อย่าใช้ teal `#41C3A8` เป็น background ปุ่ม CTA → ใช้ gradient หรือ dark แทน
+- ตัวเลข loss stat (กำลังเสีย/ปัญหา) → `#E5484D` (red) · ตัวเลขสำเร็จ → `#1C1C22` · celebrate → `#41C3A8`
 - ❌ อย่าใช้ `#000000` (pure black) → ใช้ `#1C1C22` เสมอ
 - ❌ อย่าใช้ `#313937` (brand original dark) ใน web UI → ถูกแทนด้วย `#1C1C22` ตั้งแต่ v3.1
 
@@ -187,6 +191,7 @@
 | **CTA Hero (free-trial)** | `ทดลองใช้งานฟรี 14 วัน` | — (เฉพาะ Hero ปุ่มเดียว) |
 | **Brand name** | `Onebear` | `OneBear`, `ONEBEAR`, `onebear` |
 | **CTA href** | `https://app.onebear.ai/register` | — |
+| **Chat (คำไทย)** | `แช็ต` | `แชท`, `แชต` (ราชบัณฑิตยสภา) |
 
 ---
 
@@ -273,6 +278,33 @@
 ```
 
 **Corner radius:** Pricing `22px` · FAQ `20px` · Add-on `24px` · Button `rounded-full`
+
+### Check Icon (Pricing Feature List)
+
+```html
+<!-- Active ✅ — feature ที่ได้รับ -->
+<div class="bg-[rgba(0,196,140,0.10)] flex items-center justify-center rounded-full size-[20px]">
+  <svg class="size-[10px]" ...check-mark-teal... />
+</div>
+
+<!-- Inactive ❌ — feature ที่ยังไม่ได้ -->
+<div class="bg-[rgba(0,0,0,0.04)] flex items-center justify-center rounded-full size-[20px]">
+  <div class="bg-[#CBD5E1] h-[2px] rounded w-[8px]"></div>
+</div>
+```
+
+Text active: `#334155` · Text inactive: `#B0BEC5`
+
+### Logo Usage
+
+```
+navbar (พื้นขาว)  → assets/logos/horizontal-green-logo.svg   h-[40px]
+footer (พื้นเข้ม) → assets/logos/horizontal-white-logo.svg   h-[40px]
+favicon           → assets/logos/favicon.svg  (ต้องมี rx="80" ทั้ง 2 จุด — bg + clipPath)
+OG / social cover → assets/logos/square-green-logo.png        (1:1 teal bg)
+```
+
+> ทุกครั้งที่อัปเดต favicon จาก Figma → เพิ่ม `rx="80"` ทั้ง `<rect>` bg และ `<clipPath>` ก่อน commit
 
 ### FAQ
 
