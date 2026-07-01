@@ -326,10 +326,8 @@ Text active: `#334155` · Text inactive: `#B0BEC5`
 ### Logo Usage
 
 ```
-Navbar (light bg)  → assets/logos/brand-logo-horizontal-green.svg   h-[40px]
-Footer (dark bg)   → assets/logos/brand-logo-horizontal-white.svg   h-[40px]
+Hero / navbar      → assets/logos/brand-logo-horizontal-white.svg   h-[40px]
 Favicon            → assets/logos/brand-favicon.svg  (must have rx="80" in both <rect> bg and <clipPath>)
-OG / social cover  → assets/logos/brand-logo-square-green.png        (1:1 teal bg)
 ```
 
 > Every time favicon is updated from Figma → add `rx="80"` to both the `<rect>` background and `<clipPath>` before committing.
