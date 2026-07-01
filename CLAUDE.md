@@ -2,24 +2,26 @@
 
 ## Table of Contents
 
-| Section | Description |
-|---------|-------------|
-| [How to Handle Design Decisions](#how-to-handle-design-decisions) | Protocol for recording decisions |
-| [What This Is](#what-this-is) | Product overview — what Onebear does |
-| [Brand Rules](#brand-rules) | Name, color, font, mascot, tone |
-| [Color Tokens](#color-tokens) | CSS variables — all brand colors |
-| [Product Features](#product-features) | Features + value props + target audience |
-| [Gofive Font System](#gofive-font-system) | @font-face + weight mapping |
-| [Copy Conventions](#copy-conventions) | UX writing rules |
-| [Button System](#button-system) | Variants + canonical HTML pattern |
-| [Section Patterns](#section-patterns) | Hero / Pricing / FAQ / CTA / Footer spec |
-| [Layout Rules](#layout-rules-r1r4) | R1–R4 layout constraints |
-| [Responsive Breakpoints](#responsive-breakpoints) | Mobile/desktop breakpoints |
-| [Image Export Pattern](#image-export-pattern) | Figma export standard |
-| [Project Structure](#project-structure) | Folder + asset paths |
-| [How to Preview](#how-to-preview) | Local server |
-| [Deploy Checklist](#deploy-checklist) | Pre-deploy steps |
-| [Figma Reference](#figma-reference) | Figma node IDs |
+| # | Section | Description |
+|---|---------|-------------|
+| 1 | [How to Handle Design Decisions](#how-to-handle-design-decisions) | Protocol for recording decisions |
+| 2 | [What This Is](#what-this-is) | Product overview — what Onebear does |
+| 3 | [Brand Rules](#brand-rules) | Name, color, font, mascot, tone |
+| 4 | [Color Tokens](#color-tokens) | CSS variables — all brand colors |
+| 5 | [Product Features](#product-features) | Features + value props + target audience |
+| 6 | [Gofive Font System](#gofive-font-system) | @font-face + weight mapping |
+| 7 | [Copy Conventions](#copy-conventions) | UX writing rules |
+| 8 | [Button System](#button-system) | Variants + canonical HTML pattern |
+| 9 | [Section Patterns](#section-patterns) | Static layout specs — Hero, Pricing, FAQ, Navbar, Footer |
+| 10 | [Component Library](#component-library) | Interactive components — accordion, tabs, carousel, etc. |
+| 11 | [Layout Rules](#layout-rules-r1r4) | R1–R4 layout constraints |
+| 12 | [Responsive Breakpoints](#responsive-breakpoints) | Mobile/desktop breakpoints |
+| 13 | [Image Export Pattern](#image-export-pattern) | Figma export standard |
+| 14 | [Project Structure](#project-structure) | Folder + asset paths |
+| 15 | [How to Preview](#how-to-preview) | Local server |
+| 16 | [Deploy Checklist](#deploy-checklist) | Pre-deploy steps |
+| 17 | [WordPress Deployment](#wordpress-deployment) | WP handoff — wp/ folder structure |
+| 18 | [Figma Reference](#figma-reference) | Figma node IDs |
 
 ---
 
@@ -33,7 +35,7 @@ When a decision arises about design, typography, spacing, color, or component pa
 4. **Both pages must stay in sync** — any CSS or copy change must apply to both `index.html` and `free-trial/index.html` in the same commit.
 5. **Always write in English** — even if the conversation is in Thai, translate decisions to English before recording in CLAUDE.md.
 6. **CLAUDE.md is the single source of truth** — if `design-system/*.md` conflicts with CLAUDE.md, CLAUDE.md wins.
-7. **Document every component immediately** — whenever a new component (card, modal, tab, animation, interactive pattern) is built or modified, add it to the Section Patterns section in the same commit before pushing.
+7. **Document every component immediately** — whenever a new component is built or modified, add it to Component Library in the same commit before pushing.
 
 ---
 
@@ -239,6 +241,8 @@ Every primary CTA on the page must use this exact pattern — no deviations:
 
 ## Section Patterns
 
+Static layout and visual specs for each page section.
+
 ### Section Summary
 
 | Section | Background | CTA |
@@ -262,6 +266,27 @@ Every primary CTA on the page must use this exact pattern — no deviations:
               white;
 }
 ```
+
+### Hero Load Animations
+
+CSS animation classes applied on load — no JS required:
+- `.hero-el` + `.hero-el-1/2/3/4` — staggered `hFadeUp` (fade + translateY up)
+- `.hero-right` — `hSlideIn` from right
+- `.hero-social-1/2/3` — `hPop` scale bounce with sequential delays
+- All animations skip if `prefers-reduced-motion: reduce`
+
+### Stat Card
+
+- Layout: 3-column `grid` with `data-stagger` — stacks on mobile
+- Each cell: `flex flex-col items-center text-center px-8 py-6 border-b border-surface-border`
+- Large number: `font-bold text-[40px]` with gradient text · Label: `text-on-surface-variant text-sm`
+
+### Mock Browser Window
+
+- Wrapper: `.mock-win` — rounded card with subtle shadow
+- Title bar: `.mock-bar` — light gray strip with 3 dots (`.mock-dot`) + address bar text
+- Dots: red `#FF5F57` · yellow `#FFBD2E` · green `#28C840` (macOS-style)
+- Use to wrap product screenshot mockups in desktop context
 
 ### Pricing Cards
 
@@ -313,111 +338,14 @@ OG / social cover  → assets/logos/square-green-logo.png        (1:1 teal bg)
 
 - Background: `#F1F5FA`
 - Card: `background: white; border-radius: 20px; box-shadow: 0 16px 40px rgba(97,97,97,0.10); padding: 20px;`
-- Use native `<details>/<summary>` with JS micro-animation for expand/collapse
-- Clicking anywhere on the card toggles — not just the header. `summary` has `pointer-events:none` (JS sets it) so clicks bubble to `el`. `cursor:pointer` on `.faq-item`.
+- Interactive behavior → see [FAQ Accordion](#faq-accordion) in Component Library
 
-**Accordion interaction states:**
-- Default: plain white card, no green
-- Hover: `border-color:#bfe9df` + shadow + text/chevron `#15A591`
-- Open: chevron rotates 180° only — no automatic green until hovered
-- Open + Hover: same as hover
+### CTA Banner
 
-**Accordion CSS:**
-```css
-.faq-item > div{ overflow:hidden; transition:height .25s ease, opacity .2s ease; }
-.faq-item{ transition: border-color .25s ease, box-shadow .25s ease; }
-.faq-item:hover{ border-color:#bfe9df; box-shadow:0 4px 16px rgba(0,0,0,.05); }
-.faq-item:hover .faq-q{ color:#15A591; }
-.faq-item:hover .faq-chev{ color:#15A591; }
-.faq-item[open] .faq-chev{ transform: rotate(180deg); }
-```
-
-**Accordion JS (height + opacity animation, intercepts native toggle):**
-
-- Click listener on `el` (whole card), not `summary` — `s.style.pointerEvents='none'` prevents double-fire
-- Both expand and collapse use `requestAnimationFrame` — required so browser paints the starting height before transitioning
-- Collapse: set explicit height → rAF → transition to `0` → remove `[open]`
-- Expand: set `[open]` → read scrollHeight → rAF → transition to height → clear to `auto`
-
-```javascript
-document.querySelectorAll('.faq-item').forEach(function(el){
-  var s=el.querySelector('summary'), b=el.querySelector('div');
-  s.style.pointerEvents='none';
-  el.addEventListener('click',function(e){
-    e.preventDefault();
-    if(el.open){
-      b.style.height=b.scrollHeight+'px';
-      requestAnimationFrame(function(){
-        b.style.height='0';
-        b.style.opacity='0';
-      });
-      b.addEventListener('transitionend',function d(ev){ if(ev.propertyName!=='height')return; b.removeEventListener('transitionend',d); el.removeAttribute('open'); b.style.height=''; b.style.opacity=''; });
-    } else {
-      el.setAttribute('open','');
-      var h=b.scrollHeight; b.style.height='0'; b.style.opacity='0';
-      requestAnimationFrame(function(){
-        b.style.height=h+'px'; b.style.opacity='1';
-        b.addEventListener('transitionend',function d(ev){ if(ev.propertyName!=='height')return; b.removeEventListener('transitionend',d); b.style.height=''; });
-      });
-    }
-  });
-});
-```
-
-### Billing Toggle
-
-- Element: `#bill-toggle` (the toggle pill), `#bill-knob` (the moving dot), `#bill-monthly` / `#bill-yearly` (labels)
-- Price elements use `data-m` (monthly) and `data-y` (yearly) attributes — JS swaps `textContent` on toggle
-- State stored in `aria-checked` on the toggle element
-- Knob moves via `transform: translateX(0)` → `translateX(20px)`
-- Active label: `text-on-surface` · Inactive label: `text-on-surface-variant`
-
-### Feature Tabs (Desktop)
-
-- Container: `#feature-tabs`, tabs use `role="tab"` + `aria-controls="panel-id"`
-- Panels toggled via `hidden` attribute
-- Keyboard: ArrowLeft/Right/Up/Down cycle tabs · Home/End jump to first/last
-- Active tab gets `aria-selected="true"` and `tabIndex=0`; others `tabIndex=-1`
-
-### AI Section Auto-play Tabs
-
-- Container: `#ai` · Tab items: `.ai-item` · Panels: `.ai-panel` · Progress bars: `.ai-bar`
-- Auto-advances every **12 000ms** (`DUR=12000`)
-- Progress bar animates via `transform: scaleX(0 → 1)` with `linear` timing
-- Click any `.ai-item` → jump to that tab and restart timer
-- Hover on **active card only** (or its visual panel) → pause timer + freeze bar at current position
-- Hover off → resume from remaining time (not restarted from 0)
-
-### Mobile Feature Carousel
-
-- Track: `flex gap-3 overflow-x-auto snap-x snap-mandatory no-scrollbar px-5 py-4 -mx-5`
-- Card: `feat-mob-card snap-center shrink-0 w-[85vw] rounded-[24px] overflow-visible`
-- Visual header: `height: 200px` fixed — keeps all cards the same height
-- `py-4` on track + `overflow-visible` on card → fixes shadow clipping (see R2)
-- Dot indicators: `.feat-mob-dot` · active = `#41C3A8` · inactive = `rgba(49,57,55,0.18)`
-- Mouse drag: direction-locked (H vs V), momentum decay `×0.92` per frame, snaps to nearest card
-- Drag suppresses click via `moved` flag to prevent accidental navigation
-
-### Hero Floating Icons
-
-- Elements: `#hsf-ig`, `#hsf-line`, `#hsf-fb`
-- Skips entirely if `prefers-reduced-motion: reduce`
-- On load: staggered spring reveal — adds `.hsf-t` + `.hsf-in` classes, `450ms + i×200ms` delay per icon
-- On scroll: drift outward with `easeInCubic` curve over first `320px` of scroll
-  - ig: `translate(180px, 50px) scale(0.8)` · line: `translate(150px, -40px) scale(0.8)` · fb: `translate(-180px, 50px) scale(0.8)`
-  - Opacity fades out at `1 - t×1.3` (disappears before fully scrolled)
-
-### Scroll Reveal
-
-- Add `data-reveal` to any section/element → fades+slides in when 15% visible (`threshold: 0.15`)
-- `data-stagger` — same observer, used for staggered child animations
-- Uses `IntersectionObserver` — gracefully skipped if not supported or `prefers-reduced-motion`
-- CSS classes added: `reveal` (initial hidden state) → `in` (visible state)
-
-### Navbar Scroll Shadow
-
-- `nav` gets class `nav-scrolled` when `window.scrollY > 8`
-- Use this class in CSS to add/change shadow on scroll
+- ID: `#cta` · Background: gradient teal→cyan (`--gradient-bg` class)
+- Layout: `text-center` with heading, subtext, `glow-button`, and mascot image positioned absolutely
+- Mascot (`cta-bear.png`): `absolute bottom-0 right-[...]` — anchored to bottom-right of banner
+- Triggered by `data-reveal` scroll animation
 
 ### Navbar
 
@@ -441,65 +369,6 @@ Nav link: default `#16161B` · active `#46BAA9` · 14px Medium
 </footer>
 ```
 
-### Stat Card
-
-- Layout: `grid` with `data-stagger` — 3-column on desktop, stacks on mobile
-- Each cell: `flex flex-col items-center text-center px-8 py-6 border-b border-surface-border`
-- Large number: `font-bold text-[40px]` in gradient text · Label: `text-on-surface-variant text-sm`
-- Animated in via scroll reveal stagger (see Scroll Reveal component)
-
-### How It Works (HIW)
-
-- Container: `.hiw-flow` — 3-column step flow on desktop
-- Each step: `.hiw-step` with `.hiw-node` (circular icon badge) + `.hiw-title`
-- Node icon classes: `.ic-cable` (wiggle) · `.ic-train` (spin) · `.ic-rocket` (bounce) — CSS keyframe animations
-- Connecting line: `.node-line` — CSS gradient line between steps; brightens on `.hiw-flow:hover`
-- Hover on step: node scales up + shadow deepens (CSS transition only, no JS)
-- `.hiw-step` has `cursor:pointer` and `data-i` attribute for ordering
-
-### Feature Tab Button
-
-- Class: `.tab-btn` with `role="tab"` and `aria-selected`
-- Default: outlined pill with icon + text
-- Active (`aria-selected="true"`): dark fill `#1C1C22`, white text — controlled by JS (see Feature Tabs)
-- Icon: `material-symbols-outlined` 20px · Text: 14px Medium
-
-### Feature Stage Panel
-
-- Classes: `.feature-stage` + modifier (`.stage-inbox` / `.stage-crm` / `.stage-analytics`)
-- Gradient backdrop container for feature screenshot — each stage has its own color via CSS variable
-- Screenshot inside: `w-full max-w-[480px]` with `border-radius: 28px 0 0 0` (top-left rounded only)
-- Hidden by default — shown when paired tab is active (`hidden` attribute toggled by JS)
-
-### Mock Browser Window
-
-- Wrapper: `.mock-win` — rounded card with subtle shadow
-- Title bar: `.mock-bar` — light gray strip with 3 colored dots (`.mock-dot`) + address bar text
-- Dots: red `#FF5F57` · yellow `#FFBD2E` · green `#28C840` (macOS-style)
-- Use to wrap product screenshot mockups in desktop context
-
-### Hero Load Animations
-
-- CSS animation classes applied to hero elements on load (no JS):
-  - `.hero-el` + `.hero-el-1/2/3/4` — staggered `hFadeUp` (fade + translateY)
-  - `.hero-right` — `hSlideIn` from right
-  - `.hero-social-1/2/3` — `hPop` scale bounce with sequential delays
-- All animations skip if `prefers-reduced-motion: reduce`
-
-### CTA Banner
-
-- ID: `#cta` · Background: gradient teal→cyan (`.gradient-bg` class)
-- Layout: `text-center` with heading, subtext, `glow-button`, and mascot image positioned absolutely
-- Mascot (`cta-bear.png`): `absolute bottom-0 right-[...]` — anchored to bottom-right of banner
-- Triggered by `data-reveal` scroll animation
-
-### Channel Icon Strip (free-trial page only)
-
-- IDs: `#strip-fb`, `#strip-line`, `#strip-ig` — circular platform icons (Facebook, LINE, Instagram)
-- On free-trial page: scroll-driven morph animation — hero social icons drift and transform into this strip as user scrolls past hero
-- Uses `easeInCubic` curve over first 320px of scroll (same as hero parallax)
-- Landing page uses static version with no scroll binding
-
 **Sibling brands in footer** (color per brand, do not change):
 
 | Brand | Color |
@@ -512,12 +381,144 @@ Nav link: default `#16161B` · active `#46BAA9` · 14px Medium
 
 ---
 
+## Component Library
+
+Interactive and reusable components. Every new component must be documented here in the same commit it is created — HTML skeleton + key CSS/JS. No deferring.
+
+### FAQ Accordion
+
+- Use native `<details>/<summary>` with JS micro-animation for expand/collapse
+- Clicking anywhere on the card toggles — not just the header. `summary` has `pointer-events:none` (JS sets it) so clicks bubble to `el`. `cursor:pointer` on `.faq-item`.
+
+**Interaction states:**
+- Default: plain white card, no green
+- Hover: `border-color:#bfe9df` + shadow + text/chevron `#15A591`
+- Open: chevron rotates 180° only — no automatic green until hovered
+- Open + Hover: same as hover
+
+**CSS:**
+```css
+.faq-item{ transition: border-color .25s ease, box-shadow .25s ease; cursor:pointer; }
+.faq-item > div{ overflow:hidden; transition:height .25s ease, opacity .2s ease; }
+.faq-item:hover{ border-color:#bfe9df; box-shadow:0 4px 16px rgba(0,0,0,.05); }
+.faq-item:hover .faq-q{ color:#15A591; }
+.faq-item:hover .faq-chev{ color:#15A591; }
+.faq-item[open] .faq-chev{ transform: rotate(180deg); }
+```
+
+**JS** — both expand and collapse use `requestAnimationFrame` (required so browser paints starting height before transitioning):
+```javascript
+document.querySelectorAll('.faq-item').forEach(function(el){
+  var s=el.querySelector('summary'), b=el.querySelector('div');
+  s.style.pointerEvents='none';
+  el.addEventListener('click',function(e){
+    e.preventDefault();
+    if(el.open){
+      b.style.height=b.scrollHeight+'px';
+      requestAnimationFrame(function(){ b.style.height='0'; b.style.opacity='0'; });
+      b.addEventListener('transitionend',function d(ev){ if(ev.propertyName!=='height')return; b.removeEventListener('transitionend',d); el.removeAttribute('open'); b.style.height=''; b.style.opacity=''; });
+    } else {
+      el.setAttribute('open','');
+      var h=b.scrollHeight; b.style.height='0'; b.style.opacity='0';
+      requestAnimationFrame(function(){
+        b.style.height=h+'px'; b.style.opacity='1';
+        b.addEventListener('transitionend',function d(ev){ if(ev.propertyName!=='height')return; b.removeEventListener('transitionend',d); b.style.height=''; });
+      });
+    }
+  });
+});
+```
+
+### Billing Toggle
+
+- Elements: `#bill-toggle` (pill), `#bill-knob` (dot), `#bill-monthly` / `#bill-yearly` (labels)
+- Price elements use `data-m` (monthly) / `data-y` (yearly) — JS swaps `textContent` on toggle
+- State stored in `aria-checked` on the toggle element
+- Knob: `transform: translateX(0)` → `translateX(20px)`
+- Active label: `text-on-surface` · Inactive: `text-on-surface-variant`
+
+### Feature Tabs (Desktop)
+
+- Container: `#feature-tabs` · Tabs: `role="tab"` + `aria-controls="panel-id"`
+- Panels toggled via `hidden` attribute
+- Keyboard: ArrowLeft/Right/Up/Down cycle · Home/End jump to first/last
+- Active: `aria-selected="true"` + `tabIndex=0` · Inactive: `tabIndex=-1`
+
+### Feature Tab Button
+
+- Class: `.tab-btn` with `role="tab"` and `aria-selected`
+- Default: outlined pill with icon + text
+- Active (`aria-selected="true"`): dark fill `#1C1C22`, white text — toggled by JS
+- Icon: `material-symbols-outlined` 20px · Text: 14px Medium
+
+### Feature Stage Panel
+
+- Classes: `.feature-stage` + modifier (`.stage-inbox` / `.stage-crm` / `.stage-analytics`)
+- Gradient backdrop for feature screenshot — each stage has its own color via CSS variable
+- Screenshot: `w-full max-w-[480px]` with `border-radius: 28px 0 0 0` (top-left only)
+- Hidden by default — `hidden` attribute toggled by JS (paired with Feature Tabs)
+
+### AI Auto-play Tabs
+
+- Container: `#ai` · Tab items: `.ai-item` · Panels: `.ai-panel` · Progress bars: `.ai-bar`
+- Auto-advances every **12 000ms**
+- Progress bar: `transform: scaleX(0 → 1)` with `linear` timing
+- Click any `.ai-item` → jump to tab + restart timer
+- Hover on **active card only** (or its visual panel) → pause + freeze bar at current position
+- Hover off → resume from remaining time (not restarted from 0)
+
+### Mobile Feature Carousel
+
+- Track: `#feat-mob-track` · `flex gap-3 overflow-x-auto snap-x snap-mandatory no-scrollbar px-5 py-4 -mx-5`
+- Card: `.feat-mob-card snap-center shrink-0 w-[85vw] rounded-[24px] overflow-visible`
+- Visual header: `height: 200px` fixed — keeps all cards the same height
+- `py-4` on track + `overflow-visible` on card → fixes shadow clipping (see R2)
+- Dots: `.feat-mob-dot` · active = `#41C3A8` · inactive = `rgba(49,57,55,0.18)`
+- Mouse drag: direction-locked (H vs V), momentum decay `×0.92` per frame, snaps to nearest card
+- Drag suppresses click via `moved` flag to prevent accidental navigation
+
+### Hero Floating Icons
+
+- Elements: `#hsf-ig`, `#hsf-line`, `#hsf-fb` · Skips if `prefers-reduced-motion: reduce`
+- On load: staggered spring reveal — `.hsf-t` + `.hsf-in` classes, `450ms + i×200ms` delay per icon
+- On scroll: drift outward with `easeInCubic` over first 320px
+  - ig: `translate(180px, 50px) scale(0.8)` · line: `translate(150px, -40px) scale(0.8)` · fb: `translate(-180px, 50px) scale(0.8)`
+  - Opacity: `1 - t×1.3` (fades before fully scrolled)
+
+### Scroll Reveal
+
+- Add `data-reveal` to any element → fades+slides in when 15% visible
+- `data-stagger` — same observer, for staggered child animations
+- Uses `IntersectionObserver` — skipped gracefully if not supported or `prefers-reduced-motion`
+- CSS: `reveal` class (hidden state) → `in` class (visible state) added by JS
+
+### Navbar Scroll Shadow
+
+- `nav` gets class `.nav-scrolled` when `window.scrollY > 8`
+- Apply shadow or style changes in CSS using `.nav-scrolled` selector
+
+### How It Works (HIW)
+
+- Container: `.hiw-flow` · Each step: `.hiw-step` with `.hiw-node` + `.hiw-title`
+- Node icon animations (CSS keyframes): `.ic-cable` (wiggle) · `.ic-train` (spin) · `.ic-rocket` (bounce)
+- Connecting line: `.node-line` — CSS gradient line; brightens on `.hiw-flow:hover`
+- Hover on step: node scales + shadow deepens (CSS transition, no JS)
+- `.hiw-step` has `cursor:pointer` and `data-i` attribute
+
+### Channel Icon Strip
+
+- IDs: `#strip-fb`, `#strip-line`, `#strip-ig` — circular platform icons
+- **Landing:** static, no scroll binding
+- **Free-trial only:** scroll-driven morph — hero icons drift into this strip using `easeInCubic` over first 320px of scroll
+
+---
+
 ## Layout Rules (R1–R4)
 
-**R1** — Cropped screen/mockup: bottom must flush with section edge — no floating gap or fade.  
-**R1b** — If design shows visual flush to a corner, render it flush to that corner — never centered.  
-**R2** — `overflow-x:auto` clips shadow → fix with `py-4` on track + `overflow-visible` on card.  
-**R3** — Let the visual determine container size — never set `min-height` taller than the actual visual.  
+**R1** — Cropped screen/mockup: bottom must flush with section edge — no floating gap or fade.
+**R1b** — If design shows visual flush to a corner, render it flush to that corner — never centered.
+**R2** — `overflow-x:auto` clips shadow → fix with `py-4` on track + `overflow-visible` on card.
+**R3** — Let the visual determine container size — never set `min-height` taller than the actual visual.
 **R4** — Thai h3 in 2-column grid: `text-[22px] lg:text-[28px] xl:text-[34px]` (never `text-[40px]` in 2-col).
 
 ---
@@ -533,8 +534,6 @@ Nav link: default `#16161B` · active `#46BAA9` · 14px Medium
 | wide | ≥ 1280px | 40px | Container caps at 1200px content width |
 
 Container rule: `max-width: 1280px; margin: 0 auto; padding: 0 40px`
-
-Container: `max-w-[1280px] mx-auto px-10` (40px/side)
 
 ---
 
@@ -558,25 +557,31 @@ download_assets(fileKey, nodeId, defaultFormat: "png", defaultScale: 3)
 ```
 onebear/
   CLAUDE.md              ← single source of truth (this file)
-  design-system/
-    fonts/               ← TTF masters (source — do not deploy directly)
-    *.md                 ← archived reference specs
   landing/
-    index.html           ← main landing page (v3.1)
+    index.html           ← main landing page — Vercel deploy (do not modify for WP)
     free-trial/
-      index.html         ← free trial page
+      index.html         ← free trial page — Vercel deploy
+    wp/
+      index/
+        index.html       ← WP standalone version (CSS/JS extracted)
+        style.css
+        script.js
+      free-trial/
+        index.html
+        style.css
+        script.js
     assets/
       animation/         ← .mp4 videos + .gif
       bg/                ← background images (hero-aurora.webp)
       illustrations/     ← product visuals (AI section, shop-illustration)
       logos/             ← brand logos — SVG + PNG all variants
-      mascot/            ← bear mascot (cta-bear.png, sad-bear-head.png)
+      mascot/            ← bear mascot (cta-bear.png)
       screenshots/       ← product UI screenshots
-    fonts/               ← woff2 generated (do not edit manually)
+      unused/            ← unreferenced assets (do not deploy)
+    fonts/               ← woff2 files (do not edit manually)
     legacy/              ← old files, do not touch
-    _dev/                ← dev experiments (do not deploy)
     server.js
-    sync-assets.py       ← add new asset → add to USED_IMAGES then run
+    sync-assets.py
     vercel.json
 ```
 
@@ -595,19 +600,9 @@ onebear/
 
 ### Asset Organization by Page
 
-- **Assets are scoped to the page they belong to** — each new page gets its own asset subfolder under `assets/`.
-- **Shared assets** (A/B test variants, assets used across multiple pages from the same source) may live in a shared folder.
-- **When a new page is created** → create a dedicated asset folder for that page's assets. Do not dump into existing folders.
-
-```
-assets/
-  landing/          ← assets specific to the main landing page
-  free-trial/       ← assets specific to the free-trial page
-  shared/           ← A/B test variants or assets shared across pages
-  logos/            ← brand logos (shared by all pages)
-  mascot/           ← bear mascot (shared by all pages)
-  fonts/            ← woff2 font files (shared by all pages)
-```
+- **Assets are scoped to the page they belong to** — each new page gets its own asset subfolder.
+- **Shared assets** (A/B test variants, assets from the same source) may live in a shared folder.
+- **When a new page is created** → create a dedicated asset folder. Do not dump into existing folders.
 
 ---
 
@@ -615,7 +610,7 @@ assets/
 
 ```bash
 node server.js          # → http://localhost:4599
-python3 sync-assets.py  # sync fonts + images from design-system/
+python3 sync-assets.py  # sync fonts + images
 ```
 
 Vercel: Root Directory = `landing` (already configured).
@@ -628,8 +623,58 @@ Vercel: Root Directory = `landing` (already configured).
 2. **CTA text is correct per page** — landing = `เริ่มใช้งานฟรี` / free-trial = `เริ่มใช้ Onebear ฟรี`.
 3. **Preview both pages in a real browser** before pushing — do not rely on code review alone.
 4. **Check asset paths** — no 404s.
-5. **Check for expired Figma URLs** — Figma asset URLs expire in ~7 days. If any `<img src="https://figma-alpha-api...">` exists in production files, re-export before committing.
+5. **Check for expired Figma URLs** — Figma asset URLs expire in ~7 days. If any `<img src="https://figma-alpha-api...">` exists, re-export before committing.
 6. **Commit to `feat/next` only** → PR → `main` (never commit directly to `main`).
+
+---
+
+## WordPress Deployment
+
+Onebear has two parallel versions of each page:
+
+| Version | Location | Purpose |
+|---|---|---|
+| Standalone | `landing/index.html` | Vercel deploy — do not modify for WP |
+| WordPress | `landing/wp/index/` | Full-page HTML with CSS/JS separated for WP handoff |
+
+### WP Folder Structure
+
+```
+landing/wp/
+  index/
+    index.html     ← full standalone HTML (links to style.css + script.js)
+    style.css      ← all <style> blocks extracted here
+    script.js      ← all <script> blocks extracted here
+  free-trial/
+    index.html
+    style.css
+    script.js
+```
+
+### How to Create a WP Version
+
+1. Duplicate `landing/index.html` → `landing/wp/index/index.html`
+2. Extract all `<style>` blocks → `style.css`, replace with `<link rel="stylesheet" href="style.css">`
+3. Extract all `<script>` blocks → `script.js`, replace with `<script src="script.js" defer></script>`
+4. Keep Tailwind CDN `<script>` tag in `<head>` as-is (required for utility classes)
+5. Update asset paths — `assets/` → `../../assets/` (two levels up from `wp/index/`)
+6. Update font paths — `fonts/` → `../../fonts/`
+7. Repeat for `free-trial/`
+
+### Asset Paths in WP Version
+
+From `landing/wp/index/index.html`:
+```
+../../assets/logos/horizontal-green-logo.svg
+../../assets/mascot/cta-bear.png
+../../fonts/Gofive-Bold.woff2
+```
+
+### What NOT to change
+
+- Do not touch `landing/index.html` or `landing/free-trial/index.html` — these are the Vercel source
+- WP version is a copy — any design change must be applied to both standalone AND wp/ version
+- Do not remove Tailwind CDN from WP version
 
 ---
 
