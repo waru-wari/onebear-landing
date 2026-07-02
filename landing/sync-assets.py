@@ -16,7 +16,7 @@ import os, shutil, sys
 from fontTools.ttLib import TTFont
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
-DS   = os.path.join(ROOT, "design-system")
+DS   = os.path.join(ROOT, "..", "design-system")
 
 # Fonts: TTF master -> woff2 web build (all four weights)
 FONTS = ["Gofive-Text", "Gofive-Medium", "Gofive-Semi_Bold", "Gofive-Bold"]
